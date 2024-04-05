@@ -68,7 +68,7 @@ class _Notice1WidgetState extends State<Notice1Widget> {
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
                         fontFamily: 'pretendard',
                         color: FlutterFlowTheme.of(context).primaryText,
-                        fontSize: 22.0,
+                        fontSize: 20.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,
                         useGoogleFonts: false,

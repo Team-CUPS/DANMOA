@@ -59,14 +59,14 @@ class _Chat1WidgetState extends State<Chat1Widget> {
           title: Align(
             alignment: const AlignmentDirectional(-1.0, 0.0),
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(85.0, 0.0, 0.0, 3.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(110.0, 0.0, 0.0, 3.0),
               child: Text(
                 '쪽지함',
                 textAlign: TextAlign.start,
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'pretendard',
                       color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: 22.0,
+                      fontSize: 20.0,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.bold,
                       useGoogleFonts: false,

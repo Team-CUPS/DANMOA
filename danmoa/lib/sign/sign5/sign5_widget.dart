@@ -45,7 +45,19 @@ class _Sign5WidgetState extends State<Sign5Widget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 200.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 70.0, 0.0, 0.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.network(
+                    '\thttps://cdn.pixabay.com/photo/2016/09/30/08/13/christmas-1704641_1280.jpg',
+                    width: 210.0,
+                    height: 280.0,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                 child: Text(
                   '가입완료!',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -73,15 +85,15 @@ class _Sign5WidgetState extends State<Sign5Widget> {
               Align(
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 250.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 150.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       context.pushNamed('sign1');
                     },
                     text: '로그인 하러 가기',
                     options: FFButtonOptions(
-                      width: 300.0,
-                      height: 40.0,
+                      width: 400.0,
+                      height: 45.0,
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                       iconPadding:
@@ -94,17 +106,12 @@ class _Sign5WidgetState extends State<Sign5Widget> {
                                 letterSpacing: 0.0,
                                 useGoogleFonts: false,
                               ),
-                      elevation: 3.0,
+                      elevation: 0.0,
                       borderSide: const BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
                       ),
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(50.0),
-                        bottomRight: Radius.circular(50.0),
-                        topLeft: Radius.circular(50.0),
-                        topRight: Radius.circular(50.0),
-                      ),
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                 ),

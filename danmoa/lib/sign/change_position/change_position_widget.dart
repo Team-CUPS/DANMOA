@@ -5,8 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'change_position_model.dart';
 export 'change_position_model.dart';
 
@@ -37,8 +35,6 @@ class _ChangePositionWidgetState extends State<ChangePositionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -54,8 +50,8 @@ class _ChangePositionWidgetState extends State<ChangePositionWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: const FaIcon(
-              FontAwesomeIcons.angleLeft,
+            icon: const Icon(
+              Icons.chevron_left,
               color: Color(0xFF0A0000),
               size: 30.0,
             ),
@@ -64,11 +60,11 @@ class _ChangePositionWidgetState extends State<ChangePositionWidget> {
             },
           ),
           title: Text(
-            '학력 관리',
+            '학력 변경',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'pretendard',
                   color: FlutterFlowTheme.of(context).primaryText,
-                  fontSize: 22.0,
+                  fontSize: 20.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.bold,
                   useGoogleFonts: false,
@@ -94,7 +90,7 @@ class _ChangePositionWidgetState extends State<ChangePositionWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '기존 학력',
+                          '학력',
                           style: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
@@ -106,38 +102,35 @@ class _ChangePositionWidgetState extends State<ChangePositionWidget> {
                                 useGoogleFonts: false,
                               ),
                         ),
-                        if (FFAppState().positionState == false)
-                          FFButtonWidget(
-                            onPressed: () async {
-                              setState(() {
-                                FFAppState().positionState = true;
-                              });
-                            },
-                            text: '변경하기',
-                            options: FFButtonOptions(
-                              height: 37.0,
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 12.0, 0.0),
-                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    fontFamily: 'pretendard',
-                                    color: const Color(0xFF375AC1),
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
-                                  ),
-                              elevation: 0.0,
-                              borderSide: const BorderSide(
-                                color: Color(0xFF375AC1),
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
+                        FFButtonWidget(
+                          onPressed: () {
+                            print('Button pressed ...');
+                          },
+                          text: '변경하기',
+                          options: FFButtonOptions(
+                            height: 37.0,
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                12.0, 0.0, 12.0, 0.0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'pretendard',
+                                  color: const Color(0xFF375AC1),
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: false,
+                                ),
+                            elevation: 0.0,
+                            borderSide: const BorderSide(
+                              color: Color(0xFF375AC1),
+                              width: 1.0,
                             ),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
+                        ),
                       ],
                     ),
                     Padding(
@@ -156,10 +149,8 @@ class _ChangePositionWidgetState extends State<ChangePositionWidget> {
                           ChipData('교수/강사'),
                           ChipData('기타')
                         ],
-                        onChanged: (FFAppState().positionState == false)
-                            ? null
-                            : (val) => setState(
-                                () => _model.stdCcValue = val?.firstOrNull),
+                        onChanged: (val) => setState(
+                            () => _model.stdCcValue = val?.firstOrNull),
                         selectedChipStyle: ChipStyle(
                           backgroundColor:
                               FlutterFlowTheme.of(context).secondaryBackground,
@@ -209,45 +200,42 @@ class _ChangePositionWidgetState extends State<ChangePositionWidget> {
                         wrapped: true,
                       ),
                     ),
-                    if (FFAppState().positionState == true)
-                      Align(
-                        alignment: const AlignmentDirectional(1.0, 0.0),
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 25.0, 0.0, 0.0),
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              setState(() {
-                                FFAppState().positionState = false;
-                              });
-                            },
-                            text: '저장',
-                            options: FFButtonOptions(
-                              height: 37.0,
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 12.0, 0.0),
-                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              color: const Color(0xFF375AC1),
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    fontFamily: 'pretendard',
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
-                                  ),
-                              elevation: 0.0,
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).primary,
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
+                    Align(
+                      alignment: const AlignmentDirectional(1.0, 0.0),
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
+                        child: FFButtonWidget(
+                          onPressed: () {
+                            print('Button pressed ...');
+                          },
+                          text: '저장',
+                          options: FFButtonOptions(
+                            height: 37.0,
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                12.0, 0.0, 12.0, 0.0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: const Color(0xFF375AC1),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'pretendard',
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: false,
+                                ),
+                            elevation: 0.0,
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primary,
+                              width: 1.0,
                             ),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
                       ),
+                    ),
                   ],
                 ),
               ),

@@ -51,7 +51,7 @@ class _RecHome3WidgetState extends State<RecHome3Widget> {
             borderWidth: 1.0,
             buttonSize: 60.0,
             icon: Icon(
-              Icons.arrow_back_rounded,
+              Icons.chevron_left,
               color: FlutterFlowTheme.of(context).primaryText,
               size: 30.0,
             ),
@@ -63,6 +63,7 @@ class _RecHome3WidgetState extends State<RecHome3Widget> {
             '매칭 필터',
             style: FlutterFlowTheme.of(context).headlineSmall.override(
                   fontFamily: 'pretendard',
+                  fontSize: 20.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.bold,
                   useGoogleFonts: false,
@@ -375,7 +376,7 @@ class _RecHome3WidgetState extends State<RecHome3Widget> {
                       text: '결과 확인',
                       options: FFButtonOptions(
                         width: double.infinity,
-                        height: 48.0,
+                        height: 45.0,
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding:
@@ -388,7 +389,7 @@ class _RecHome3WidgetState extends State<RecHome3Widget> {
                                   letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
-                        elevation: 3.0,
+                        elevation: 0.0,
                         borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,

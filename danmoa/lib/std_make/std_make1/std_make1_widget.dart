@@ -65,7 +65,7 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'pretendard',
                   color: FlutterFlowTheme.of(context).primaryText,
-                  fontSize: 22.0,
+                  fontSize: 20.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.bold,
                   useGoogleFonts: false,
@@ -222,13 +222,21 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 150.0, 0.0, 0.0),
                   child: FFButtonWidget(
-                    onPressed: () {
-                      print('stdMake1_btn_03 pressed ...');
+                    onPressed: () async {
+                      context.pushNamed(
+                        'stdMake2',
+                        queryParameters: {
+                          'stdName': serializeParam(
+                            _model.stdMake1Tf01Controller.text,
+                            ParamType.String,
+                          ),
+                        }.withoutNulls,
+                      );
                     },
                     text: '다음',
                     options: FFButtonOptions(
-                      width: 300.0,
-                      height: 40.0,
+                      width: 400.0,
+                      height: 45.0,
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                       iconPadding:
@@ -246,12 +254,7 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                         color: Colors.transparent,
                         width: 1.0,
                       ),
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(50.0),
-                        bottomRight: Radius.circular(50.0),
-                        topLeft: Radius.circular(50.0),
-                        topRight: Radius.circular(50.0),
-                      ),
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                 ),

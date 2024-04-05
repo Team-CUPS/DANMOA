@@ -1,3 +1,5 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -7,7 +9,18 @@ import 'std_make3_model.dart';
 export 'std_make3_model.dart';
 
 class StdMake3Widget extends StatefulWidget {
-  const StdMake3Widget({super.key});
+  const StdMake3Widget({
+    super.key,
+    required this.stdName,
+    required this.stdPosition,
+    required this.stdTimes,
+    required this.stdField,
+  });
+
+  final String? stdName;
+  final String? stdPosition;
+  final List<String>? stdTimes;
+  final List<String>? stdField;
 
   @override
   State<StdMake3Widget> createState() => _StdMake3WidgetState();
@@ -71,7 +84,7 @@ class _StdMake3WidgetState extends State<StdMake3Widget> {
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'pretendard',
                   color: FlutterFlowTheme.of(context).primaryText,
-                  fontSize: 22.0,
+                  fontSize: 20.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.bold,
                   useGoogleFonts: false,
@@ -351,7 +364,7 @@ class _StdMake3WidgetState extends State<StdMake3Widget> {
                                 controller: _model.stdMake3Tf03Controller,
                                 focusNode: _model.stdMake3Tf03FocusNode,
                                 autofocus: true,
-                                obscureText: false,
+                                obscureText: !_model.stdMake3Tf03Visibility,
                                 decoration: InputDecoration(
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
@@ -416,6 +429,19 @@ class _StdMake3WidgetState extends State<StdMake3Widget> {
                                       topRight: Radius.circular(12.0),
                                     ),
                                   ),
+                                  suffixIcon: InkWell(
+                                    onTap: () => setState(
+                                      () => _model.stdMake3Tf03Visibility =
+                                          !_model.stdMake3Tf03Visibility,
+                                    ),
+                                    focusNode: FocusNode(skipTraversal: true),
+                                    child: Icon(
+                                      _model.stdMake3Tf03Visibility
+                                          ? Icons.visibility_outlined
+                                          : Icons.visibility_off_outlined,
+                                      size: 22,
+                                    ),
+                                  ),
                                 ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -442,13 +468,33 @@ class _StdMake3WidgetState extends State<StdMake3Widget> {
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 150.0, 0.0, 0.0),
                       child: FFButtonWidget(
-                        onPressed: () {
-                          print('stdMake3_btn_02 pressed ...');
+                        onPressed: () async {
+                          await StudyRecord.collection.doc().set({
+                            ...createStudyRecordData(
+                              stdName: widget.stdName,
+                              stdPosition: widget.stdPosition,
+                              stdDues: int.tryParse(
+                                  _model.stdMake3Tf02Controller.text),
+                              stdPw: int.tryParse(
+                                  _model.stdMake3Tf03Controller.text),
+                              stdLeaderId: currentUserUid,
+                              stdCreatedTime: getCurrentTimestamp,
+                              stdScore: 0,
+                            ),
+                            ...mapToFirestore(
+                              {
+                                'std_time': widget.stdTimes,
+                                'std_field': widget.stdField,
+                              },
+                            ),
+                          });
+
+                          context.pushNamed('stdMake4');
                         },
-                        text: '다음',
+                        text: '다음 (임시로 스터디 저장버튼)',
                         options: FFButtonOptions(
-                          width: 300.0,
-                          height: 40.0,
+                          width: double.infinity,
+                          height: 45.0,
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
                           iconPadding: const EdgeInsetsDirectional.fromSTEB(
@@ -466,12 +512,7 @@ class _StdMake3WidgetState extends State<StdMake3Widget> {
                             color: Colors.transparent,
                             width: 1.0,
                           ),
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(50.0),
-                            bottomRight: Radius.circular(50.0),
-                            topLeft: Radius.circular(50.0),
-                            topRight: Radius.circular(50.0),
-                          ),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                     ),

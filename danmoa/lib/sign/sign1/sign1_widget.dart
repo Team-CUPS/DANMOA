@@ -78,27 +78,18 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 8.0),
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed('change_position');
-                            },
-                            child: Text(
-                              '이메일',
-                              textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context)
-                                  .labelLarge
-                                  .override(
-                                    fontFamily: 'Black_Han',
-                                    color: const Color(0xFF375AC1),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                    useGoogleFonts: false,
-                                  ),
-                            ),
+                          child: Text(
+                            '이메일',
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.of(context)
+                                .labelLarge
+                                .override(
+                                  fontFamily: 'Black_Han',
+                                  color: const Color(0xFF375AC1),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                  useGoogleFonts: false,
+                                ),
                           ),
                         ),
                         Padding(
@@ -201,27 +192,18 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 8.0),
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed('stdList4');
-                            },
-                            child: Text(
-                              '비밀번호',
-                              textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context)
-                                  .labelLarge
-                                  .override(
-                                    fontFamily: 'pretendard',
-                                    color: const Color(0xFF375AC1),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                    useGoogleFonts: false,
-                                  ),
-                            ),
+                          child: Text(
+                            '비밀번호',
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.of(context)
+                                .labelLarge
+                                .override(
+                                  fontFamily: 'pretendard',
+                                  color: const Color(0xFF375AC1),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                  useGoogleFonts: false,
+                                ),
                           ),
                         ),
                         Padding(
@@ -333,7 +315,8 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                               }
 
                               if (currentUserEmailVerified) {
-                                context.goNamedAuth('home1', context.mounted);
+                                context.pushNamedAuth(
+                                    'testpage', context.mounted);
                               } else {
                                 await authManager.sendEmailVerification();
                                 GoRouter.of(context).prepareAuthEvent();
@@ -362,7 +345,7 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                             text: '로그인',
                             options: FFButtonOptions(
                               width: double.infinity,
-                              height: 40.0,
+                              height: 45.0,
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               iconPadding: const EdgeInsetsDirectional.fromSTEB(
@@ -377,17 +360,12 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                                     fontWeight: FontWeight.w500,
                                     useGoogleFonts: false,
                                   ),
-                              elevation: 3.0,
+                              elevation: 0.0,
                               borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
-                              borderRadius: const BorderRadius.only(
-                                bottomLeft: Radius.circular(50.0),
-                                bottomRight: Radius.circular(50.0),
-                                topLeft: Radius.circular(50.0),
-                                topRight: Radius.circular(50.0),
-                              ),
+                              borderRadius: BorderRadius.circular(12.0),
                             ),
                           ),
                         ),
@@ -445,7 +423,12 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                                 color: FlutterFlowTheme.of(context).alternate,
                                 width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(12.0),
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(12.0),
+                                bottomRight: Radius.circular(12.0),
+                                topLeft: Radius.circular(12.0),
+                                topRight: Radius.circular(12.0),
+                              ),
                               hoverColor: FlutterFlowTheme.of(context)
                                   .primaryBackground,
                             ),

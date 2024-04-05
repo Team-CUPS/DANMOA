@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'team_management_model.dart';
 export 'team_management_model.dart';
 
@@ -51,8 +50,8 @@ class _TeamManagementWidgetState extends State<TeamManagementWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: const FaIcon(
-              FontAwesomeIcons.angleLeft,
+            icon: const Icon(
+              Icons.chevron_left,
               color: Color(0xFF0A0000),
               size: 30.0,
             ),
@@ -109,28 +108,48 @@ class _TeamManagementWidgetState extends State<TeamManagementWidget> {
                           color: FlutterFlowTheme.of(context).alternate,
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(12.0),
+                          bottomRight: Radius.circular(12.0),
+                          topLeft: Radius.circular(12.0),
+                          topRight: Radius.circular(12.0),
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
                           color: Color(0xFF375AC1),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(12.0),
+                          bottomRight: Radius.circular(12.0),
+                          topLeft: Radius.circular(12.0),
+                          topRight: Radius.circular(12.0),
+                        ),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: FlutterFlowTheme.of(context).error,
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(12.0),
+                          bottomRight: Radius.circular(12.0),
+                          topLeft: Radius.circular(12.0),
+                          topRight: Radius.circular(12.0),
+                        ),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: FlutterFlowTheme.of(context).error,
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(12.0),
+                          bottomRight: Radius.circular(12.0),
+                          topLeft: Radius.circular(12.0),
+                          topRight: Radius.circular(12.0),
+                        ),
                       ),
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(

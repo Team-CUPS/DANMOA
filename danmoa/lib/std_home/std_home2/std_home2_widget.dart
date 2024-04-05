@@ -50,7 +50,7 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
             icon: const Icon(
               Icons.close,
               color: Color(0xFF0A0000),
-              size: 30.0,
+              size: 24.0,
             ),
             onPressed: () async {
               context.pop();

@@ -4,10 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'package:easy_debounce/easy_debounce.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'std_list4_model.dart';
 export 'std_list4_model.dart';
 
@@ -27,23 +24,6 @@ class _StdList4WidgetState extends State<StdList4Widget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => StdList4Model());
-
-    _model.sign3Tf03Controller1 ??= TextEditingController(
-        text: dateTimeFormat('yMMMd', _model.datePicked1));
-    _model.sign3Tf03FocusNode1 ??= FocusNode();
-    _model.sign3Tf03FocusNode1!.addListener(() => setState(() {}));
-    _model.sign3Tf03Controller2 ??= TextEditingController(
-        text: dateTimeFormat('yMMMd', _model.datePicked2));
-    _model.sign3Tf03FocusNode2 ??= FocusNode();
-    _model.sign3Tf03FocusNode2!.addListener(() => setState(() {}));
-    _model.sign3Tf03Controller3 ??= TextEditingController(
-        text: dateTimeFormat('yMMMd', _model.datePicked3));
-    _model.sign3Tf03FocusNode3 ??= FocusNode();
-    _model.sign3Tf03FocusNode3!.addListener(() => setState(() {}));
-    _model.sign3Tf03Controller4 ??= TextEditingController(
-        text: dateTimeFormat('yMMMd', _model.datePicked4));
-    _model.sign3Tf03FocusNode4 ??= FocusNode();
-    _model.sign3Tf03FocusNode4!.addListener(() => setState(() {}));
   }
 
   @override
@@ -55,8 +35,6 @@ class _StdList4WidgetState extends State<StdList4Widget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -222,7 +200,7 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '시간대',
+                                    '시간대(optional)',
                                     style: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
@@ -237,41 +215,42 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                                   ),
                                   Align(
                                     alignment: const AlignmentDirectional(0.0, 0.0),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        if (FFAppState().timeState < 5) {
-                                          setState(() {
-                                            FFAppState().timeState =
-                                                FFAppState().timeState + 1;
-                                          });
-                                        }
-                                      },
-                                      text: '추가',
-                                      options: FFButtonOptions(
-                                        height: 40.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 16.0, 0.0),
-                                        iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: const Color(0xFF375AC1),
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'pretendard',
-                                              color: Colors.white,
-                                              letterSpacing: 0.0,
-                                              useGoogleFonts: false,
-                                            ),
-                                        borderSide: const BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          bottomLeft: Radius.circular(50.0),
-                                          bottomRight: Radius.circular(50.0),
-                                          topLeft: Radius.circular(50.0),
-                                          topRight: Radius.circular(50.0),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 6.0, 0.0),
+                                      child: FFButtonWidget(
+                                        onPressed: () {
+                                          print('stdList4_btn_02 pressed ...');
+                                        },
+                                        text: '추가',
+                                        options: FFButtonOptions(
+                                          height: 35.0,
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  14.0, 0.0, 14.0, 0.0),
+                                          iconPadding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: const Color(0xFF375AC1),
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'pretendard',
+                                                    color: Colors.white,
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts: false,
+                                                  ),
+                                          borderSide: const BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius: const BorderRadius.only(
+                                            bottomLeft: Radius.circular(50.0),
+                                            bottomRight: Radius.circular(50.0),
+                                            topLeft: Radius.circular(50.0),
+                                            topRight: Radius.circular(50.0),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -299,8 +278,7 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                                           ChipData('일')
                                         ],
                                         onChanged: (val) => setState(() =>
-                                            _model.stdListCcValue1 =
-                                                val?.firstOrNull),
+                                            _model.stdList4Cc03Values = val),
                                         selectedChipStyle: ChipStyle(
                                           backgroundColor: const Color(0xFFBFC4CD),
                                           textStyle: FlutterFlowTheme.of(
@@ -353,16 +331,15 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                                           borderRadius:
                                               BorderRadius.circular(8.0),
                                         ),
-                                        chipSpacing: 8.0,
-                                        rowSpacing: 8.0,
-                                        multiselect: false,
+                                        chipSpacing: 12.0,
+                                        multiselect: true,
                                         initialized:
-                                            _model.stdListCcValue1 != null,
+                                            _model.stdList4Cc03Values != null,
                                         alignment: WrapAlignment.start,
                                         controller: _model
-                                                .stdListCcValueController1 ??=
+                                                .stdList4Cc03ValueController ??=
                                             FormFieldController<List<String>>(
-                                          ['월'],
+                                          [],
                                         ),
                                         wrapped: true,
                                       ),
@@ -372,161 +349,120 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                                         child: Padding(
                                           padding:
                                               const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 4.0, 0.0, 0.0),
+                                                  0.0, 4.0, 0.0, 8.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
                                             children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 12.0, 0.0),
-                                                  child: SizedBox(
-                                                    width: double.infinity,
-                                                    child: TextFormField(
-                                                      controller: _model
-                                                          .sign3Tf03Controller1,
-                                                      focusNode: _model
-                                                          .sign3Tf03FocusNode1,
-                                                      onChanged: (_) =>
-                                                          EasyDebounce.debounce(
-                                                        '_model.sign3Tf03Controller1',
-                                                        const Duration(
-                                                            milliseconds: 0),
-                                                        () => setState(() {}),
-                                                      ),
-                                                      autofocus: false,
-                                                      readOnly: true,
-                                                      obscureText: false,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        labelText: FFAppState()
-                                                            .timeState
-                                                            .toString(),
-                                                        labelStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'pretendard',
-                                                                  color: const Color(
-                                                                      0x7057636C),
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                        hintText: '생년월일',
-                                                        hintStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'pretendard',
-                                                                  color: const Color(
-                                                                      0x7057636C),
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                        enabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .alternate,
-                                                            width: 2.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                            color: Color(
-                                                                0xFF375AC1),
-                                                            width: 2.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                        ),
-                                                        errorBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .error,
-                                                            width: 2.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                        ),
-                                                        focusedErrorBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .error,
-                                                            width: 2.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                        ),
-                                                        filled: true,
-                                                        fillColor: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        contentPadding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    10.0,
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 4.0, 0.0),
+                                                child: Container(
+                                                  width: 100.0,
+                                                  height: 38.0,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                    border: Border.all(
+                                                      color: const Color(0x7057636C),
+                                                      width: 1.0,
+                                                    ),
+                                                  ),
+                                                  child: Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Text(
+                                                      '12:00',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'pretendard',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
                                                                     0.0,
-                                                                    0.0,
-                                                                    5.0),
-                                                      ),
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'pretendard',
-                                                            color: const Color(
-                                                                0x7057636C),
-                                                            fontSize: 14.0,
-                                                            letterSpacing: 0.0,
-                                                            useGoogleFonts:
-                                                                false,
-                                                          ),
-                                                      textAlign:
-                                                          TextAlign.justify,
-                                                      minLines: null,
-                                                      validator: _model
-                                                          .sign3Tf03Controller1Validator
-                                                          .asValidator(context),
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
                                                     ),
                                                   ),
                                                 ),
+                                              ),
+                                              Text(
+                                                '시부터',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'pretendard',
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        4.0, 0.0, 4.0, 0.0),
+                                                child: Container(
+                                                  width: 100.0,
+                                                  height: 38.0,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                    border: Border.all(
+                                                      color: const Color(0x7057636C),
+                                                      width: 1.0,
+                                                    ),
+                                                  ),
+                                                  child: Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Text(
+                                                      '15:00',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'pretendard',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                '까지',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'pretendard',
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: false,
+                                                        ),
                                               ),
                                               Align(
                                                 alignment: const AlignmentDirectional(
@@ -534,91 +470,22 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                                                 child: Padding(
                                                   padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
-                                                          8.0, 8.0, 8.0, 8.0),
+                                                          8.0, 0.0, 0.0, 0.0),
                                                   child: FFButtonWidget(
-                                                    onPressed: () async {
-                                                      await showModalBottomSheet<
-                                                              bool>(
-                                                          context: context,
-                                                          builder: (context) {
-                                                            final datePicked1CupertinoTheme =
-                                                                CupertinoTheme
-                                                                    .of(context);
-                                                            return Container(
-                                                              height: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .height /
-                                                                  3,
-                                                              width:
-                                                                  MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryBackground,
-                                                              child:
-                                                                  CupertinoTheme(
-                                                                data: datePicked1CupertinoTheme
-                                                                    .copyWith(
-                                                                  textTheme: datePicked1CupertinoTheme
-                                                                      .textTheme
-                                                                      .copyWith(
-                                                                    dateTimePickerTextStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'pretendard',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          useGoogleFonts:
-                                                                              false,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                                child:
-                                                                    CupertinoDatePicker(
-                                                                  mode:
-                                                                      CupertinoDatePickerMode
-                                                                          .date,
-                                                                  minimumDate:
-                                                                      DateTime(
-                                                                          1900),
-                                                                  initialDateTime:
-                                                                      getCurrentTimestamp,
-                                                                  maximumDate:
-                                                                      getCurrentTimestamp,
-                                                                  backgroundColor:
-                                                                      FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryBackground,
-                                                                  use24hFormat:
-                                                                      false,
-                                                                  onDateTimeChanged:
-                                                                      (newDateTime) =>
-                                                                          safeSetState(
-                                                                              () {
-                                                                    _model.datePicked1 =
-                                                                        newDateTime;
-                                                                  }),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          });
+                                                    onPressed: () {
+                                                      print(
+                                                          'stdList4_btn_03 pressed ...');
                                                     },
-                                                    text: '날짜선택',
+                                                    text: '시간선택',
                                                     options: FFButtonOptions(
-                                                      height: 40.0,
+                                                      width: 90.0,
+                                                      height: 38.0,
                                                       padding:
                                                           const EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  24.0,
+                                                                  16.0,
                                                                   0.0,
-                                                                  24.0,
+                                                                  16.0,
                                                                   0.0),
                                                       iconPadding:
                                                           const EdgeInsetsDirectional
@@ -639,6 +506,7 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                                                                     'pretendard',
                                                                 color: const Color(
                                                                     0xFF375AC1),
+                                                                fontSize: 16.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 useGoogleFonts:
@@ -651,23 +519,62 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                                                         width: 1.0,
                                                       ),
                                                       borderRadius:
-                                                          const BorderRadius.only(
-                                                        bottomLeft:
-                                                            Radius.circular(
-                                                                50.0),
-                                                        bottomRight:
-                                                            Radius.circular(
-                                                                50.0),
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                50.0),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                50.0),
-                                                      ),
+                                                          BorderRadius.circular(
+                                                              20.0),
                                                     ),
                                                   ),
                                                 ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 0.0),
+                                        child: Container(
+                                          width: 95.0,
+                                          height: 35.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            shape: BoxShape.rectangle,
+                                            border: Border.all(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                            ),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                '제거하기',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'pretendard',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                              ),
+                                              Icon(
+                                                Icons.delete,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                size: 18.0,
                                               ),
                                             ],
                                           ),
@@ -677,1468 +584,660 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                                   ),
                                 ),
                               ),
-                              if (FFAppState().timeState > 1)
-                                Container(
-                                  decoration: const BoxDecoration(),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 12.0, 0.0, 0.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        FlutterFlowChoiceChips(
-                                          options: const [
-                                            ChipData('월'),
-                                            ChipData('화'),
-                                            ChipData('수'),
-                                            ChipData('목'),
-                                            ChipData('금'),
-                                            ChipData('토'),
-                                            ChipData('일')
-                                          ],
-                                          onChanged: (val) => setState(() =>
-                                              _model.stdListCcValue2 =
-                                                  val?.firstOrNull),
-                                          selectedChipStyle: ChipStyle(
-                                            backgroundColor: const Color(0xFFBFC4CD),
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'pretendard',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      letterSpacing: 0.0,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                            iconColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            iconSize: 18.0,
-                                            elevation: 0.0,
-                                            borderColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            borderWidth: 2.0,
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          unselectedChipStyle: ChipStyle(
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'pretendard',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryText,
-                                                      letterSpacing: 0.0,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                            iconColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryText,
-                                            iconSize: 18.0,
-                                            elevation: 0.0,
-                                            borderColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            borderWidth: 2.0,
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          chipSpacing: 8.0,
-                                          rowSpacing: 8.0,
-                                          multiselect: false,
-                                          initialized:
-                                              _model.stdListCcValue2 != null,
-                                          alignment: WrapAlignment.start,
-                                          controller: _model
-                                                  .stdListCcValueController2 ??=
-                                              FormFieldController<List<String>>(
-                                            ['월'],
-                                          ),
-                                          wrapped: true,
+                              Container(
+                                decoration: const BoxDecoration(),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 12.0, 0.0, 0.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      FlutterFlowChoiceChips(
+                                        options: const [
+                                          ChipData('월'),
+                                          ChipData('화'),
+                                          ChipData('수'),
+                                          ChipData('목'),
+                                          ChipData('금'),
+                                          ChipData('토'),
+                                          ChipData('일')
+                                        ],
+                                        onChanged: (val) => setState(() =>
+                                            _model.stdList4Cc04Values = val),
+                                        selectedChipStyle: ChipStyle(
+                                          backgroundColor: const Color(0xFFBFC4CD),
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'pretendard',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                letterSpacing: 0.0,
+                                                useGoogleFonts: false,
+                                              ),
+                                          iconColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primaryText,
+                                          iconSize: 18.0,
+                                          elevation: 0.0,
+                                          borderColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          borderWidth: 2.0,
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
                                         ),
-                                        Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 4.0, 0.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                12.0, 0.0),
-                                                    child: SizedBox(
-                                                      width: double.infinity,
-                                                      child: TextFormField(
-                                                        controller: _model
-                                                            .sign3Tf03Controller2,
-                                                        focusNode: _model
-                                                            .sign3Tf03FocusNode2,
-                                                        onChanged: (_) =>
-                                                            EasyDebounce
-                                                                .debounce(
-                                                          '_model.sign3Tf03Controller2',
-                                                          const Duration(
-                                                              milliseconds: 0),
-                                                          () => setState(() {}),
-                                                        ),
-                                                        autofocus: false,
-                                                        readOnly: true,
-                                                        obscureText: false,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'pretendard',
-                                                                    color: const Color(
-                                                                        0x7057636C),
-                                                                    fontSize:
-                                                                        14.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    useGoogleFonts:
-                                                                        false,
-                                                                  ),
-                                                          hintText: '생년월일',
-                                                          hintStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'pretendard',
-                                                                    color: const Color(
-                                                                        0x7057636C),
-                                                                    fontSize:
-                                                                        16.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    useGoogleFonts:
-                                                                        false,
-                                                                  ),
-                                                          enabledBorder:
-                                                              OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .alternate,
-                                                              width: 2.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                          ),
-                                                          focusedBorder:
-                                                              OutlineInputBorder(
-                                                            borderSide:
-                                                                const BorderSide(
-                                                              color: Color(
-                                                                  0xFF375AC1),
-                                                              width: 2.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                          ),
-                                                          errorBorder:
-                                                              OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .error,
-                                                              width: 2.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                          ),
-                                                          focusedErrorBorder:
-                                                              OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .error,
-                                                              width: 2.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                          ),
-                                                          filled: true,
-                                                          fillColor: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
-                                                          contentPadding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      10.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      5.0),
-                                                        ),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'pretendard',
-                                                              color: const Color(
-                                                                  0x7057636C),
-                                                              fontSize: 14.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              useGoogleFonts:
-                                                                  false,
-                                                            ),
-                                                        textAlign:
-                                                            TextAlign.justify,
-                                                        minLines: null,
-                                                        validator: _model
-                                                            .sign3Tf03Controller2Validator
-                                                            .asValidator(
-                                                                context),
-                                                      ),
+                                        unselectedChipStyle: ChipStyle(
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primaryBackground,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'pretendard',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                letterSpacing: 0.0,
+                                                useGoogleFonts: false,
+                                              ),
+                                          iconColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryText,
+                                          iconSize: 18.0,
+                                          elevation: 0.0,
+                                          borderColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          borderWidth: 2.0,
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        chipSpacing: 12.0,
+                                        multiselect: true,
+                                        initialized:
+                                            _model.stdList4Cc04Values != null,
+                                        alignment: WrapAlignment.start,
+                                        controller: _model
+                                                .stdList4Cc04ValueController ??=
+                                            FormFieldController<List<String>>(
+                                          [],
+                                        ),
+                                        wrapped: true,
+                                      ),
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 0.0),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 4.0, 0.0, 8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 4.0, 0.0),
+                                                child: Container(
+                                                  width: 100.0,
+                                                  height: 38.0,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                    border: Border.all(
+                                                      color: const Color(0x7057636C),
+                                                      width: 1.0,
                                                     ),
                                                   ),
-                                                ),
-                                                Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(8.0, 8.0,
-                                                                8.0, 8.0),
-                                                    child: FFButtonWidget(
-                                                      onPressed: () async {
-                                                        await showModalBottomSheet<
-                                                                bool>(
-                                                            context: context,
-                                                            builder: (context) {
-                                                              final datePicked2CupertinoTheme =
-                                                                  CupertinoTheme
-                                                                      .of(context);
-                                                              return Container(
-                                                                height: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .height /
-                                                                    3,
-                                                                width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width,
+                                                  child: Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Text(
+                                                      '12:00',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'pretendard',
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .secondaryBackground,
-                                                                child:
-                                                                    CupertinoTheme(
-                                                                  data: datePicked2CupertinoTheme
-                                                                      .copyWith(
-                                                                    textTheme: datePicked2CupertinoTheme
-                                                                        .textTheme
-                                                                        .copyWith(
-                                                                      dateTimePickerTextStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .headlineMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'pretendard',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            useGoogleFonts:
-                                                                                false,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                  child:
-                                                                      CupertinoDatePicker(
-                                                                    mode: CupertinoDatePickerMode
-                                                                        .date,
-                                                                    minimumDate:
-                                                                        DateTime(
-                                                                            1900),
-                                                                    initialDateTime:
-                                                                        getCurrentTimestamp,
-                                                                    maximumDate:
-                                                                        getCurrentTimestamp,
-                                                                    backgroundColor:
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .secondaryBackground,
-                                                                    use24hFormat:
-                                                                        false,
-                                                                    onDateTimeChanged:
-                                                                        (newDateTime) =>
-                                                                            safeSetState(() {
-                                                                      _model.datePicked2 =
-                                                                          newDateTime;
-                                                                    }),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            });
-                                                      },
-                                                      text: '날짜선택',
-                                                      options: FFButtonOptions(
-                                                        height: 40.0,
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    24.0,
+                                                                    .secondaryText,
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
                                                                     0.0,
-                                                                    24.0,
-                                                                    0.0),
-                                                        iconPadding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'pretendard',
-                                                                  color: const Color(
-                                                                      0xFF375AC1),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                        elevation: 0.0,
-                                                        borderSide: const BorderSide(
-                                                          color:
-                                                              Color(0xFF375AC1),
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            const BorderRadius.only(
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  50.0),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  50.0),
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  50.0),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  50.0),
-                                                        ),
-                                                      ),
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
                                                     ),
                                                   ),
                                                 ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 12.0, 0.0, 0.0),
-                                            child: InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                if (FFAppState().timeState >=
-                                                    2) {
-                                                  setState(() {
-                                                    FFAppState().timeState =
-                                                        FFAppState().timeState +
-                                                            -1;
-                                                  });
-                                                }
-                                              },
-                                              child: Container(
-                                                width: 100.0,
-                                                height: 40.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  borderRadius:
-                                                      const BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(0.0),
-                                                    bottomRight:
-                                                        Radius.circular(0.0),
-                                                    topLeft:
-                                                        Radius.circular(0.0),
-                                                    topRight:
-                                                        Radius.circular(0.0),
+                                              ),
+                                              Text(
+                                                '시부터',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'pretendard',
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        4.0, 0.0, 4.0, 0.0),
+                                                child: Container(
+                                                  width: 100.0,
+                                                  height: 38.0,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                    border: Border.all(
+                                                      color: const Color(0x7057636C),
+                                                      width: 1.0,
+                                                    ),
                                                   ),
-                                                  shape: BoxShape.rectangle,
-                                                  border: Border.all(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
+                                                  child: Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Text(
+                                                      '15:00',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'pretendard',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                    ),
                                                   ),
                                                 ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      '제거하기',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'pretendard',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .secondaryBackground,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            useGoogleFonts:
-                                                                false,
-                                                          ),
-                                                    ),
-                                                    Icon(
-                                                      Icons.delete,
+                                              ),
+                                              Text(
+                                                '까지',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'pretendard',
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                              ),
+                                              Align(
+                                                alignment: const AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          8.0, 0.0, 0.0, 0.0),
+                                                  child: FFButtonWidget(
+                                                    onPressed: () {
+                                                      print(
+                                                          'stdList4_btn_05 pressed ...');
+                                                    },
+                                                    text: '시간선택',
+                                                    options: FFButtonOptions(
+                                                      width: 90.0,
+                                                      height: 38.0,
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  16.0,
+                                                                  0.0,
+                                                                  16.0,
+                                                                  0.0),
+                                                      iconPadding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
                                                       color: FlutterFlowTheme
                                                               .of(context)
                                                           .secondaryBackground,
-                                                      size: 24.0,
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .override(
+                                                                fontFamily:
+                                                                    'pretendard',
+                                                                color: const Color(
+                                                                    0xFF375AC1),
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                      elevation: 0.0,
+                                                      borderSide: const BorderSide(
+                                                        color:
+                                                            Color(0xFF375AC1),
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.0),
                                                     ),
-                                                  ],
+                                                  ),
                                                 ),
                                               ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 0.0),
+                                        child: Container(
+                                          width: 95.0,
+                                          height: 35.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            shape: BoxShape.rectangle,
+                                            border: Border.all(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              if (FFAppState().timeState > 2)
-                                Container(
-                                  decoration: const BoxDecoration(),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 12.0, 0.0, 0.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        FlutterFlowChoiceChips(
-                                          options: const [
-                                            ChipData('월'),
-                                            ChipData('화'),
-                                            ChipData('수'),
-                                            ChipData('목'),
-                                            ChipData('금'),
-                                            ChipData('토'),
-                                            ChipData('일')
-                                          ],
-                                          onChanged: (val) => setState(() =>
-                                              _model.stdListCcValue3 =
-                                                  val?.firstOrNull),
-                                          selectedChipStyle: ChipStyle(
-                                            backgroundColor: const Color(0xFFBFC4CD),
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'pretendard',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      letterSpacing: 0.0,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                            iconColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            iconSize: 18.0,
-                                            elevation: 0.0,
-                                            borderColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            borderWidth: 2.0,
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          unselectedChipStyle: ChipStyle(
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'pretendard',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryText,
-                                                      letterSpacing: 0.0,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                            iconColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryText,
-                                            iconSize: 18.0,
-                                            elevation: 0.0,
-                                            borderColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            borderWidth: 2.0,
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          chipSpacing: 8.0,
-                                          rowSpacing: 8.0,
-                                          multiselect: false,
-                                          initialized:
-                                              _model.stdListCcValue3 != null,
-                                          alignment: WrapAlignment.start,
-                                          controller: _model
-                                                  .stdListCcValueController3 ??=
-                                              FormFieldController<List<String>>(
-                                            ['월'],
-                                          ),
-                                          wrapped: true,
-                                        ),
-                                        Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 4.0, 0.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                12.0, 0.0),
-                                                    child: SizedBox(
-                                                      width: double.infinity,
-                                                      child: TextFormField(
-                                                        controller: _model
-                                                            .sign3Tf03Controller3,
-                                                        focusNode: _model
-                                                            .sign3Tf03FocusNode3,
-                                                        onChanged: (_) =>
-                                                            EasyDebounce
-                                                                .debounce(
-                                                          '_model.sign3Tf03Controller3',
-                                                          const Duration(
-                                                              milliseconds: 0),
-                                                          () => setState(() {}),
-                                                        ),
-                                                        autofocus: false,
-                                                        readOnly: true,
-                                                        obscureText: false,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelText:
-                                                              FFAppState()
-                                                                  .timeState
-                                                                  .toString(),
-                                                          labelStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'pretendard',
-                                                                    color: const Color(
-                                                                        0x7057636C),
-                                                                    fontSize:
-                                                                        14.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    useGoogleFonts:
-                                                                        false,
-                                                                  ),
-                                                          hintText: '생년월일',
-                                                          hintStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'pretendard',
-                                                                    color: const Color(
-                                                                        0x7057636C),
-                                                                    fontSize:
-                                                                        16.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    useGoogleFonts:
-                                                                        false,
-                                                                  ),
-                                                          enabledBorder:
-                                                              OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .alternate,
-                                                              width: 2.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                          ),
-                                                          focusedBorder:
-                                                              OutlineInputBorder(
-                                                            borderSide:
-                                                                const BorderSide(
-                                                              color: Color(
-                                                                  0xFF375AC1),
-                                                              width: 2.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                          ),
-                                                          errorBorder:
-                                                              OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .error,
-                                                              width: 2.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                          ),
-                                                          focusedErrorBorder:
-                                                              OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .error,
-                                                              width: 2.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                          ),
-                                                          filled: true,
-                                                          fillColor: FlutterFlowTheme
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                '제거하기',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'pretendard',
+                                                          color: FlutterFlowTheme
                                                                   .of(context)
                                                               .secondaryBackground,
-                                                          contentPadding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      10.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      5.0),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: false,
                                                         ),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'pretendard',
-                                                              color: const Color(
-                                                                  0x7057636C),
-                                                              fontSize: 14.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              useGoogleFonts:
-                                                                  false,
-                                                            ),
-                                                        textAlign:
-                                                            TextAlign.justify,
-                                                        minLines: null,
-                                                        validator: _model
-                                                            .sign3Tf03Controller3Validator
-                                                            .asValidator(
-                                                                context),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(8.0, 8.0,
-                                                                8.0, 8.0),
-                                                    child: FFButtonWidget(
-                                                      onPressed: () async {
-                                                        await showModalBottomSheet<
-                                                                bool>(
-                                                            context: context,
-                                                            builder: (context) {
-                                                              final datePicked3CupertinoTheme =
-                                                                  CupertinoTheme
-                                                                      .of(context);
-                                                              return Container(
-                                                                height: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .height /
-                                                                    3,
-                                                                width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryBackground,
-                                                                child:
-                                                                    CupertinoTheme(
-                                                                  data: datePicked3CupertinoTheme
-                                                                      .copyWith(
-                                                                    textTheme: datePicked3CupertinoTheme
-                                                                        .textTheme
-                                                                        .copyWith(
-                                                                      dateTimePickerTextStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .headlineMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'pretendard',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            useGoogleFonts:
-                                                                                false,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                  child:
-                                                                      CupertinoDatePicker(
-                                                                    mode: CupertinoDatePickerMode
-                                                                        .date,
-                                                                    minimumDate:
-                                                                        DateTime(
-                                                                            1900),
-                                                                    initialDateTime:
-                                                                        getCurrentTimestamp,
-                                                                    maximumDate:
-                                                                        getCurrentTimestamp,
-                                                                    backgroundColor:
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .secondaryBackground,
-                                                                    use24hFormat:
-                                                                        false,
-                                                                    onDateTimeChanged:
-                                                                        (newDateTime) =>
-                                                                            safeSetState(() {
-                                                                      _model.datePicked3 =
-                                                                          newDateTime;
-                                                                    }),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            });
-                                                      },
-                                                      text: '날짜선택',
-                                                      options: FFButtonOptions(
-                                                        height: 40.0,
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    24.0,
-                                                                    0.0,
-                                                                    24.0,
-                                                                    0.0),
-                                                        iconPadding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'pretendard',
-                                                                  color: const Color(
-                                                                      0xFF375AC1),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                        elevation: 0.0,
-                                                        borderSide: const BorderSide(
-                                                          color:
-                                                              Color(0xFF375AC1),
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            const BorderRadius.only(
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  50.0),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  50.0),
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  50.0),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  50.0),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                              ),
+                                              Icon(
+                                                Icons.delete,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                size: 18.0,
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 12.0, 0.0, 0.0),
-                                            child: InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                if (FFAppState().timeState >=
-                                                    2) {
-                                                  setState(() {
-                                                    FFAppState().timeState =
-                                                        FFAppState().timeState +
-                                                            -1;
-                                                  });
-                                                }
-                                              },
-                                              child: Container(
-                                                width: 100.0,
-                                                height: 40.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  borderRadius:
-                                                      const BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(0.0),
-                                                    bottomRight:
-                                                        Radius.circular(0.0),
-                                                    topLeft:
-                                                        Radius.circular(0.0),
-                                                    topRight:
-                                                        Radius.circular(0.0),
-                                                  ),
-                                                  shape: BoxShape.rectangle,
-                                                  border: Border.all(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                decoration: const BoxDecoration(),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 12.0, 0.0, 0.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      FlutterFlowChoiceChips(
+                                        options: const [
+                                          ChipData('월'),
+                                          ChipData('화'),
+                                          ChipData('수'),
+                                          ChipData('목'),
+                                          ChipData('금'),
+                                          ChipData('토'),
+                                          ChipData('일')
+                                        ],
+                                        onChanged: (val) => setState(() =>
+                                            _model.stdList4Cc05Values = val),
+                                        selectedChipStyle: ChipStyle(
+                                          backgroundColor: const Color(0xFFBFC4CD),
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'pretendard',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                letterSpacing: 0.0,
+                                                useGoogleFonts: false,
+                                              ),
+                                          iconColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primaryText,
+                                          iconSize: 18.0,
+                                          elevation: 0.0,
+                                          borderColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          borderWidth: 2.0,
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        unselectedChipStyle: ChipStyle(
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primaryBackground,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'pretendard',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
                                                         .secondaryText,
+                                                letterSpacing: 0.0,
+                                                useGoogleFonts: false,
+                                              ),
+                                          iconColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryText,
+                                          iconSize: 18.0,
+                                          elevation: 0.0,
+                                          borderColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          borderWidth: 2.0,
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        chipSpacing: 12.0,
+                                        multiselect: true,
+                                        initialized:
+                                            _model.stdList4Cc05Values != null,
+                                        alignment: WrapAlignment.start,
+                                        controller: _model
+                                                .stdList4Cc05ValueController ??=
+                                            FormFieldController<List<String>>(
+                                          [],
+                                        ),
+                                        wrapped: true,
+                                      ),
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 0.0),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 4.0, 0.0, 8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 4.0, 0.0),
+                                                child: Container(
+                                                  width: 100.0,
+                                                  height: 38.0,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                    border: Border.all(
+                                                      color: const Color(0x7057636C),
+                                                      width: 1.0,
+                                                    ),
+                                                  ),
+                                                  child: Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Text(
+                                                      '12:00',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'pretendard',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                    ),
                                                   ),
                                                 ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      '제거하기',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'pretendard',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .secondaryBackground,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            useGoogleFonts:
-                                                                false,
-                                                          ),
+                                              ),
+                                              Text(
+                                                '시부터',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'pretendard',
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        4.0, 0.0, 4.0, 0.0),
+                                                child: Container(
+                                                  width: 100.0,
+                                                  height: 38.0,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                    border: Border.all(
+                                                      color: const Color(0x7057636C),
+                                                      width: 1.0,
                                                     ),
-                                                    Icon(
-                                                      Icons.delete,
+                                                  ),
+                                                  child: Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Text(
+                                                      '15:00',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'pretendard',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                '까지',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'pretendard',
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                              ),
+                                              Align(
+                                                alignment: const AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          8.0, 0.0, 0.0, 0.0),
+                                                  child: FFButtonWidget(
+                                                    onPressed: () {
+                                                      print(
+                                                          'stdList4_btn_07 pressed ...');
+                                                    },
+                                                    text: '시간선택',
+                                                    options: FFButtonOptions(
+                                                      width: 90.0,
+                                                      height: 38.0,
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  16.0,
+                                                                  0.0,
+                                                                  16.0,
+                                                                  0.0),
+                                                      iconPadding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
                                                       color: FlutterFlowTheme
                                                               .of(context)
                                                           .secondaryBackground,
-                                                      size: 24.0,
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .override(
+                                                                fontFamily:
+                                                                    'pretendard',
+                                                                color: const Color(
+                                                                    0xFF375AC1),
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                      elevation: 0.0,
+                                                      borderSide: const BorderSide(
+                                                        color:
+                                                            Color(0xFF375AC1),
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.0),
                                                     ),
-                                                  ],
+                                                  ),
                                                 ),
                                               ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 0.0),
+                                        child: Container(
+                                          width: 95.0,
+                                          height: 35.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            shape: BoxShape.rectangle,
+                                            border: Border.all(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              if (FFAppState().timeState > 3)
-                                Container(
-                                  decoration: const BoxDecoration(),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 12.0, 0.0, 0.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        FlutterFlowChoiceChips(
-                                          options: const [
-                                            ChipData('월'),
-                                            ChipData('화'),
-                                            ChipData('수'),
-                                            ChipData('목'),
-                                            ChipData('금'),
-                                            ChipData('토'),
-                                            ChipData('일')
-                                          ],
-                                          onChanged: (val) => setState(() =>
-                                              _model.stdListCcValue4 =
-                                                  val?.firstOrNull),
-                                          selectedChipStyle: ChipStyle(
-                                            backgroundColor: const Color(0xFFBFC4CD),
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'pretendard',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      letterSpacing: 0.0,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                            iconColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            iconSize: 18.0,
-                                            elevation: 0.0,
-                                            borderColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            borderWidth: 2.0,
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          unselectedChipStyle: ChipStyle(
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'pretendard',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryText,
-                                                      letterSpacing: 0.0,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                            iconColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryText,
-                                            iconSize: 18.0,
-                                            elevation: 0.0,
-                                            borderColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            borderWidth: 2.0,
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          chipSpacing: 8.0,
-                                          rowSpacing: 8.0,
-                                          multiselect: false,
-                                          initialized:
-                                              _model.stdListCcValue4 != null,
-                                          alignment: WrapAlignment.start,
-                                          controller: _model
-                                                  .stdListCcValueController4 ??=
-                                              FormFieldController<List<String>>(
-                                            ['월'],
-                                          ),
-                                          wrapped: true,
-                                        ),
-                                        Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 4.0, 0.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                12.0, 0.0),
-                                                    child: SizedBox(
-                                                      width: double.infinity,
-                                                      child: TextFormField(
-                                                        controller: _model
-                                                            .sign3Tf03Controller4,
-                                                        focusNode: _model
-                                                            .sign3Tf03FocusNode4,
-                                                        onChanged: (_) =>
-                                                            EasyDebounce
-                                                                .debounce(
-                                                          '_model.sign3Tf03Controller4',
-                                                          const Duration(
-                                                              milliseconds: 0),
-                                                          () => setState(() {}),
-                                                        ),
-                                                        autofocus: false,
-                                                        readOnly: true,
-                                                        obscureText: false,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'pretendard',
-                                                                    color: const Color(
-                                                                        0x7057636C),
-                                                                    fontSize:
-                                                                        14.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    useGoogleFonts:
-                                                                        false,
-                                                                  ),
-                                                          hintText: '생년월일',
-                                                          hintStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'pretendard',
-                                                                    color: const Color(
-                                                                        0x7057636C),
-                                                                    fontSize:
-                                                                        16.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    useGoogleFonts:
-                                                                        false,
-                                                                  ),
-                                                          enabledBorder:
-                                                              OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .alternate,
-                                                              width: 2.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                          ),
-                                                          focusedBorder:
-                                                              OutlineInputBorder(
-                                                            borderSide:
-                                                                const BorderSide(
-                                                              color: Color(
-                                                                  0xFF375AC1),
-                                                              width: 2.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                          ),
-                                                          errorBorder:
-                                                              OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .error,
-                                                              width: 2.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                          ),
-                                                          focusedErrorBorder:
-                                                              OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .error,
-                                                              width: 2.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                          ),
-                                                          filled: true,
-                                                          fillColor: FlutterFlowTheme
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                '제거하기',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'pretendard',
+                                                          color: FlutterFlowTheme
                                                                   .of(context)
                                                               .secondaryBackground,
-                                                          contentPadding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      10.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      5.0),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: false,
                                                         ),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'pretendard',
-                                                              color: const Color(
-                                                                  0x7057636C),
-                                                              fontSize: 14.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              useGoogleFonts:
-                                                                  false,
-                                                            ),
-                                                        textAlign:
-                                                            TextAlign.justify,
-                                                        minLines: null,
-                                                        validator: _model
-                                                            .sign3Tf03Controller4Validator
-                                                            .asValidator(
-                                                                context),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(8.0, 8.0,
-                                                                8.0, 8.0),
-                                                    child: FFButtonWidget(
-                                                      onPressed: () async {
-                                                        await showModalBottomSheet<
-                                                                bool>(
-                                                            context: context,
-                                                            builder: (context) {
-                                                              final datePicked4CupertinoTheme =
-                                                                  CupertinoTheme
-                                                                      .of(context);
-                                                              return Container(
-                                                                height: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .height /
-                                                                    3,
-                                                                width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryBackground,
-                                                                child:
-                                                                    CupertinoTheme(
-                                                                  data: datePicked4CupertinoTheme
-                                                                      .copyWith(
-                                                                    textTheme: datePicked4CupertinoTheme
-                                                                        .textTheme
-                                                                        .copyWith(
-                                                                      dateTimePickerTextStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .headlineMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'pretendard',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            useGoogleFonts:
-                                                                                false,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                  child:
-                                                                      CupertinoDatePicker(
-                                                                    mode: CupertinoDatePickerMode
-                                                                        .date,
-                                                                    minimumDate:
-                                                                        DateTime(
-                                                                            1900),
-                                                                    initialDateTime:
-                                                                        getCurrentTimestamp,
-                                                                    maximumDate:
-                                                                        getCurrentTimestamp,
-                                                                    backgroundColor:
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .secondaryBackground,
-                                                                    use24hFormat:
-                                                                        false,
-                                                                    onDateTimeChanged:
-                                                                        (newDateTime) =>
-                                                                            safeSetState(() {
-                                                                      _model.datePicked4 =
-                                                                          newDateTime;
-                                                                    }),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            });
-                                                      },
-                                                      text: '날짜선택',
-                                                      options: FFButtonOptions(
-                                                        height: 40.0,
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    24.0,
-                                                                    0.0,
-                                                                    24.0,
-                                                                    0.0),
-                                                        iconPadding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'pretendard',
-                                                                  color: const Color(
-                                                                      0xFF375AC1),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                        elevation: 0.0,
-                                                        borderSide: const BorderSide(
-                                                          color:
-                                                              Color(0xFF375AC1),
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            const BorderRadius.only(
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  50.0),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  50.0),
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  50.0),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  50.0),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 12.0, 0.0, 0.0),
-                                            child: InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                if (FFAppState().timeState >=
-                                                    2) {
-                                                  setState(() {
-                                                    FFAppState().timeState =
-                                                        FFAppState().timeState +
-                                                            -1;
-                                                  });
-                                                }
-                                              },
-                                              child: Container(
-                                                width: 100.0,
-                                                height: 40.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  borderRadius:
-                                                      const BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(0.0),
-                                                    bottomRight:
-                                                        Radius.circular(0.0),
-                                                    topLeft:
-                                                        Radius.circular(0.0),
-                                                    topRight:
-                                                        Radius.circular(0.0),
-                                                  ),
-                                                  shape: BoxShape.rectangle,
-                                                  border: Border.all(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
-                                                  ),
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      '제거하기',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'pretendard',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .secondaryBackground,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            useGoogleFonts:
-                                                                false,
-                                                          ),
-                                                    ),
-                                                    Icon(
-                                                      Icons.delete,
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                      size: 24.0,
-                                                    ),
-                                                  ],
-                                                ),
                                               ),
-                                            ),
+                                              Icon(
+                                                Icons.delete,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                size: 18.0,
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
+                              ),
                             ],
                           ),
                         ),
@@ -2170,11 +1269,14 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                                   options: const [
                                     ChipData('문학·문예'),
                                     ChipData('네이밍·슬로건'),
-                                    ChipData('경시·학문·논문'),
-                                    ChipData('자격증')
+                                    ChipData('과학·공학·기술'),
+                                    ChipData('IT·소프트웨어·게임'),
+                                    ChipData('디자인·캐릭터·웹툰'),
+                                    ChipData('음악·가요·댄스·무용'),
+                                    ChipData('산업·사회·건축·관광·창업')
                                   ],
                                   onChanged: (val) => setState(() => _model
-                                      .stdList4Cc03Value = val?.firstOrNull),
+                                      .stdList4Cc06Value = val?.firstOrNull),
                                   selectedChipStyle: ChipStyle(
                                     backgroundColor: const Color(0xFFBFC4CD),
                                     textStyle: FlutterFlowTheme.of(context)
@@ -2220,12 +1322,12 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                                   chipSpacing: 8.0,
                                   rowSpacing: 8.0,
                                   multiselect: false,
-                                  initialized: _model.stdList4Cc03Value != null,
+                                  initialized: _model.stdList4Cc06Value != null,
                                   alignment: WrapAlignment.start,
                                   controller:
-                                      _model.stdList4Cc03ValueController ??=
+                                      _model.stdList4Cc06ValueController ??=
                                           FormFieldController<List<String>>(
-                                    ['자격증'],
+                                    ['문학·문예'],
                                   ),
                                   wrapped: true,
                                 ),
@@ -2237,14 +1339,14 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                           alignment: const AlignmentDirectional(0.0, 1.0),
                           child: FFButtonWidget(
                             onPressed: () {
-                              print('stdList_btn_02 pressed ...');
+                              print('stdList4_btn_09 pressed ...');
                             },
                             text: '결과 확인',
                             options: FFButtonOptions(
-                              width: 300.0,
-                              height: 40.0,
+                              width: double.infinity,
+                              height: 45.0,
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 0.0, 24.0, 0.0),
+                                  16.0, 12.0, 16.0, 12.0),
                               iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: const Color(0xFF375AC1),
@@ -2261,12 +1363,7 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
-                              borderRadius: const BorderRadius.only(
-                                bottomLeft: Radius.circular(50.0),
-                                bottomRight: Radius.circular(50.0),
-                                topLeft: Radius.circular(50.0),
-                                topRight: Radius.circular(50.0),
-                              ),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
                         ),

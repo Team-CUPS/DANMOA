@@ -8,7 +8,6 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/sign/sign4_sht_01/sign4_sht01_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'set2_model.dart';
 export 'set2_model.dart';
 
@@ -68,10 +67,10 @@ class _Set2WidgetState extends State<Set2Widget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: const FaIcon(
-              FontAwesomeIcons.angleLeft,
+            icon: const Icon(
+              Icons.chevron_left,
               color: Color(0xFF0A0000),
-              size: 25.0,
+              size: 30.0,
             ),
             onPressed: () async {
               context.safePop();
@@ -272,28 +271,48 @@ class _Set2WidgetState extends State<Set2Widget> {
                                           .alternate,
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(12.0),
+                                      bottomRight: Radius.circular(12.0),
+                                      topLeft: Radius.circular(12.0),
+                                      topRight: Radius.circular(12.0),
+                                    ),
                                   ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(
                                       color: Color(0xFF375AC1),
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(12.0),
+                                      bottomRight: Radius.circular(12.0),
+                                      topLeft: Radius.circular(12.0),
+                                      topRight: Radius.circular(12.0),
+                                    ),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(12.0),
+                                      bottomRight: Radius.circular(12.0),
+                                      topLeft: Radius.circular(12.0),
+                                      topRight: Radius.circular(12.0),
+                                    ),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(12.0),
+                                      bottomRight: Radius.circular(12.0),
+                                      topLeft: Radius.circular(12.0),
+                                      topRight: Radius.circular(12.0),
+                                    ),
                                   ),
                                   filled: true,
                                   fillColor: FlutterFlowTheme.of(context)
@@ -397,28 +416,48 @@ class _Set2WidgetState extends State<Set2Widget> {
                             color: FlutterFlowTheme.of(context).alternate,
                             width: 1.0,
                           ),
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(12.0),
+                            bottomRight: Radius.circular(12.0),
+                            topLeft: Radius.circular(12.0),
+                            topRight: Radius.circular(12.0),
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
                             color: Color(0xFF375AC1),
                             width: 1.0,
                           ),
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(12.0),
+                            bottomRight: Radius.circular(12.0),
+                            topLeft: Radius.circular(12.0),
+                            topRight: Radius.circular(12.0),
+                          ),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: FlutterFlowTheme.of(context).error,
                             width: 1.0,
                           ),
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(12.0),
+                            bottomRight: Radius.circular(12.0),
+                            topLeft: Radius.circular(12.0),
+                            topRight: Radius.circular(12.0),
+                          ),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: FlutterFlowTheme.of(context).error,
                             width: 1.0,
                           ),
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(12.0),
+                            bottomRight: Radius.circular(12.0),
+                            topLeft: Radius.circular(12.0),
+                            topRight: Radius.circular(12.0),
+                          ),
                         ),
                         filled: true,
                         fillColor:
@@ -496,28 +535,48 @@ class _Set2WidgetState extends State<Set2Widget> {
                                           .alternate,
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(12.0),
+                                      bottomRight: Radius.circular(12.0),
+                                      topLeft: Radius.circular(12.0),
+                                      topRight: Radius.circular(12.0),
+                                    ),
                                   ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(
                                       color: Color(0xFF375AC1),
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(12.0),
+                                      bottomRight: Radius.circular(12.0),
+                                      topLeft: Radius.circular(12.0),
+                                      topRight: Radius.circular(12.0),
+                                    ),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(12.0),
+                                      bottomRight: Radius.circular(12.0),
+                                      topLeft: Radius.circular(12.0),
+                                      topRight: Radius.circular(12.0),
+                                    ),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(12.0),
+                                      bottomRight: Radius.circular(12.0),
+                                      topLeft: Radius.circular(12.0),
+                                      topRight: Radius.circular(12.0),
+                                    ),
                                   ),
                                   contentPadding:
                                       const EdgeInsetsDirectional.fromSTEB(
@@ -728,8 +787,8 @@ class _Set2WidgetState extends State<Set2Widget> {
                         },
                         text: '수정완료',
                         options: FFButtonOptions(
-                          width: 300.0,
-                          height: 40.0,
+                          width: double.infinity,
+                          height: 45.0,
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
                           iconPadding: const EdgeInsetsDirectional.fromSTEB(
@@ -747,12 +806,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                             color: Colors.transparent,
                             width: 1.0,
                           ),
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(50.0),
-                            bottomRight: Radius.circular(50.0),
-                            topLeft: Radius.circular(50.0),
-                            topRight: Radius.circular(50.0),
-                          ),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                     ),

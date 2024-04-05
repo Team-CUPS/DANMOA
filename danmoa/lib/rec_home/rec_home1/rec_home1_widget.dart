@@ -40,7 +40,7 @@ class _RecHome1WidgetState extends State<RecHome1Widget>
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
           child: Column(
@@ -67,7 +67,7 @@ class _RecHome1WidgetState extends State<RecHome1Widget>
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'pretendard',
-                                    fontSize: 25.0,
+                                    fontSize: 20.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w900,
                                     useGoogleFonts: false,
@@ -89,7 +89,7 @@ class _RecHome1WidgetState extends State<RecHome1Widget>
                         icon: Icon(
                           Icons.arrow_drop_down,
                           color: FlutterFlowTheme.of(context).primaryText,
-                          size: 24.0,
+                          size: 30.0,
                         ),
                         onPressed: () {
                           print('IconButton pressed ...');
@@ -110,7 +110,7 @@ class _RecHome1WidgetState extends State<RecHome1Widget>
                           icon: Icon(
                             Icons.search_sharp,
                             color: FlutterFlowTheme.of(context).primaryText,
-                            size: 30.0,
+                            size: 24.0,
                           ),
                           onPressed: () {
                             print('IconButton pressed ...');
@@ -139,13 +139,13 @@ class _RecHome1WidgetState extends State<RecHome1Widget>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Align(
-                            alignment: const AlignmentDirectional(-1.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 15.0, 0.0, 0.0),
+                                  7.0, 0.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () {
-                                  print('button pressed ...');
+                                  print('stdList2_btn_03 pressed ...');
                                 },
                                 text: '필터',
                                 icon: const Icon(
@@ -153,25 +153,29 @@ class _RecHome1WidgetState extends State<RecHome1Widget>
                                   size: 15.0,
                                 ),
                                 options: FFButtonOptions(
-                                  height: 40.0,
+                                  height: 24.0,
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      24.0, 0.0, 24.0, 0.0),
+                                      0.0, 0.0, 0.0, 0.0),
                                   iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
                                         fontFamily: 'pretendard',
-                                        color: Colors.white,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        fontSize: 16.0,
                                         letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w300,
+                                        fontWeight: FontWeight.normal,
                                         useGoogleFonts: false,
                                       ),
-                                  elevation: 3.0,
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
+                                  elevation: 0.0,
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    width: 0.0,
                                   ),
                                   borderRadius: BorderRadius.circular(6.0),
                                 ),
@@ -179,39 +183,43 @@ class _RecHome1WidgetState extends State<RecHome1Widget>
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(-1.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 15.0, 0.0, 0.0),
+                                  0.0, 0.0, 10.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () {
-                                  print('button pressed ...');
+                                  print('stdList2_drp_01 pressed ...');
                                 },
                                 text: '활동점수순',
                                 icon: const Icon(
-                                  Icons.arrow_drop_down,
+                                  Icons.sort,
                                   size: 15.0,
                                 ),
                                 options: FFButtonOptions(
-                                  height: 40.0,
+                                  height: 24.0,
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      12.0, 0.0, 24.0, 0.0),
+                                      0.0, 0.0, 0.0, 0.0),
                                   iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
                                         fontFamily: 'pretendard',
-                                        color: Colors.white,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        fontSize: 16.0,
                                         letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w300,
+                                        fontWeight: FontWeight.normal,
                                         useGoogleFonts: false,
                                       ),
-                                  elevation: 3.0,
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
+                                  elevation: 0.0,
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    width: 0.0,
                                   ),
                                   borderRadius: BorderRadius.circular(6.0),
                                 ),
@@ -257,7 +265,8 @@ class _RecHome1WidgetState extends State<RecHome1Widget>
                           ],
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                           ),
                         ),
                         child: Padding(
@@ -426,8 +435,8 @@ class _RecHome1WidgetState extends State<RecHome1Widget>
                               Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                elevation: 1.0,
+                                    .secondaryBackground,
+                                elevation: 0.0,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(40.0),
                                 ),
@@ -467,7 +476,8 @@ class _RecHome1WidgetState extends State<RecHome1Widget>
                           ],
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                           ),
                         ),
                         child: Padding(
@@ -636,8 +646,8 @@ class _RecHome1WidgetState extends State<RecHome1Widget>
                               Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                elevation: 1.0,
+                                    .secondaryBackground,
+                                elevation: 0.0,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(40.0),
                                 ),
@@ -677,7 +687,8 @@ class _RecHome1WidgetState extends State<RecHome1Widget>
                           ],
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                           ),
                         ),
                         child: Padding(
@@ -846,10 +857,10 @@ class _RecHome1WidgetState extends State<RecHome1Widget>
                               Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                elevation: 1.0,
+                                    .secondaryBackground,
+                                elevation: 0.0,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(40.0),
+                                  borderRadius: BorderRadius.circular(24.0),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(4.0),

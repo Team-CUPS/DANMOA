@@ -42,7 +42,7 @@ class _RecHome2WidgetState extends State<RecHome2Widget>
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           automaticallyImplyLeading: false,
@@ -52,7 +52,7 @@ class _RecHome2WidgetState extends State<RecHome2Widget>
             borderWidth: 1.0,
             buttonSize: 60.0,
             icon: Icon(
-              Icons.arrow_back_rounded,
+              Icons.chevron_left,
               color: FlutterFlowTheme.of(context).primaryText,
               size: 30.0,
             ),
@@ -64,6 +64,7 @@ class _RecHome2WidgetState extends State<RecHome2Widget>
             '매칭글 검색',
             style: FlutterFlowTheme.of(context).headlineSmall.override(
                   fontFamily: 'pretendard',
+                  fontSize: 20.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.bold,
                   useGoogleFonts: false,
@@ -80,7 +81,7 @@ class _RecHome2WidgetState extends State<RecHome2Widget>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 4.0, 20.0, 0.0),
                 child: TextFormField(
                   controller: _model.textController,
                   focusNode: _model.textFieldFocusNode,
@@ -198,7 +199,8 @@ class _RecHome2WidgetState extends State<RecHome2Widget>
                             ],
                             borderRadius: BorderRadius.circular(8.0),
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
                             ),
                           ),
                           child: Padding(
@@ -370,8 +372,8 @@ class _RecHome2WidgetState extends State<RecHome2Widget>
                                 Card(
                                   clipBehavior: Clip.antiAliasWithSaveLayer,
                                   color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                  elevation: 1.0,
+                                      .secondaryBackground,
+                                  elevation: 0.0,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(40.0),
                                   ),

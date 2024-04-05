@@ -47,7 +47,7 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           automaticallyImplyLeading: false,
@@ -57,7 +57,7 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
             borderWidth: 1.0,
             buttonSize: 60.0,
             icon: Icon(
-              Icons.arrow_back_rounded,
+              Icons.chevron_left,
               color: FlutterFlowTheme.of(context).primaryText,
               size: 30.0,
             ),
@@ -69,6 +69,7 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
             '매칭 글쓰기',
             style: FlutterFlowTheme.of(context).headlineSmall.override(
                   fontFamily: 'pretendard',
+                  fontSize: 20.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.bold,
                   useGoogleFonts: false,
@@ -101,7 +102,7 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                             decoration: const BoxDecoration(),
                             child: Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 12.0, 16.0, 0.0),
+                                  16.0, 20.0, 16.0, 0.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,8 +150,12 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                               .alternate,
                                           width: 2.0,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
+                                        borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(12.0),
+                                          bottomRight: Radius.circular(12.0),
+                                          topLeft: Radius.circular(12.0),
+                                          topRight: Radius.circular(12.0),
+                                        ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -158,8 +163,12 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                               .primary,
                                           width: 2.0,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
+                                        borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(12.0),
+                                          bottomRight: Radius.circular(12.0),
+                                          topLeft: Radius.circular(12.0),
+                                          topRight: Radius.circular(12.0),
+                                        ),
                                       ),
                                       errorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -167,8 +176,12 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                               .error,
                                           width: 2.0,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
+                                        borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(12.0),
+                                          bottomRight: Radius.circular(12.0),
+                                          topLeft: Radius.circular(12.0),
+                                          topRight: Radius.circular(12.0),
+                                        ),
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -176,8 +189,12 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                               .error,
                                           width: 2.0,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
+                                        borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(12.0),
+                                          bottomRight: Radius.circular(12.0),
+                                          topLeft: Radius.circular(12.0),
+                                          topRight: Radius.circular(12.0),
+                                        ),
                                       ),
                                       filled: true,
                                       fillColor: FlutterFlowTheme.of(context)
@@ -241,8 +258,12 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                               .alternate,
                                           width: 2.0,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
+                                        borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(12.0),
+                                          bottomRight: Radius.circular(12.0),
+                                          topLeft: Radius.circular(12.0),
+                                          topRight: Radius.circular(12.0),
+                                        ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -250,8 +271,12 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                               .primary,
                                           width: 2.0,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
+                                        borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(12.0),
+                                          bottomRight: Radius.circular(12.0),
+                                          topLeft: Radius.circular(12.0),
+                                          topRight: Radius.circular(12.0),
+                                        ),
                                       ),
                                       errorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -259,8 +284,12 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                               .error,
                                           width: 2.0,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
+                                        borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(12.0),
+                                          bottomRight: Radius.circular(12.0),
+                                          topLeft: Radius.circular(12.0),
+                                          topRight: Radius.circular(12.0),
+                                        ),
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -268,8 +297,12 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                               .error,
                                           width: 2.0,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
+                                        borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(12.0),
+                                          bottomRight: Radius.circular(12.0),
+                                          topLeft: Radius.circular(12.0),
+                                          topRight: Radius.circular(12.0),
+                                        ),
                                       ),
                                       filled: true,
                                       fillColor: FlutterFlowTheme.of(context)
@@ -293,15 +326,22 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                         .descriptionControllerValidator
                                         .asValidator(context),
                                   ),
-                                  Text(
-                                    '분류',
-                                    style: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily: 'pretendard',
-                                          letterSpacing: 0.0,
-                                          useGoogleFonts: false,
-                                        ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 5.0, 0.0, 0.0),
+                                    child: Text(
+                                      '분류',
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'pretendard',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: false,
+                                          ),
+                                    ),
                                   ),
                                   FlutterFlowChoiceChips(
                                     options: const [
@@ -313,7 +353,8 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                         .choiceChipsValue1 = val?.firstOrNull),
                                     selectedChipStyle: ChipStyle(
                                       backgroundColor:
-                                          FlutterFlowTheme.of(context).accent2,
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -326,16 +367,19 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                       iconColor: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       iconSize: 18.0,
+                                      labelPadding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10.0, 0.0, 10.0, 0.0),
                                       elevation: 0.0,
-                                      borderColor: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      borderWidth: 2.0,
-                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      borderWidth: 1.0,
+                                      borderRadius: BorderRadius.circular(16.0),
                                     ),
                                     unselectedChipStyle: ChipStyle(
                                       backgroundColor:
                                           FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                              .secondaryBackground,
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -345,14 +389,15 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                             letterSpacing: 0.0,
                                             useGoogleFonts: false,
                                           ),
-                                      iconColor: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      iconColor: const Color(0xFFB6B6B6),
                                       iconSize: 18.0,
+                                      labelPadding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10.0, 0.0, 10.0, 0.0),
                                       elevation: 0.0,
-                                      borderColor: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      borderWidth: 2.0,
-                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderColor: const Color(0xFFD9D9D9),
+                                      borderWidth: 1.0,
+                                      borderRadius: BorderRadius.circular(16.0),
                                     ),
                                     chipSpacing: 8.0,
                                     rowSpacing: 8.0,
@@ -367,15 +412,22 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                     ),
                                     wrapped: true,
                                   ),
-                                  Text(
-                                    '시간대',
-                                    style: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily: 'pretendard',
-                                          letterSpacing: 0.0,
-                                          useGoogleFonts: false,
-                                        ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 5.0, 0.0, 0.0),
+                                    child: Text(
+                                      '시간대',
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'pretendard',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: false,
+                                          ),
+                                    ),
                                   ),
                                   FlutterFlowChoiceChips(
                                     options: const [
@@ -388,7 +440,8 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                         .choiceChipsValue2 = val?.firstOrNull),
                                     selectedChipStyle: ChipStyle(
                                       backgroundColor:
-                                          FlutterFlowTheme.of(context).accent2,
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -401,16 +454,19 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                       iconColor: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       iconSize: 18.0,
+                                      labelPadding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10.0, 0.0, 10.0, 0.0),
                                       elevation: 0.0,
-                                      borderColor: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      borderWidth: 2.0,
-                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      borderWidth: 1.0,
+                                      borderRadius: BorderRadius.circular(16.0),
                                     ),
                                     unselectedChipStyle: ChipStyle(
                                       backgroundColor:
                                           FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                              .secondaryBackground,
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -420,14 +476,15 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                             letterSpacing: 0.0,
                                             useGoogleFonts: false,
                                           ),
-                                      iconColor: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      iconColor: const Color(0xFFB6B6B6),
                                       iconSize: 18.0,
+                                      labelPadding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10.0, 0.0, 10.0, 0.0),
                                       elevation: 0.0,
-                                      borderColor: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      borderWidth: 2.0,
-                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderColor: const Color(0xFFD9D9D9),
+                                      borderWidth: 1.0,
+                                      borderRadius: BorderRadius.circular(16.0),
                                     ),
                                     chipSpacing: 8.0,
                                     rowSpacing: 8.0,
@@ -442,15 +499,22 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                     ),
                                     wrapped: true,
                                   ),
-                                  Text(
-                                    '분야',
-                                    style: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily: 'pretendard',
-                                          letterSpacing: 0.0,
-                                          useGoogleFonts: false,
-                                        ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 5.0, 0.0, 0.0),
+                                    child: Text(
+                                      '분야',
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'pretendard',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: false,
+                                          ),
+                                    ),
                                   ),
                                   FlutterFlowChoiceChips(
                                     options: const [
@@ -462,7 +526,8 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                         .choiceChipsValue3 = val?.firstOrNull),
                                     selectedChipStyle: ChipStyle(
                                       backgroundColor:
-                                          FlutterFlowTheme.of(context).accent2,
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -475,16 +540,19 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                       iconColor: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       iconSize: 18.0,
+                                      labelPadding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10.0, 0.0, 10.0, 0.0),
                                       elevation: 0.0,
-                                      borderColor: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      borderWidth: 2.0,
-                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      borderWidth: 1.0,
+                                      borderRadius: BorderRadius.circular(16.0),
                                     ),
                                     unselectedChipStyle: ChipStyle(
                                       backgroundColor:
                                           FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                              .secondaryBackground,
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -494,14 +562,15 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                             letterSpacing: 0.0,
                                             useGoogleFonts: false,
                                           ),
-                                      iconColor: FlutterFlowTheme.of(context)
-                                          .secondaryText,
+                                      iconColor: const Color(0xFFB6B6B6),
                                       iconSize: 18.0,
+                                      labelPadding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              10.0, 0.0, 10.0, 0.0),
                                       elevation: 0.0,
-                                      borderColor: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      borderWidth: 2.0,
-                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderColor: const Color(0xFFD9D9D9),
+                                      borderWidth: 1.0,
+                                      borderRadius: BorderRadius.circular(16.0),
                                     ),
                                     chipSpacing: 8.0,
                                     rowSpacing: 8.0,
@@ -516,15 +585,22 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                     ),
                                     wrapped: true,
                                   ),
-                                  Text(
-                                    '기간',
-                                    style: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily: 'pretendard',
-                                          letterSpacing: 0.0,
-                                          useGoogleFonts: false,
-                                        ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 5.0, 0.0, 0.0),
+                                    child: Text(
+                                      '기간',
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'pretendard',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: false,
+                                          ),
+                                    ),
                                   ),
                                   InkWell(
                                     splashColor: Colors.transparent,
@@ -654,7 +730,7 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                       text: '작성완료',
                       options: FFButtonOptions(
                         width: double.infinity,
-                        height: 48.0,
+                        height: 45.0,
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding:
@@ -667,7 +743,7 @@ class _RecPost1WidgetState extends State<RecPost1Widget> {
                                   letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
-                        elevation: 3.0,
+                        elevation: 0.0,
                         borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
