@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'sign1_sht01_model.dart';
 export 'sign1_sht01_model.dart';
 
@@ -97,10 +96,10 @@ class _Sign1Sht01WidgetState extends State<Sign1Sht01Widget> {
                           buttonSize: 40.0,
                           fillColor:
                               FlutterFlowTheme.of(context).secondaryBackground,
-                          icon: const FaIcon(
-                            FontAwesomeIcons.angleLeft,
+                          icon: const Icon(
+                            Icons.chevron_left,
                             color: Color(0xFF0A0000),
-                            size: 25.0,
+                            size: 30.0,
                           ),
                           onPressed: () async {
                             context.safePop();
@@ -164,28 +163,48 @@ class _Sign1Sht01WidgetState extends State<Sign1Sht01Widget> {
                                 color: FlutterFlowTheme.of(context).alternate,
                                 width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(12.0),
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(12.0),
+                                bottomRight: Radius.circular(12.0),
+                                topLeft: Radius.circular(12.0),
+                                topRight: Radius.circular(12.0),
+                              ),
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
                                 color: Color(0xFF375AC1),
                                 width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(12.0),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(12.0),
+                                bottomRight: Radius.circular(12.0),
+                                topLeft: Radius.circular(12.0),
+                                topRight: Radius.circular(12.0),
+                              ),
                             ),
                             errorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: FlutterFlowTheme.of(context).error,
                                 width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(12.0),
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(12.0),
+                                bottomRight: Radius.circular(12.0),
+                                topLeft: Radius.circular(12.0),
+                                topRight: Radius.circular(12.0),
+                              ),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: FlutterFlowTheme.of(context).error,
                                 width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(12.0),
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(12.0),
+                                bottomRight: Radius.circular(12.0),
+                                topLeft: Radius.circular(12.0),
+                                topRight: Radius.circular(12.0),
+                              ),
                             ),
                             filled: true,
                             fillColor: FlutterFlowTheme.of(context)
@@ -230,7 +249,7 @@ class _Sign1Sht01WidgetState extends State<Sign1Sht01Widget> {
                         text: '비밀번호 재설정 링크 전송',
                         options: FFButtonOptions(
                           width: double.infinity,
-                          height: 40.0,
+                          height: 45.0,
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           iconPadding: const EdgeInsetsDirectional.fromSTEB(
@@ -248,12 +267,7 @@ class _Sign1Sht01WidgetState extends State<Sign1Sht01Widget> {
                             color: Colors.transparent,
                             width: 1.0,
                           ),
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(50.0),
-                            bottomRight: Radius.circular(50.0),
-                            topLeft: Radius.circular(50.0),
-                            topRight: Radius.circular(50.0),
-                          ),
+                          borderRadius: BorderRadius.circular(12.0),
                         ),
                       ),
                     ),

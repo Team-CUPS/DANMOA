@@ -10,7 +10,12 @@ import 'std_make2_model.dart';
 export 'std_make2_model.dart';
 
 class StdMake2Widget extends StatefulWidget {
-  const StdMake2Widget({super.key});
+  const StdMake2Widget({
+    super.key,
+    required this.stdName,
+  });
+
+  final String? stdName;
 
   @override
   State<StdMake2Widget> createState() => _StdMake2WidgetState();
@@ -65,7 +70,7 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'pretendard',
                   color: FlutterFlowTheme.of(context).primaryText,
-                  fontSize: 22.0,
+                  fontSize: 20.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.bold,
                   useGoogleFonts: false,
@@ -202,8 +207,8 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                                 ChipData('저녁'),
                                 ChipData('밤')
                               ],
-                              onChanged: (val) => setState(() =>
-                                  _model.stdMake2Cc02Value = val?.firstOrNull),
+                              onChanged: (val) => setState(
+                                  () => _model.stdMake2Cc02Values = val),
                               selectedChipStyle: ChipStyle(
                                 backgroundColor:
                                     FlutterFlowTheme.of(context).accent2,
@@ -248,12 +253,12 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                               ),
                               chipSpacing: 8.0,
                               rowSpacing: 8.0,
-                              multiselect: false,
-                              initialized: _model.stdMake2Cc02Value != null,
+                              multiselect: true,
+                              initialized: _model.stdMake2Cc02Values != null,
                               alignment: WrapAlignment.start,
                               controller: _model.stdMake2Cc02ValueController ??=
                                   FormFieldController<List<String>>(
-                                ['아침'],
+                                [],
                               ),
                               wrapped: true,
                             ),
@@ -281,67 +286,74 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                                     useGoogleFonts: false,
                                   ),
                             ),
-                            FlutterFlowChoiceChips(
-                              options: const [
-                                ChipData('IT'),
-                                ChipData('영어'),
-                                ChipData('일본어'),
-                                ChipData('자격증')
-                              ],
-                              onChanged: (val) => setState(() =>
-                                  _model.stdMake2Cc03Value = val?.firstOrNull),
-                              selectedChipStyle: ChipStyle(
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).accent2,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'pretendard',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
-                                    ),
-                                iconColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                                iconSize: 18.0,
-                                elevation: 0.0,
-                                borderColor:
-                                    FlutterFlowTheme.of(context).secondary,
-                                borderWidth: 2.0,
-                                borderRadius: BorderRadius.circular(8.0),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 12.0, 0.0, 0.0),
+                              child: FlutterFlowChoiceChips(
+                                options: const [
+                                  ChipData('문학·문예'),
+                                  ChipData('네이밍·슬로건'),
+                                  ChipData('과학·공학·기술'),
+                                  ChipData('IT·소프트웨어·게임'),
+                                  ChipData('디자인·캐릭터·웹툰'),
+                                  ChipData('음악·가요·댄스·무용'),
+                                  ChipData('산업·사회·건축·관광·창업')
+                                ],
+                                onChanged: (val) => setState(
+                                    () => _model.stdMake2Cc03Values = val),
+                                selectedChipStyle: ChipStyle(
+                                  backgroundColor: const Color(0xFFBFC4CD),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'pretendard',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: false,
+                                      ),
+                                  iconColor:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  iconSize: 18.0,
+                                  elevation: 0.0,
+                                  borderColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderWidth: 2.0,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                unselectedChipStyle: ChipStyle(
+                                  backgroundColor: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'pretendard',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: false,
+                                      ),
+                                  iconColor: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  iconSize: 18.0,
+                                  elevation: 0.0,
+                                  borderColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderWidth: 2.0,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                chipSpacing: 8.0,
+                                rowSpacing: 8.0,
+                                multiselect: true,
+                                initialized: _model.stdMake2Cc03Values != null,
+                                alignment: WrapAlignment.start,
+                                controller:
+                                    _model.stdMake2Cc03ValueController ??=
+                                        FormFieldController<List<String>>(
+                                  [],
+                                ),
+                                wrapped: true,
                               ),
-                              unselectedChipStyle: ChipStyle(
-                                backgroundColor: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'pretendard',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
-                                    ),
-                                iconColor:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                iconSize: 18.0,
-                                elevation: 0.0,
-                                borderColor:
-                                    FlutterFlowTheme.of(context).alternate,
-                                borderWidth: 2.0,
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              chipSpacing: 8.0,
-                              rowSpacing: 8.0,
-                              multiselect: false,
-                              initialized: _model.stdMake2Cc03Value != null,
-                              alignment: WrapAlignment.start,
-                              controller: _model.stdMake2Cc03ValueController ??=
-                                  FormFieldController<List<String>>(
-                                ['IT'],
-                              ),
-                              wrapped: true,
                             ),
                           ]
                               .divide(const SizedBox(height: 12.0))
@@ -352,13 +364,35 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             0.0, 40.0, 0.0, 12.0),
                         child: FFButtonWidget(
-                          onPressed: () {
-                            print('stdMake2_btn_02 pressed ...');
+                          onPressed: () async {
+                            context.pushNamed(
+                              'stdMake3',
+                              queryParameters: {
+                                'stdName': serializeParam(
+                                  widget.stdName,
+                                  ParamType.String,
+                                ),
+                                'stdPosition': serializeParam(
+                                  _model.stdMake2Cc01Value,
+                                  ParamType.String,
+                                ),
+                                'stdTimes': serializeParam(
+                                  _model.stdMake2Cc02Values,
+                                  ParamType.String,
+                                  true,
+                                ),
+                                'stdField': serializeParam(
+                                  _model.stdMake2Cc03Values,
+                                  ParamType.String,
+                                  true,
+                                ),
+                              }.withoutNulls,
+                            );
                           },
-                          text: '결과 확인',
+                          text: '다음',
                           options: FFButtonOptions(
                             width: double.infinity,
-                            height: 48.0,
+                            height: 45.0,
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
                             iconPadding: const EdgeInsetsDirectional.fromSTEB(
@@ -377,12 +411,7 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                               color: Colors.transparent,
                               width: 1.0,
                             ),
-                            borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(50.0),
-                              bottomRight: Radius.circular(50.0),
-                              topLeft: Radius.circular(50.0),
-                              topRight: Radius.circular(50.0),
-                            ),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
                       ),

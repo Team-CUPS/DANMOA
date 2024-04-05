@@ -16,16 +16,14 @@ class StdMake2Model extends FlutterFlowModel<StdMake2Widget> {
       stdMake2Cc01ValueController?.value = val != null ? [val] : [];
   // State field(s) for stdMake2_cc_02 widget.
   FormFieldController<List<String>>? stdMake2Cc02ValueController;
-  String? get stdMake2Cc02Value =>
-      stdMake2Cc02ValueController?.value?.firstOrNull;
-  set stdMake2Cc02Value(String? val) =>
-      stdMake2Cc02ValueController?.value = val != null ? [val] : [];
+  List<String>? get stdMake2Cc02Values => stdMake2Cc02ValueController?.value;
+  set stdMake2Cc02Values(List<String>? val) =>
+      stdMake2Cc02ValueController?.value = val;
   // State field(s) for stdMake2_cc_03 widget.
   FormFieldController<List<String>>? stdMake2Cc03ValueController;
-  String? get stdMake2Cc03Value =>
-      stdMake2Cc03ValueController?.value?.firstOrNull;
-  set stdMake2Cc03Value(String? val) =>
-      stdMake2Cc03ValueController?.value = val != null ? [val] : [];
+  List<String>? get stdMake2Cc03Values => stdMake2Cc03ValueController?.value;
+  set stdMake2Cc03Values(List<String>? val) =>
+      stdMake2Cc03ValueController?.value = val;
 
   @override
   void initState(BuildContext context) {}

@@ -18,10 +18,13 @@ class StdMake3Model extends FlutterFlowModel<StdMake3Widget> {
   // State field(s) for stdMake3_tf_03 widget.
   FocusNode? stdMake3Tf03FocusNode;
   TextEditingController? stdMake3Tf03Controller;
+  late bool stdMake3Tf03Visibility;
   String? Function(BuildContext, String?)? stdMake3Tf03ControllerValidator;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    stdMake3Tf03Visibility = false;
+  }
 
   @override
   void dispose() {

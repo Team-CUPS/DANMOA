@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'sign3_widget.dart' show Sign3Widget;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Sign3Model extends FlutterFlowModel<Sign3Widget> {

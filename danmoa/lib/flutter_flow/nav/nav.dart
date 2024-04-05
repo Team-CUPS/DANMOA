@@ -128,12 +128,36 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'stdMake2',
           path: '/stdMake2',
-          builder: (context, params) => const StdMake2Widget(),
+          builder: (context, params) => StdMake2Widget(
+            stdName: params.getParam(
+              'stdName',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: 'stdMake3',
           path: '/stdMake3',
-          builder: (context, params) => const StdMake3Widget(),
+          builder: (context, params) => StdMake3Widget(
+            stdName: params.getParam(
+              'stdName',
+              ParamType.String,
+            ),
+            stdPosition: params.getParam(
+              'stdPosition',
+              ParamType.String,
+            ),
+            stdTimes: params.getParam<String>(
+              'stdTimes',
+              ParamType.String,
+              true,
+            ),
+            stdField: params.getParam<String>(
+              'stdField',
+              ParamType.String,
+              true,
+            ),
+          ),
         ),
         FFRoute(
           name: 'stdMake4',
@@ -269,6 +293,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'recPost2',
           path: '/recPost2',
           builder: (context, params) => const RecPost2Widget(),
+        ),
+        FFRoute(
+          name: 'testpage',
+          path: '/testpage',
+          builder: (context, params) => const TestpageWidget(),
+        ),
+        FFRoute(
+          name: 'timetestpage',
+          path: '/timetestpage',
+          builder: (context, params) => const TimetestpageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -42,9 +42,9 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         appBar: AppBar(
-          backgroundColor: const Color(0xC1B48CCF),
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           automaticallyImplyLeading: false,
           leading: FlutterFlowIconButton(
             borderColor: Colors.transparent,
@@ -52,7 +52,7 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
             borderWidth: 1.0,
             buttonSize: 60.0,
             icon: const Icon(
-              Icons.arrow_back_rounded,
+              Icons.chevron_left,
               color: Color(0xFF0A0000),
               size: 30.0,
             ),
@@ -61,28 +61,31 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
             },
           ),
           actions: [
-            FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 20.0,
-              borderWidth: 1.0,
-              buttonSize: 40.0,
-              icon: Icon(
-                Icons.more_vert,
-                color: FlutterFlowTheme.of(context).primaryText,
-                size: 24.0,
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 15.0, 5.0),
+              child: FlutterFlowIconButton(
+                borderColor: Colors.transparent,
+                borderRadius: 20.0,
+                borderWidth: 1.0,
+                buttonSize: 40.0,
+                icon: Icon(
+                  Icons.more_vert,
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  size: 30.0,
+                ),
+                onPressed: () {
+                  print('IconButton pressed ...');
+                },
               ),
-              onPressed: () {
-                print('IconButton pressed ...');
-              },
             ),
           ],
           centerTitle: true,
-          elevation: 2.0,
+          elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -112,6 +115,7 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
                                 .headlineLarge
                                 .override(
                                   fontFamily: 'pretendard',
+                                  fontSize: 24.0,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
@@ -122,35 +126,52 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Icon(
-                                Icons.ads_click_outlined,
+                                Icons.remove_red_eye,
                                 color:
                                     FlutterFlowTheme.of(context).secondaryText,
                                 size: 20.0,
                               ),
-                              Text(
-                                '조회수',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'pretendard',
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
-                                    ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    5.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  '조회수',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'pretendard',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: false,
+                                      ),
+                                ),
                               ),
-                              Icon(
-                                Icons.chat_bubble_rounded,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 18.0,
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    20.0, 0.0, 0.0, 0.0),
+                                child: Icon(
+                                  Icons.mode_comment,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 18.0,
+                                ),
                               ),
-                              Text(
-                                '댓글수',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'pretendard',
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
-                                    ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    5.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  '댓글수',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'pretendard',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: false,
+                                      ),
+                                ),
                               ),
                             ],
                           ),
@@ -192,7 +213,7 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
                       ),
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
                         child: Text(
                           'YunhoChoi',
                           style:
@@ -203,28 +224,37 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
                                   ),
                         ),
                       ),
-                      Text(
-                        'yyyy.mm.dd',
-                        style: FlutterFlowTheme.of(context).bodySmall.override(
-                              fontFamily: 'pretendard',
-                              letterSpacing: 0.0,
-                              useGoogleFonts: false,
-                            ),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
+                        child: Text(
+                          'yyyy.mm.dd',
+                          style:
+                              FlutterFlowTheme.of(context).bodySmall.override(
+                                    fontFamily: 'pretendard',
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: false,
+                                  ),
+                        ),
                       ),
                       Expanded(
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(
-                              '36.5 ℃',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'pretendard',
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
-                                  ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 5.0, 0.0),
+                              child: Text(
+                                '36.5 ℃',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'pretendard',
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
@@ -303,7 +333,9 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
                       style:
                           FlutterFlowTheme.of(context).headlineMedium.override(
                                 fontFamily: 'pretendard',
+                                fontSize: 18.0,
                                 letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
                                 useGoogleFonts: false,
                               ),
                     ),
@@ -319,10 +351,11 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
                         width: 100.0,
                         height: 80.0,
                         decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: const Color(0xFFF0F8FF),
+                          borderRadius: BorderRadius.circular(12.0),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
                           ),
                         ),
                         child: Padding(
@@ -344,10 +377,11 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
                         width: 100.0,
                         height: 80.0,
                         decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: const Color(0xFFF0F8FF),
+                          borderRadius: BorderRadius.circular(12.0),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
                           ),
                         ),
                         child: Padding(
@@ -369,10 +403,11 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
                         width: 100.0,
                         height: 80.0,
                         decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: const Color(0xFFF0F8FF),
+                          borderRadius: BorderRadius.circular(12.0),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
                           ),
                         ),
                         child: Padding(
@@ -401,9 +436,10 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
                       width: 160.0,
                       height: 80.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: const Color(0xFFF0F8FF),
+                        borderRadius: BorderRadius.circular(12.0),
                         border: Border.all(
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                         ),
                       ),
                       child: Column(
@@ -416,6 +452,7 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
                                 FlutterFlowTheme.of(context).bodyLarge.override(
                                       fontFamily: 'pretendard',
                                       letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
                                       useGoogleFonts: false,
                                     ),
                           ),
@@ -436,9 +473,10 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
                       width: 160.0,
                       height: 80.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: const Color(0xFFF0F8FF),
+                        borderRadius: BorderRadius.circular(12.0),
                         border: Border.all(
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                         ),
                       ),
                       child: Align(
@@ -460,31 +498,35 @@ class _RecPost4WidgetState extends State<RecPost4Widget> {
                   alignment: const AlignmentDirectional(1.0, 0.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 23.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () {
                         print('Button pressed ...');
                       },
-                      text: '1:1 매세지로 신청',
+                      text: '1:1 메세지로 신청',
                       options: FFButtonOptions(
+                        width: 150.0,
                         height: 40.0,
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             12.0, 0.0, 12.0, 0.0),
                         iconPadding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).bodyMedium.override(
                                   fontFamily: 'pretendard',
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
                         elevation: 0.0,
                         borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                           width: 1.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(50.0),
                       ),
                     ),
                   ),

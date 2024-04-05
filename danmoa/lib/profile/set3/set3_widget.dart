@@ -129,28 +129,48 @@ class _Set3WidgetState extends State<Set3Widget> {
                               color: FlutterFlowTheme.of(context).alternate,
                               width: 2.0,
                             ),
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(12.0),
+                              bottomRight: Radius.circular(12.0),
+                              topLeft: Radius.circular(12.0),
+                              topRight: Radius.circular(12.0),
+                            ),
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
                               color: Color(0xFF375AC1),
                               width: 2.0,
                             ),
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(12.0),
+                              bottomRight: Radius.circular(12.0),
+                              topLeft: Radius.circular(12.0),
+                              topRight: Radius.circular(12.0),
+                            ),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: FlutterFlowTheme.of(context).error,
                               width: 2.0,
                             ),
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(12.0),
+                              bottomRight: Radius.circular(12.0),
+                              topLeft: Radius.circular(12.0),
+                              topRight: Radius.circular(12.0),
+                            ),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: FlutterFlowTheme.of(context).error,
                               width: 2.0,
                             ),
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(12.0),
+                              bottomRight: Radius.circular(12.0),
+                              topLeft: Radius.circular(12.0),
+                              topRight: Radius.circular(12.0),
+                            ),
                           ),
                           filled: true,
                           fillColor:
@@ -225,7 +245,7 @@ class _Set3WidgetState extends State<Set3Widget> {
                       text: '비밀번호 재설정 링크 전송',
                       options: FFButtonOptions(
                         width: double.infinity,
-                        height: 40.0,
+                        height: 45.0,
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         iconPadding:
@@ -243,12 +263,7 @@ class _Set3WidgetState extends State<Set3Widget> {
                           color: Colors.transparent,
                           width: 1.0,
                         ),
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(50.0),
-                          bottomRight: Radius.circular(50.0),
-                          topLeft: Radius.circular(50.0),
-                          topRight: Radius.circular(50.0),
-                        ),
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
                     ),
                   ),

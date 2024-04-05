@@ -225,7 +225,7 @@ class _StdHomeNewWidgetState extends State<StdHomeNewWidget>
                                             text: '가입하기',
                                             options: FFButtonOptions(
                                               width: double.infinity,
-                                              height: 48.0,
+                                              height: 45.0,
                                               padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       24.0, 0.0, 24.0, 0.0),
@@ -250,7 +250,7 @@ class _StdHomeNewWidgetState extends State<StdHomeNewWidget>
                                                 width: 1.0,
                                               ),
                                               borderRadius:
-                                                  BorderRadius.circular(12.0),
+                                                  BorderRadius.circular(8.0),
                                             ),
                                           ),
                                         ),

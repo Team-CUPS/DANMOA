@@ -46,11 +46,6 @@ class UsersRecord extends FirestoreRecord {
   String get phoneNumber => _phoneNumber ?? '';
   bool hasPhoneNumber() => _phoneNumber != null;
 
-  // "user_score" field.
-  int? _userScore;
-  int get userScore => _userScore ?? 0;
-  bool hasUserScore() => _userScore != null;
-
   // "prf_name" field.
   String? _prfName;
   String get prfName => _prfName ?? '';
@@ -76,6 +71,11 @@ class UsersRecord extends FirestoreRecord {
   String get prfPosition => _prfPosition ?? '';
   bool hasPrfPosition() => _prfPosition != null;
 
+  // "usr_score" field.
+  int? _usrScore;
+  int get usrScore => _usrScore ?? 0;
+  bool hasUsrScore() => _usrScore != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -83,12 +83,12 @@ class UsersRecord extends FirestoreRecord {
     _uid = snapshotData['uid'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
-    _userScore = castToType<int>(snapshotData['user_score']);
     _prfName = snapshotData['prf_name'] as String?;
     _prfGender = snapshotData['prf_gender'] as String?;
     _prfBirth = snapshotData['prf_birth'] as DateTime?;
     _prfMajor = snapshotData['prf_major'] as String?;
     _prfPosition = snapshotData['prf_position'] as String?;
+    _usrScore = castToType<int>(snapshotData['usr_score']);
   }
 
   static CollectionReference get collection =>
@@ -131,12 +131,12 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
-  int? userScore,
   String? prfName,
   String? prfGender,
   DateTime? prfBirth,
   String? prfMajor,
   String? prfPosition,
+  int? usrScore,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -146,12 +146,12 @@ Map<String, dynamic> createUsersRecordData({
       'uid': uid,
       'created_time': createdTime,
       'phone_number': phoneNumber,
-      'user_score': userScore,
       'prf_name': prfName,
       'prf_gender': prfGender,
       'prf_birth': prfBirth,
       'prf_major': prfMajor,
       'prf_position': prfPosition,
+      'usr_score': usrScore,
     }.withoutNulls,
   );
 
@@ -169,12 +169,12 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
-        e1?.userScore == e2?.userScore &&
         e1?.prfName == e2?.prfName &&
         e1?.prfGender == e2?.prfGender &&
         e1?.prfBirth == e2?.prfBirth &&
         e1?.prfMajor == e2?.prfMajor &&
-        e1?.prfPosition == e2?.prfPosition;
+        e1?.prfPosition == e2?.prfPosition &&
+        e1?.usrScore == e2?.usrScore;
   }
 
   @override
@@ -185,12 +185,12 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.uid,
         e?.createdTime,
         e?.phoneNumber,
-        e?.userScore,
         e?.prfName,
         e?.prfGender,
         e?.prfBirth,
         e?.prfMajor,
-        e?.prfPosition
+        e?.prfPosition,
+        e?.usrScore
       ]);
 
   @override
