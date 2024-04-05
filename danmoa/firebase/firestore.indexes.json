@@ -1,0 +1,18 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "study",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "std_leader_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "std_member_ids",
+          "arrayConfig": "CONTAINS"
+        }
+      ]
+    }
+  ]
+}

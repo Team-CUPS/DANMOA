@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "906145044028",
-    "project_id": "test0-40nfoq",
-    "storage_bucket": "test0-40nfoq.appspot.com"
+    "project_number": "710255742889",
+    "project_id": "danmoa-p5plsh",
+    "storage_bucket": "danmoa-p5plsh.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:906145044028:android:70114b94abdcb6dff2d539",
+        "mobilesdk_app_id": "1:710255742889:android:7dbde3a6ac98a94133beb8",
         "android_client_info": {
           "package_name": "com.cups.danmoa"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD6aTPmDmS3TU7y7a0pNm3bwZsfLPRU1S0"
+          "current_key": "AIzaSyChfKpFdZMeoXBYCCMa5X7Lkl9a-Lgh7xg"
         }
       ],
       "services": {
