@@ -94,8 +94,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'sign3',
           path: '/sign3',
           builder: (context, params) => Sign3Widget(
-            cond: params.getParam(
-              'cond',
+            email: params.getParam(
+              'email',
+              ParamType.String,
+            ),
+            pw: params.getParam(
+              'pw',
               ParamType.String,
             ),
           ),
@@ -104,8 +108,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'sign4',
           path: '/sign4',
           builder: (context, params) => Sign4Widget(
-            dept: params.getParam(
-              'dept',
+            email: params.getParam(
+              'email',
+              ParamType.String,
+            ),
+            pw: params.getParam(
+              'pw',
+              ParamType.String,
+            ),
+            name: params.getParam(
+              'name',
+              ParamType.String,
+            ),
+            subname: params.getParam(
+              'subname',
+              ParamType.String,
+            ),
+            birth: params.getParam(
+              'birth',
+              ParamType.DateTime,
+            ),
+            gender: params.getParam(
+              'gender',
               ParamType.String,
             ),
           ),
@@ -147,15 +171,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'stdPosition',
               ParamType.String,
             ),
-            stdTimes: params.getParam<String>(
-              'stdTimes',
-              ParamType.String,
-              true,
-            ),
-            stdField: params.getParam<String>(
+            stdField: params.getParam(
               'stdField',
               ParamType.String,
-              true,
             ),
           ),
         ),
@@ -230,9 +248,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const Set4Widget(),
         ),
         FFRoute(
-          name: 'stdHome1',
-          path: '/stdHome1',
-          builder: (context, params) => const StdHome1Widget(),
+          name: 'stdHome1_old',
+          path: '/stdHome1Old',
+          builder: (context, params) => const StdHome1OldWidget(),
         ),
         FFRoute(
           name: 'stdHome2',
@@ -255,9 +273,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const ChangeTimeWidget(),
         ),
         FFRoute(
-          name: 'stdHomeNew',
-          path: '/stdHomeNew',
-          builder: (context, params) => const StdHomeNewWidget(),
+          name: 'stdHome1',
+          path: '/stdHome1',
+          builder: (context, params) => const StdHome1Widget(),
         ),
         FFRoute(
           name: 'recHome1',
@@ -293,16 +311,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'recPost2',
           path: '/recPost2',
           builder: (context, params) => const RecPost2Widget(),
-        ),
-        FFRoute(
-          name: 'testpage',
-          path: '/testpage',
-          builder: (context, params) => const TestpageWidget(),
-        ),
-        FFRoute(
-          name: 'timetestpage',
-          path: '/timetestpage',
-          builder: (context, params) => const TimetestpageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

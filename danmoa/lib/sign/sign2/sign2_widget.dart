@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -157,9 +156,22 @@ class _Sign2WidgetState extends State<Sign2Widget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 24.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                       child: Text(
                         '단국대 이메일만 사용 가능합니다. (dankook.ac.kr)',
+                        style:
+                            FlutterFlowTheme.of(context).labelMedium.override(
+                                  fontFamily: 'pretendard',
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: false,
+                                ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
+                      child: Text(
+                        '인증 메일을 보내므로 메일 형식을 잘 맞춰주세요.',
                         style:
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: 'pretendard',
@@ -400,43 +412,96 @@ class _Sign2WidgetState extends State<Sign2Widget> {
                             0.0, 30.0, 0.0, 16.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            if ((String emailVar) {
-                              return emailVar.contains("dankook.ac.kr");
-                            }(_model.sign2Tf01Controller.text)) {
-                              GoRouter.of(context).prepareAuthEvent();
-                              if (_model.sign2Tf02Controller.text !=
-                                  _model.sign2Tf03Controller.text) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      'Passwords don\'t match!',
-                                    ),
-                                  ),
+                            if (_model.sign2Tf01Controller.text != '') {
+                              if ((String emailVar) {
+                                return emailVar.contains("dankook.ac.kr");
+                              }(_model.sign2Tf01Controller.text)) {
+                                if ((String pwVar) {
+                                  return pwVar.length >= 8 &&
+                                      pwVar.contains(RegExp(r'[a-zA-Z]')) &&
+                                      pwVar.contains(RegExp(r'\d'));
+                                }(_model.sign2Tf02Controller.text)) {
+                                  if (_model.sign2Tf02Controller.text ==
+                                      _model.sign2Tf03Controller.text) {
+                                    context.pushNamed(
+                                      'sign3',
+                                      queryParameters: {
+                                        'email': serializeParam(
+                                          _model.sign2Tf01Controller.text,
+                                          ParamType.String,
+                                        ),
+                                        'pw': serializeParam(
+                                          _model.sign2Tf02Controller.text,
+                                          ParamType.String,
+                                        ),
+                                      }.withoutNulls,
+                                      extra: <String, dynamic>{
+                                        kTransitionInfoKey: const TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.rightToLeft,
+                                        ),
+                                      },
+                                    );
+                                  } else {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          content: const Text('비밀번호가 일치하지 않습니다.'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: const Text('확인'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        content: const Text(
+                                            '비밀번호는 영문자와 숫자를 사용해 8자이상 입력해주세요.'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: const Text('확인'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      content:
+                                          const Text('단국대 이메일이 아닌 이메일은 사용 불가능합니다.'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: const Text('확인'),
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 );
-                                return;
                               }
-
-                              final user =
-                                  await authManager.createAccountWithEmail(
-                                context,
-                                _model.sign2Tf01Controller.text,
-                                _model.sign2Tf02Controller.text,
-                              );
-                              if (user == null) {
-                                return;
-                              }
-
-                              await authManager.sendEmailVerification();
-
-                              context.pushNamedAuth('sign3', context.mounted);
                             } else {
                               await showDialog(
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: const Text('이메일 오류'),
-                                    content:
-                                        const Text('단국대 이메일이 아닌 이메일은 사용 불가능합니다.'),
+                                    content: const Text('이메일을 입력해주세요.'),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>

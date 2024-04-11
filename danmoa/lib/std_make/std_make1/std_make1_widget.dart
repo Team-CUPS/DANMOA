@@ -61,7 +61,7 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
             },
           ),
           title: Text(
-            '스터디 만들기 ',
+            '스터디 만들기(1/3)',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'pretendard',
                   color: FlutterFlowTheme.of(context).primaryText,
@@ -235,7 +235,7 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                     },
                     text: '다음',
                     options: FFButtonOptions(
-                      width: 400.0,
+                      width: 320.0,
                       height: 45.0,
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),

@@ -315,8 +315,7 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                               }
 
                               if (currentUserEmailVerified) {
-                                context.pushNamedAuth(
-                                    'testpage', context.mounted);
+                                context.pushNamedAuth('home1', context.mounted);
                               } else {
                                 await authManager.sendEmailVerification();
                                 GoRouter.of(context).prepareAuthEvent();
