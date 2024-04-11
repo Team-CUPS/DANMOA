@@ -85,7 +85,8 @@ class _Sign5WidgetState extends State<Sign5Widget> {
               Align(
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 150.0, 0.0, 0.0),
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(30.0, 150.0, 30.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       context.pushNamed('sign1');

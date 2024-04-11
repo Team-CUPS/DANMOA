@@ -7,10 +7,6 @@ class StdMake3Model extends FlutterFlowModel<StdMake3Widget> {
 
   final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
-  // State field(s) for stdMake3_tf_01 widget.
-  FocusNode? stdMake3Tf01FocusNode;
-  TextEditingController? stdMake3Tf01Controller;
-  String? Function(BuildContext, String?)? stdMake3Tf01ControllerValidator;
   // State field(s) for stdMake3_tf_02 widget.
   FocusNode? stdMake3Tf02FocusNode;
   TextEditingController? stdMake3Tf02Controller;
@@ -29,9 +25,6 @@ class StdMake3Model extends FlutterFlowModel<StdMake3Widget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    stdMake3Tf01FocusNode?.dispose();
-    stdMake3Tf01Controller?.dispose();
-
     stdMake3Tf02FocusNode?.dispose();
     stdMake3Tf02Controller?.dispose();
 

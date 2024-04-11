@@ -1,10 +1,9 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'std_make3_model.dart';
 export 'std_make3_model.dart';
 
@@ -13,14 +12,12 @@ class StdMake3Widget extends StatefulWidget {
     super.key,
     required this.stdName,
     required this.stdPosition,
-    required this.stdTimes,
     required this.stdField,
   });
 
   final String? stdName;
   final String? stdPosition;
-  final List<String>? stdTimes;
-  final List<String>? stdField;
+  final String? stdField;
 
   @override
   State<StdMake3Widget> createState() => _StdMake3WidgetState();
@@ -36,8 +33,10 @@ class _StdMake3WidgetState extends State<StdMake3Widget> {
     super.initState();
     _model = createModel(context, () => StdMake3Model());
 
-    _model.stdMake3Tf01Controller ??= TextEditingController();
-    _model.stdMake3Tf01FocusNode ??= FocusNode();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      context.safePop();
+    });
 
     _model.stdMake3Tf02Controller ??= TextEditingController();
     _model.stdMake3Tf02FocusNode ??= FocusNode();
@@ -80,7 +79,7 @@ class _StdMake3WidgetState extends State<StdMake3Widget> {
             },
           ),
           title: Text(
-            '스터디 만들기',
+            '스터디 만들기(3/3)',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'pretendard',
                   color: FlutterFlowTheme.of(context).primaryText,
@@ -97,7 +96,7 @@ class _StdMake3WidgetState extends State<StdMake3Widget> {
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(60.0, 0.0, 60.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
             child: Form(
               key: _model.formKey,
               autovalidateMode: AutovalidateMode.disabled,
@@ -106,122 +105,7 @@ class _StdMake3WidgetState extends State<StdMake3Widget> {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 60.0, 0.0, 12.0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Align(
-                            alignment: const AlignmentDirectional(-1.0, 0.0),
-                            child: Text(
-                              '최대 인원수',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'pretendard',
-                                    fontSize: 22.0,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
-                                  ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 20.0, 0.0, 0.0),
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: TextFormField(
-                                controller: _model.stdMake3Tf01Controller,
-                                focusNode: _model.stdMake3Tf01FocusNode,
-                                autofocus: true,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'pretendard',
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: false,
-                                      ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'pretendard',
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: false,
-                                      ),
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0xFFADB3B2),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(0.0),
-                                      bottomRight: Radius.circular(0.0),
-                                      topLeft: Radius.circular(0.0),
-                                      topRight: Radius.circular(0.0),
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(0.0),
-                                      bottomRight: Radius.circular(0.0),
-                                      topLeft: Radius.circular(0.0),
-                                      topRight: Radius.circular(0.0),
-                                    ),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(0.0),
-                                      bottomRight: Radius.circular(0.0),
-                                      topLeft: Radius.circular(0.0),
-                                      topRight: Radius.circular(0.0),
-                                    ),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(0.0),
-                                      bottomRight: Radius.circular(0.0),
-                                      topLeft: Radius.circular(0.0),
-                                      topRight: Radius.circular(0.0),
-                                    ),
-                                  ),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'pretendard',
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
-                                    ),
-                                minLines: null,
-                                keyboardType: TextInputType.number,
-                                validator: _model
-                                    .stdMake3Tf01ControllerValidator
-                                    .asValidator(context),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 12.0),
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
@@ -265,17 +149,12 @@ class _StdMake3WidgetState extends State<StdMake3Widget> {
                                         letterSpacing: 0.0,
                                         useGoogleFonts: false,
                                       ),
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
                                       color: Color(0xFFADB3B2),
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(12.0),
-                                      bottomRight: Radius.circular(12.0),
-                                      topLeft: Radius.circular(12.0),
-                                      topRight: Radius.circular(12.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
@@ -283,36 +162,21 @@ class _StdMake3WidgetState extends State<StdMake3Widget> {
                                           .primaryText,
                                       width: 1.0,
                                     ),
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(12.0),
-                                      bottomRight: Radius.circular(12.0),
-                                      topLeft: Radius.circular(12.0),
-                                      topRight: Radius.circular(12.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(12.0),
-                                      bottomRight: Radius.circular(12.0),
-                                      topLeft: Radius.circular(12.0),
-                                      topRight: Radius.circular(12.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(12.0),
-                                      bottomRight: Radius.circular(12.0),
-                                      topLeft: Radius.circular(12.0),
-                                      topRight: Radius.circular(12.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -380,17 +244,12 @@ class _StdMake3WidgetState extends State<StdMake3Widget> {
                                         letterSpacing: 0.0,
                                         useGoogleFonts: false,
                                       ),
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
                                       color: Color(0xFFADB3B2),
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(12.0),
-                                      bottomRight: Radius.circular(12.0),
-                                      topLeft: Radius.circular(12.0),
-                                      topRight: Radius.circular(12.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
@@ -398,36 +257,21 @@ class _StdMake3WidgetState extends State<StdMake3Widget> {
                                           .primaryText,
                                       width: 1.0,
                                     ),
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(12.0),
-                                      bottomRight: Radius.circular(12.0),
-                                      topLeft: Radius.circular(12.0),
-                                      topRight: Radius.circular(12.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(12.0),
-                                      bottomRight: Radius.circular(12.0),
-                                      topLeft: Radius.circular(12.0),
-                                      topRight: Radius.circular(12.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(12.0),
-                                      bottomRight: Radius.circular(12.0),
-                                      topLeft: Radius.circular(12.0),
-                                      topRight: Radius.circular(12.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
                                   suffixIcon: InkWell(
                                     onTap: () => setState(
@@ -468,32 +312,12 @@ class _StdMake3WidgetState extends State<StdMake3Widget> {
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 150.0, 0.0, 0.0),
                       child: FFButtonWidget(
-                        onPressed: () async {
-                          await StudyRecord.collection.doc().set({
-                            ...createStudyRecordData(
-                              stdName: widget.stdName,
-                              stdPosition: widget.stdPosition,
-                              stdDues: int.tryParse(
-                                  _model.stdMake3Tf02Controller.text),
-                              stdPw: int.tryParse(
-                                  _model.stdMake3Tf03Controller.text),
-                              stdLeaderId: currentUserUid,
-                              stdCreatedTime: getCurrentTimestamp,
-                              stdScore: 0,
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'std_time': widget.stdTimes,
-                                'std_field': widget.stdField,
-                              },
-                            ),
-                          });
-
-                          context.pushNamed('stdMake4');
+                        onPressed: () {
+                          print('stdMake3_btn_02 pressed ...');
                         },
-                        text: '다음 (임시로 스터디 저장버튼)',
+                        text: '저장하기',
                         options: FFButtonOptions(
-                          width: double.infinity,
+                          width: 320.0,
                           height: 45.0,
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),

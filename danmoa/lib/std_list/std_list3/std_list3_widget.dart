@@ -218,16 +218,6 @@ class _StdList3WidgetState extends State<StdList3Widget> {
                                             ),
                                       ),
                                       Text(
-                                        ' / 활동점수 10점',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'pretendard',
-                                              letterSpacing: 0.0,
-                                              useGoogleFonts: false,
-                                            ),
-                                      ),
-                                      Text(
                                         ' / 팀원 0명 ',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium

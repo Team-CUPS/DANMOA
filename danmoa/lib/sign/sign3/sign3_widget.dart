@@ -1,12 +1,9 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'sign3_model.dart';
 export 'sign3_model.dart';
@@ -14,10 +11,12 @@ export 'sign3_model.dart';
 class Sign3Widget extends StatefulWidget {
   const Sign3Widget({
     super.key,
-    String? cond,
-  }) : cond = cond ?? ' ';
+    required this.email,
+    required this.pw,
+  });
 
-  final String cond;
+  final String? email;
+  final String? pw;
 
   @override
   State<Sign3Widget> createState() => _Sign3WidgetState();
@@ -39,10 +38,8 @@ class _Sign3WidgetState extends State<Sign3Widget> {
     _model.sign3Tf02Controller ??= TextEditingController();
     _model.sign3Tf02FocusNode ??= FocusNode();
 
-    _model.sign3Tf03Controller ??=
-        TextEditingController(text: dateTimeFormat('yMMMd', _model.datePicked));
+    _model.sign3Tf03Controller ??= TextEditingController();
     _model.sign3Tf03FocusNode ??= FocusNode();
-    _model.sign3Tf03FocusNode!.addListener(() => setState(() {}));
   }
 
   @override
@@ -178,7 +175,7 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             0.0, 12.0, 0.0, 12.0),
                         child: Text(
-                          '이름, 생년월일은 추후 변경이 어렵습니다.',
+                          '이름, 생년월일은 변경이 어려우니 신중히 입력해주세요.',
                           style:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     fontFamily: 'pretendard',
@@ -392,7 +389,7 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                   0.0, 0.0, 0.0, 11.0),
                               child: FFButtonWidget(
                                 onPressed: () {
-                                  print('Button pressed ...');
+                                  print('sign3_btn_02 pressed ...');
                                 },
                                 text: '중복체크',
                                 options: FFButtonOptions(
@@ -446,15 +443,11 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                   child: TextFormField(
                                     controller: _model.sign3Tf03Controller,
                                     focusNode: _model.sign3Tf03FocusNode,
-                                    onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.sign3Tf03Controller',
-                                      const Duration(milliseconds: 0),
-                                      () => setState(() {}),
-                                    ),
                                     autofocus: false,
                                     readOnly: true,
                                     obscureText: false,
                                     decoration: InputDecoration(
+                                      labelText: '생년월일',
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
@@ -463,13 +456,12 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                             letterSpacing: 0.0,
                                             useGoogleFonts: false,
                                           ),
-                                      hintText: '생년월일',
                                       hintStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
                                             fontFamily: 'pretendard',
                                             color: const Color(0x7057636C),
-                                            fontSize: 16.0,
+                                            fontSize: 25.0,
                                             letterSpacing: 0.0,
                                             useGoogleFonts: false,
                                           ),
@@ -535,7 +527,6 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'pretendard',
-                                          color: const Color(0x7057636C),
                                           fontSize: 14.0,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: false,
@@ -608,6 +599,11 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                         );
                                       });
                                     }
+                                    setState(() {
+                                      _model.sign3Tf03Controller?.text =
+                                          dateTimeFormat(
+                                              'yyyy-MM-dd', _model.datePicked);
+                                    });
                                   },
                                   text: '날짜선택',
                                   options: FFButtonOptions(
@@ -708,28 +704,115 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                     ),
                     FFButtonWidget(
                       onPressed: () async {
-                        if (_model.formKey.currentState == null ||
-                            !_model.formKey.currentState!.validate()) {
-                          return;
+                        if (_model.sign3Tf01Controller.text != '') {
+                          if (_model.sign3Tf02Controller.text != '') {
+                            if (_model.sign3Tf03Controller.text != '') {
+                              if (_model.sign3Rad01Value != null &&
+                                  _model.sign3Rad01Value != '') {
+                                context.pushNamed(
+                                  'sign4',
+                                  queryParameters: {
+                                    'email': serializeParam(
+                                      widget.email,
+                                      ParamType.String,
+                                    ),
+                                    'pw': serializeParam(
+                                      widget.pw,
+                                      ParamType.String,
+                                    ),
+                                    'name': serializeParam(
+                                      _model.sign3Tf01Controller.text,
+                                      ParamType.String,
+                                    ),
+                                    'subname': serializeParam(
+                                      _model.sign3Tf02Controller.text,
+                                      ParamType.String,
+                                    ),
+                                    'birth': serializeParam(
+                                      _model.datePicked,
+                                      ParamType.DateTime,
+                                    ),
+                                    'gender': serializeParam(
+                                      _model.sign3Rad01Value,
+                                      ParamType.String,
+                                    ),
+                                  }.withoutNulls,
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: const TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType:
+                                          PageTransitionType.rightToLeft,
+                                    ),
+                                  },
+                                );
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      content: const Text('성별을 선택해주세요.'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: const Text('확인'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                            } else {
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    content: const Text('생년월일을 입력해주세요.'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: const Text('확인'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                          } else {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  content: const Text('닉네임을 입력해주세요.'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: const Text('확인'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        } else {
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                content: const Text('이름을 입력해주세요.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: const Text('확인'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         }
-
-                        await currentUserReference!
-                            .update(createUsersRecordData(
-                          prfName: _model.sign3Tf01Controller.text,
-                          displayName: _model.sign3Tf02Controller.text,
-                          prfBirth: _model.datePicked,
-                          prfGender: _model.sign3Rad01Value,
-                        ));
-
-                        context.pushNamed(
-                          'sign4',
-                          queryParameters: {
-                            'dept': serializeParam(
-                              '',
-                              ParamType.String,
-                            ),
-                          }.withoutNulls,
-                        );
                       },
                       text: '다음',
                       options: FFButtonOptions(

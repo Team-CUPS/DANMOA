@@ -19,16 +19,6 @@ class StdList4Model extends FlutterFlowModel<StdList4Widget> {
   List<String>? get stdList4Cc03Values => stdList4Cc03ValueController?.value;
   set stdList4Cc03Values(List<String>? val) =>
       stdList4Cc03ValueController?.value = val;
-  // State field(s) for stdList4_cc_04 widget.
-  FormFieldController<List<String>>? stdList4Cc04ValueController;
-  List<String>? get stdList4Cc04Values => stdList4Cc04ValueController?.value;
-  set stdList4Cc04Values(List<String>? val) =>
-      stdList4Cc04ValueController?.value = val;
-  // State field(s) for stdList4_cc_05 widget.
-  FormFieldController<List<String>>? stdList4Cc05ValueController;
-  List<String>? get stdList4Cc05Values => stdList4Cc05ValueController?.value;
-  set stdList4Cc05Values(List<String>? val) =>
-      stdList4Cc05ValueController?.value = val;
   // State field(s) for stdList4_cc_06 widget.
   FormFieldController<List<String>>? stdList4Cc06ValueController;
   String? get stdList4Cc06Value =>
