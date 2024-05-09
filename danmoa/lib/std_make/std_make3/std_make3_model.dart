@@ -7,19 +7,15 @@ class StdMake3Model extends FlutterFlowModel<StdMake3Widget> {
 
   final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
-  // State field(s) for stdMake3_tf_01 widget.
-  FocusNode? stdMake3Tf01FocusNode;
-  TextEditingController? stdMake3Tf01Controller;
-  String? Function(BuildContext, String?)? stdMake3Tf01ControllerValidator;
   // State field(s) for stdMake3_tf_02 widget.
   FocusNode? stdMake3Tf02FocusNode;
-  TextEditingController? stdMake3Tf02Controller;
-  String? Function(BuildContext, String?)? stdMake3Tf02ControllerValidator;
+  TextEditingController? stdMake3Tf02TextController;
+  String? Function(BuildContext, String?)? stdMake3Tf02TextControllerValidator;
   // State field(s) for stdMake3_tf_03 widget.
   FocusNode? stdMake3Tf03FocusNode;
-  TextEditingController? stdMake3Tf03Controller;
+  TextEditingController? stdMake3Tf03TextController;
   late bool stdMake3Tf03Visibility;
-  String? Function(BuildContext, String?)? stdMake3Tf03ControllerValidator;
+  String? Function(BuildContext, String?)? stdMake3Tf03TextControllerValidator;
 
   @override
   void initState(BuildContext context) {
@@ -29,13 +25,10 @@ class StdMake3Model extends FlutterFlowModel<StdMake3Widget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    stdMake3Tf01FocusNode?.dispose();
-    stdMake3Tf01Controller?.dispose();
-
     stdMake3Tf02FocusNode?.dispose();
-    stdMake3Tf02Controller?.dispose();
+    stdMake3Tf02TextController?.dispose();
 
     stdMake3Tf03FocusNode?.dispose();
-    stdMake3Tf03Controller?.dispose();
+    stdMake3Tf03TextController?.dispose();
   }
 }

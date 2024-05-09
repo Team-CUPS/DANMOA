@@ -8,8 +8,8 @@ class StdList3Model extends FlutterFlowModel<StdList3Widget> {
   final unfocusNode = FocusNode();
   // State field(s) for stdList3_tf_01 widget.
   FocusNode? stdList3Tf01FocusNode;
-  TextEditingController? stdList3Tf01Controller;
-  String? Function(BuildContext, String?)? stdList3Tf01ControllerValidator;
+  TextEditingController? stdList3Tf01TextController;
+  String? Function(BuildContext, String?)? stdList3Tf01TextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
@@ -18,6 +18,6 @@ class StdList3Model extends FlutterFlowModel<StdList3Widget> {
   void dispose() {
     unfocusNode.dispose();
     stdList3Tf01FocusNode?.dispose();
-    stdList3Tf01Controller?.dispose();
+    stdList3Tf01TextController?.dispose();
   }
 }

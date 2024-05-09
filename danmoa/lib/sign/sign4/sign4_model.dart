@@ -8,10 +8,8 @@ class Sign4Model extends FlutterFlowModel<Sign4Widget> {
 
   final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
-  // State field(s) for sign4_tf_01 widget.
-  FocusNode? sign4Tf01FocusNode;
-  TextEditingController? sign4Tf01Controller;
-  String? Function(BuildContext, String?)? sign4Tf01ControllerValidator;
+  // Stores action output result for [Bottom Sheet - sign4_sht_01] action in sign4_btn_02 widget.
+  String? dept;
   // State field(s) for sign4_cc_01 widget.
   FormFieldController<List<String>>? sign4Cc01ValueController;
   String? get sign4Cc01Value => sign4Cc01ValueController?.value?.firstOrNull;
@@ -24,7 +22,5 @@ class Sign4Model extends FlutterFlowModel<Sign4Widget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    sign4Tf01FocusNode?.dispose();
-    sign4Tf01Controller?.dispose();
   }
 }

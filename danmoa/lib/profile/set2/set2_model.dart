@@ -15,16 +15,14 @@ class Set2Model extends FlutterFlowModel<Set2Widget> {
 
   // State field(s) for sign3_tf_02 widget.
   FocusNode? sign3Tf02FocusNode;
-  TextEditingController? sign3Tf02Controller;
-  String? Function(BuildContext, String?)? sign3Tf02ControllerValidator;
+  TextEditingController? sign3Tf02TextController;
+  String? Function(BuildContext, String?)? sign3Tf02TextControllerValidator;
   // State field(s) for myBio widget.
   FocusNode? myBioFocusNode;
-  TextEditingController? myBioController;
-  String? Function(BuildContext, String?)? myBioControllerValidator;
-  // State field(s) for set2_tf_03 widget.
-  FocusNode? set2Tf03FocusNode;
-  TextEditingController? set2Tf03Controller;
-  String? Function(BuildContext, String?)? set2Tf03ControllerValidator;
+  TextEditingController? myBioTextController;
+  String? Function(BuildContext, String?)? myBioTextControllerValidator;
+  // Stores action output result for [Bottom Sheet - sign4_sht_01] action in Button widget.
+  String? dept;
   // State field(s) for sign4_cc_01 widget.
   FormFieldController<List<String>>? sign4Cc01ValueController;
   String? get sign4Cc01Value => sign4Cc01ValueController?.value?.firstOrNull;
@@ -38,12 +36,9 @@ class Set2Model extends FlutterFlowModel<Set2Widget> {
   void dispose() {
     unfocusNode.dispose();
     sign3Tf02FocusNode?.dispose();
-    sign3Tf02Controller?.dispose();
+    sign3Tf02TextController?.dispose();
 
     myBioFocusNode?.dispose();
-    myBioController?.dispose();
-
-    set2Tf03FocusNode?.dispose();
-    set2Tf03Controller?.dispose();
+    myBioTextController?.dispose();
   }
 }

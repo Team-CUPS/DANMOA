@@ -8,8 +8,8 @@ class Set3Model extends FlutterFlowModel<Set3Widget> {
   final unfocusNode = FocusNode();
   // State field(s) for sign1_tf_03 widget.
   FocusNode? sign1Tf03FocusNode;
-  TextEditingController? sign1Tf03Controller;
-  String? Function(BuildContext, String?)? sign1Tf03ControllerValidator;
+  TextEditingController? sign1Tf03TextController;
+  String? Function(BuildContext, String?)? sign1Tf03TextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
@@ -18,6 +18,6 @@ class Set3Model extends FlutterFlowModel<Set3Widget> {
   void dispose() {
     unfocusNode.dispose();
     sign1Tf03FocusNode?.dispose();
-    sign1Tf03Controller?.dispose();
+    sign1Tf03TextController?.dispose();
   }
 }

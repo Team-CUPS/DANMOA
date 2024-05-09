@@ -30,6 +30,24 @@ class DKULoginForAuthenticationCall {
   }
 }
 
+class PictureCall {
+  static Future<ApiCallResponse> call() async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'picture',
+      apiUrl:
+          'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/users%2FefiSKK3SihNLfm4dMM1JA4rvEf12%2Fuploads%2F1712368528678000.png?alt=media&token=355b748f-7398-4c79-bd62-c12152b80e18',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

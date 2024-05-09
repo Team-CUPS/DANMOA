@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
+import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
@@ -72,13 +73,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const Home1Widget() : const Sign1Widget(),
+          appStateNotifier.loggedIn ? const NavBarPage() : const Sign1Widget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const Home1Widget() : const Sign1Widget(),
+              appStateNotifier.loggedIn ? const NavBarPage() : const Sign1Widget(),
         ),
         FFRoute(
           name: 'sign1',
@@ -94,8 +95,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'sign3',
           path: '/sign3',
           builder: (context, params) => Sign3Widget(
-            cond: params.getParam(
-              'cond',
+            email: params.getParam(
+              'email',
+              ParamType.String,
+            ),
+            pw: params.getParam(
+              'pw',
               ParamType.String,
             ),
           ),
@@ -104,8 +109,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'sign4',
           path: '/sign4',
           builder: (context, params) => Sign4Widget(
-            dept: params.getParam(
-              'dept',
+            email: params.getParam(
+              'email',
+              ParamType.String,
+            ),
+            pw: params.getParam(
+              'pw',
+              ParamType.String,
+            ),
+            name: params.getParam(
+              'name',
+              ParamType.String,
+            ),
+            subname: params.getParam(
+              'subname',
+              ParamType.String,
+            ),
+            birth: params.getParam(
+              'birth',
+              ParamType.DateTime,
+            ),
+            gender: params.getParam(
+              'gender',
               ParamType.String,
             ),
           ),
@@ -118,7 +143,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'home1',
           path: '/home1',
-          builder: (context, params) => const Home1Widget(),
+          builder: (context, params) =>
+              params.isEmpty ? const NavBarPage(initialPage: 'home1') : const Home1Widget(),
         ),
         FFRoute(
           name: 'stdMake1',
@@ -131,6 +157,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => StdMake2Widget(
             stdName: params.getParam(
               'stdName',
+              ParamType.String,
+            ),
+            stdPrfPicture: params.getParam(
+              'stdPrfPicture',
               ParamType.String,
             ),
           ),
@@ -147,15 +177,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'stdPosition',
               ParamType.String,
             ),
-            stdTimes: params.getParam<String>(
+            stdTimes: params.getParam(
               'stdTimes',
               ParamType.String,
-              true,
+              isList: true,
             ),
-            stdField: params.getParam<String>(
+            stdField: params.getParam(
               'stdField',
               ParamType.String,
-              true,
+            ),
+            stdPrfPicture: params.getParam(
+              'stdPrfPicture',
+              ParamType.String,
             ),
           ),
         ),
@@ -172,27 +205,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'stdList2',
           path: '/stdList2',
-          builder: (context, params) => const StdList2Widget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'stdList2')
+              : const StdList2Widget(),
         ),
         FFRoute(
           name: 'stdList3',
           path: '/stdList3',
           builder: (context, params) => const StdList3Widget(),
-        ),
-        FFRoute(
-          name: 'stdList4',
-          path: '/stdList4',
-          builder: (context, params) => const StdList4Widget(),
-        ),
-        FFRoute(
-          name: 'chat1',
-          path: '/chat1',
-          builder: (context, params) => const Chat1Widget(),
-        ),
-        FFRoute(
-          name: 'chat2',
-          path: '/chat2',
-          builder: (context, params) => const Chat2Widget(),
         ),
         FFRoute(
           name: 'notice1',
@@ -202,7 +222,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'prf1',
           path: '/prf1',
-          builder: (context, params) => const Prf1Widget(),
+          builder: (context, params) =>
+              params.isEmpty ? const NavBarPage(initialPage: 'prf1') : const Prf1Widget(),
         ),
         FFRoute(
           name: 'set1',
@@ -212,12 +233,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'set2',
           path: '/set2',
-          builder: (context, params) => Set2Widget(
-            dept: params.getParam(
-              'dept',
-              ParamType.String,
-            ),
-          ),
+          builder: (context, params) => const Set2Widget(),
         ),
         FFRoute(
           name: 'set3',
@@ -230,19 +246,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const Set4Widget(),
         ),
         FFRoute(
-          name: 'stdHome1',
-          path: '/stdHome1',
-          builder: (context, params) => const StdHome1Widget(),
-        ),
-        FFRoute(
           name: 'stdHome2',
           path: '/stdHome2',
           builder: (context, params) => const StdHome2Widget(),
         ),
         FFRoute(
-          name: 'team_management',
-          path: '/teamManagement',
-          builder: (context, params) => const TeamManagementWidget(),
+          name: 'stdHome3',
+          path: '/stdHome3',
+          builder: (context, params) => const StdHome3Widget(),
         ),
         FFRoute(
           name: 'change_position',
@@ -250,59 +261,63 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const ChangePositionWidget(),
         ),
         FFRoute(
-          name: 'change_time',
-          path: '/changeTime',
-          builder: (context, params) => const ChangeTimeWidget(),
+          name: 'stdHome1',
+          path: '/stdHome1',
+          builder: (context, params) => const StdHome1Widget(),
         ),
         FFRoute(
-          name: 'stdHomeNew',
-          path: '/stdHomeNew',
-          builder: (context, params) => const StdHomeNewWidget(),
+          name: 'stdRoom1',
+          path: '/stdRoom1',
+          builder: (context, params) => const StdRoom1Widget(),
         ),
         FFRoute(
-          name: 'recHome1',
-          path: '/recHome1',
-          builder: (context, params) => const RecHome1Widget(),
+          name: 'QA1',
+          path: '/qa1',
+          builder: (context, params) => const Qa1Widget(),
         ),
         FFRoute(
-          name: 'recHome2',
-          path: '/recHome2',
-          builder: (context, params) => const RecHome2Widget(),
+          name: 'QA2',
+          path: '/qa2',
+          builder: (context, params) => const Qa2Widget(),
         ),
         FFRoute(
-          name: 'recHome3',
-          path: '/recHome3',
-          builder: (context, params) => const RecHome3Widget(),
+          name: 'QA3',
+          path: '/qa3',
+          builder: (context, params) => const Qa3Widget(),
         ),
         FFRoute(
-          name: 'recPost1',
-          path: '/recPost1',
-          builder: (context, params) => const RecPost1Widget(),
+          name: 'stdRoom2',
+          path: '/stdRoom2',
+          builder: (context, params) => const StdRoom2Widget(),
         ),
         FFRoute(
-          name: 'recPost3',
-          path: '/recPost3',
-          builder: (context, params) => const RecPost3Widget(),
+          name: 'QA4',
+          path: '/qa4',
+          builder: (context, params) => Qa4Widget(
+            usrInputTxt: params.getParam(
+              'usr_input_txt',
+              ParamType.String,
+            ),
+            aiOutput: params.getParam(
+              'ai_output',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
-          name: 'recPost4',
-          path: '/recPost4',
-          builder: (context, params) => const RecPost4Widget(),
+          name: 'stdHome4',
+          path: '/stdHome4',
+          builder: (context, params) => const StdHome4Widget(),
         ),
         FFRoute(
-          name: 'recPost2',
-          path: '/recPost2',
-          builder: (context, params) => const RecPost2Widget(),
+          name: 'stdHome5',
+          path: '/stdHome5',
+          builder: (context, params) => const StdHome5Widget(),
         ),
         FFRoute(
-          name: 'testpage',
-          path: '/testpage',
-          builder: (context, params) => const TestpageWidget(),
-        ),
-        FFRoute(
-          name: 'timetestpage',
-          path: '/timetestpage',
-          builder: (context, params) => const TimetestpageWidget(),
+          name: 'stdList4',
+          path: '/stdList4',
+          builder: (context, params) => const StdList4Widget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -379,7 +394,7 @@ extension _GoRouterStateExtensions on GoRouterState {
       extra != null ? extra as Map<String, dynamic> : {};
   Map<String, dynamic> get allParams => <String, dynamic>{}
     ..addAll(pathParameters)
-    ..addAll(queryParameters)
+    ..addAll(uri.queryParameters)
     ..addAll(extraMap);
   TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
       ? extraMap[kTransitionInfoKey] as TransitionInfo
@@ -398,7 +413,7 @@ class FFParameters {
   // present is the special extra parameter reserved for the transition info.
   bool get isEmpty =>
       state.allParams.isEmpty ||
-      (state.extraMap.length == 1 &&
+      (state.allParams.length == 1 &&
           state.extraMap.containsKey(kTransitionInfoKey));
   bool isAsyncParam(MapEntry<String, dynamic> param) =>
       asyncParams.containsKey(param.key) && param.value is String;
@@ -419,10 +434,10 @@ class FFParameters {
 
   dynamic getParam<T>(
     String paramName,
-    ParamType type, [
+    ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
-  ]) {
+  }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
     }
@@ -472,7 +487,7 @@ class FFRoute {
           }
 
           if (requireAuth && !appStateNotifier.loggedIn) {
-            appStateNotifier.setRedirectLocationIfUnset(state.location);
+            appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
             return '/sign1';
           }
           return null;
@@ -551,7 +566,7 @@ class RootPageContext {
   static bool isInactiveRootPage(BuildContext context) {
     final rootPageContext = context.read<RootPageContext?>();
     final isRootPage = rootPageContext?.isRootPage ?? false;
-    final location = GoRouter.of(context).location;
+    final location = GoRouterState.of(context).uri.toString();
     return isRootPage &&
         location != '/' &&
         location != rootPageContext?.errorRoute;

@@ -1,12 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'std_list1_model.dart';
 export 'std_list1_model.dart';
+import 'package:danmoa/backend/backend.dart';
 
 class StdList1Widget extends StatefulWidget {
   const StdList1Widget({super.key});
@@ -18,23 +17,32 @@ class StdList1Widget extends StatefulWidget {
 class _StdList1WidgetState extends State<StdList1Widget> {
   late StdList1Model _model;
 
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
+    logger.i('init() in std_list1');
     super.initState();
     _model = createModel(context, () => StdList1Model());
   }
 
   @override
   void dispose() {
+    logger.i('dispose() in std_list1');
     _model.dispose();
-
     super.dispose();
   }
 
   @override
+  void didChangeDependencies() {
+    logger.i("didChangeDependencies() in std_list1: ${context.toString()}");
+    super.didChangeDependencies(); 
+  }
+
+  @override
   Widget build(BuildContext context) {
+    logger.i("build() in std_list1: ${context.toString()}");
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -59,39 +67,18 @@ class _StdList1WidgetState extends State<StdList1Widget> {
               context.safePop();
             },
           ),
-          title: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '내 스터디',
-                style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      fontFamily: 'pretendard',
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: 20.0,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.bold,
-                      useGoogleFonts: false,
-                    ),
-              ),
-            ],
+          title: Text(
+            '내 스터디',
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  fontFamily: 'pretendard',
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontSize: 20.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.bold,
+                  useGoogleFonts: false,
+                ),
           ),
-          actions: [
-            FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 20.0,
-              borderWidth: 1.0,
-              buttonSize: 60.0,
-              icon: Icon(
-                Icons.add,
-                color: FlutterFlowTheme.of(context).primaryText,
-                size: 24.0,
-              ),
-              onPressed: () {
-                print('stdList1_btn_02 pressed ...');
-              },
-            ),
-          ],
+          actions: const [],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -99,148 +86,133 @@ class _StdList1WidgetState extends State<StdList1Widget> {
           top: true,
           child: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0.0, 1.0, 0.0, 0.0),
-            child: StreamBuilder<List<StudyRecord>>(
-              stream: queryStudyRecord(
-                queryBuilder: (studyRecord) => studyRecord.where(Filter.or(
-                  Filter(
-                    'std_leader_id',
-                    isEqualTo: currentUserUid,
-                  ),
-                  Filter(
-                    'std_member_ids',
-                    arrayContains: currentUserUid,
-                  ),
-                )),
-              ),
+            child: FutureBuilder<List<Map<String, dynamic>>>(
+              future: loadFilteredPersonalStudyData(1), // 1: updated time DESC / 2: created time DESC
               builder: (context, snapshot) {
-                // Customize what your widget looks like when it's loading.
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: SizedBox(
-                      width: 50.0,
-                      height: 50.0,
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          FlutterFlowTheme.of(context).primary,
-                        ),
-                      ),
-                    ),
-                  );
-                }
-                List<StudyRecord> listViewStudyRecordList = snapshot.data!;
-                return ListView.builder(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: listViewStudyRecordList.length,
-                  itemBuilder: (context, listViewIndex) {
-                    final listViewStudyRecord =
-                        listViewStudyRecordList[listViewIndex];
-                    return Container(
-                      width: double.infinity,
-                      height: 70.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 0.0,
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            offset: const Offset(
-                              0.0,
-                              1.0,
-                            ),
-                          )
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: Container(
-                                width: 44.0,
-                                height: 44.0,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Text('오류 발생: ${snapshot.error}');
+                } else {
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: snapshot.data!.length,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (BuildContext context, int index) {
+                      final study = snapshot.data![index];
+                      String stdPosition = study['std_leader']['uid'] == currentUserUid ? '팀장' : '팀원';
+                      String stdName = study['std_name'];
+                      DateTime stdUpdatedTime = study['std_updated_time'];
+                      String formattedUpdateTime = formatUpdateTime(stdUpdatedTime);
+                      //String stdPrfPicture = study['std_prf_picture'] ?? 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fdefault_white.png?alt=media&token=e78c656d-4dc3-4b91-b2ad-2bb69a913f64';
+                      return InkWell(
+                        onTap: () async {
+                          try {
+                            await updateStudyUpdateTime(stdName);
+                            var result = await Navigator.pushNamed(
+                              context,
+                              'stdList1',
+                              arguments: {
+                                'stdName': serializeParam(stdName, ParamType.String),
+                                'stdPosition': serializeParam(stdPosition, ParamType.String),
+                              }.withoutNulls,
+                            );
+                            if (result == null) {
+                              print('저장을 실패했다.');
+                            } else {
+                              print('돌아왔다. $result');
+                            }
+                          } catch (e) {
+                            print('Error during navigation: $e');
+                          }
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 70.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).secondaryBackground,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 0.0,
+                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                                offset: const Offset(0.0, 1.0),
+                              )
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Container(
+                                    width: 44.0,
+                                    height: 44.0,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.network(
+                                      stdPrfPicture,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
-                                child: Image.network(
-                                  'https://picsum.photos/seed/183/600',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 0.0, 0.0, 0.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 4.0),
-                                      child: Text(
-                                        listViewStudyRecord.stdLeaderId ==
-                                                currentUserUid
-                                            ? '팀장'
-                                            : '팀원',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .override(
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                                          child: Text(
+                                            stdPosition,
+                                            style: FlutterFlowTheme.of(context).bodyLarge.override(
                                               fontFamily: 'pretendard',
                                               fontSize: 12.0,
                                               letterSpacing: 0.0,
                                               useGoogleFonts: false,
+                                              fontWeight: FontWeight.w400,
                                             ),
-                                      ),
-                                    ),
-                                    Text(
-                                      listViewStudyRecord.stdName,
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
+                                          ),
+                                        ),
+                                        Text(
+                                          stdName,
+                                          style: FlutterFlowTheme.of(context).labelMedium.override(
                                             fontFamily: 'pretendard',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            fontSize: 16.0,
+                                            color: FlutterFlowTheme.of(context).primaryText,
+                                            fontSize: 14.0,
                                             letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w500,
+                                            fontWeight: FontWeight.w600,
                                             useGoogleFonts: false,
                                           ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Text(
-                              valueOrDefault<String>(
-                                functions.addOne(listViewStudyRecord
-                                    .stdMemberIds.length
-                                    .toString()),
-                                '0',
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                                Text(
+                                  formattedUpdateTime,
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'pretendard',
                                     letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                );
+                      );
+                    },
+                  );
+                }
               },
             ),
           ),

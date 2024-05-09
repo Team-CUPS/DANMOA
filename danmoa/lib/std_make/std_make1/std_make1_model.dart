@@ -8,8 +8,8 @@ class StdMake1Model extends FlutterFlowModel<StdMake1Widget> {
   final unfocusNode = FocusNode();
   // State field(s) for stdMake1_tf_01 widget.
   FocusNode? stdMake1Tf01FocusNode;
-  TextEditingController? stdMake1Tf01Controller;
-  String? Function(BuildContext, String?)? stdMake1Tf01ControllerValidator;
+  TextEditingController? stdMake1Tf01TextController;
+  String? Function(BuildContext, String?)? stdMake1Tf01TextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
@@ -18,6 +18,6 @@ class StdMake1Model extends FlutterFlowModel<StdMake1Widget> {
   void dispose() {
     unfocusNode.dispose();
     stdMake1Tf01FocusNode?.dispose();
-    stdMake1Tf01Controller?.dispose();
+    stdMake1Tf01TextController?.dispose();
   }
 }

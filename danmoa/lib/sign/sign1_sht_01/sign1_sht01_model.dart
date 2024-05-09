@@ -7,8 +7,8 @@ class Sign1Sht01Model extends FlutterFlowModel<Sign1Sht01Widget> {
 
   // State field(s) for sign1_tf_03 widget.
   FocusNode? sign1Tf03FocusNode;
-  TextEditingController? sign1Tf03Controller;
-  String? Function(BuildContext, String?)? sign1Tf03ControllerValidator;
+  TextEditingController? sign1Tf03TextController;
+  String? Function(BuildContext, String?)? sign1Tf03TextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
@@ -16,6 +16,6 @@ class Sign1Sht01Model extends FlutterFlowModel<Sign1Sht01Widget> {
   @override
   void dispose() {
     sign1Tf03FocusNode?.dispose();
-    sign1Tf03Controller?.dispose();
+    sign1Tf03TextController?.dispose();
   }
 }

@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -7,9 +6,10 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'home1_model.dart';
 export 'home1_model.dart';
+import 'package:danmoa/backend/backend.dart';
+import 'package:logger/logger.dart';
 
 class Home1Widget extends StatefulWidget {
   const Home1Widget({super.key});
@@ -20,24 +20,37 @@ class Home1Widget extends StatefulWidget {
 
 class _Home1WidgetState extends State<Home1Widget> {
   late Home1Model _model;
+  
+  var logger = Logger(
+    printer: PrettyPrinter(), // Use the PrettyPrinter to format and print log
+  );
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
+    logger.i('init() in home1');
     super.initState();
     _model = createModel(context, () => Home1Model());
   }
 
   @override
   void dispose() {
+    logger.i('dispose() in home1');
     _model.dispose();
-
     super.dispose();
   }
 
   @override
+  void didChangeDependencies() {
+    logger.i("didChangeDependencies() in home1: ${context.toString()}");
+    super.didChangeDependencies(); 
+  }
+
+
+  @override
   Widget build(BuildContext context) {
+    logger.i("build() in home1: ${context.toString()}");
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -50,29 +63,16 @@ class _Home1WidgetState extends State<Home1Widget> {
           automaticallyImplyLeading: false,
           leading: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 15.0),
-            child: InkWell(
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: () async {
-                GoRouter.of(context).prepareAuthEvent();
-                await authManager.signOut();
-                GoRouter.of(context).clearRedirectLocation();
-
-                context.goNamedAuth('sign1', context.mounted);
-              },
-              child: Container(
-                width: 120.0,
-                height: 120.0,
-                clipBehavior: Clip.antiAlias,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: Image.network(
-                  'https://ifh.cc/g/sfqAqz.png',
-                  fit: BoxFit.cover,
-                ),
+            child: Container(
+              width: 120.0,
+              height: 120.0,
+              clipBehavior: Clip.antiAlias,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+              ),
+              child: Image.network(
+                'https://ifh.cc/g/sfqAqz.png',
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -94,23 +94,6 @@ class _Home1WidgetState extends State<Home1Widget> {
             ),
           ),
           actions: [
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-              child: FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 20.0,
-                borderWidth: 1.0,
-                buttonSize: 38.0,
-                icon: Icon(
-                  Icons.message_outlined,
-                  color: FlutterFlowTheme.of(context).secondaryText,
-                  size: 26.0,
-                ),
-                onPressed: () async {
-                  context.pushNamed('chat1');
-                },
-              ),
-            ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 15.0),
               child: FlutterFlowIconButton(
@@ -278,28 +261,18 @@ class _Home1WidgetState extends State<Home1Widget> {
                                   child: Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         15.0, 0.0, 0.0, 0.0),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        context.pushNamed('timetestpage');
-                                      },
-                                      child: Text(
-                                        '내 스터디',
-                                        style: FlutterFlowTheme.of(context)
-                                            .titleMedium
-                                            .override(
-                                              fontFamily: 'pretendard',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w800,
-                                              useGoogleFonts: false,
-                                            ),
-                                      ),
+                                    child: Text(
+                                      '내 스터디',
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleMedium
+                                          .override(
+                                            fontFamily: 'pretendard',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w800,
+                                            useGoogleFonts: false,
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -354,148 +327,108 @@ class _Home1WidgetState extends State<Home1Widget> {
                                 topRight: Radius.circular(30.0),
                               ),
                             ),
-                            child: PagedListView<DocumentSnapshot<Object?>?,
-                                StudyRecord>(
-                              pagingController: _model.setHome1Lv01Controller(
-                                StudyRecord.collection.where(Filter.or(
-                                  Filter(
-                                    'std_leader_id',
-                                    isEqualTo: currentUserUid,
-                                  ),
-                                  Filter(
-                                    'std_member_ids',
-                                    arrayContains: currentUserUid,
-                                  ),
-                                )),
-                              ),
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              reverse: false,
-                              scrollDirection: Axis.horizontal,
-                              builderDelegate:
-                                  PagedChildBuilderDelegate<StudyRecord>(
-                                // Customize what your widget looks like when it's loading the first page.
-                                firstPageProgressIndicatorBuilder: (_) =>
-                                    Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                // Customize what your widget looks like when it's loading another page.
-                                newPageProgressIndicatorBuilder: (_) => Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
-                                itemBuilder: (context, _, home1Lv01Index) {
-                                  final home1Lv01StudyRecord = _model
-                                      .home1Lv01PagingController!
-                                      .itemList![home1Lv01Index];
-                                  return Align(
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
-                                    child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 0.0, 5.0, 0.0),
-                                      child: Container(
-                                        width: 110.0,
-                                        height: 110.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          border: Border.all(
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                          ),
-                                        ),
+                            child: FutureBuilder<List<Map<String, dynamic>>>(
+                              future: loadFilteredPersonalStudyData(1), // 1: updated time DESC / 2: created time DESC
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  return const Center(child: CircularProgressIndicator());
+                                } else if (snapshot.hasError) {
+                                  return Text('오류 발생: ${snapshot.error}');
+                                } else {
+                                  return ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    itemCount: snapshot.data!.length > 3 ? 3 : snapshot.data!.length, // 최대 3개 요소만 표시
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      final study = snapshot.data![index];
+                                      String stdCurrentUserStatus = study['std_leader']['uid'] == currentUserUid ? '팀장' : '팀원';
+                                      String stdName = study['std_name'];
+                                      String stdLeaderName = study['std_leader']['name'];
+                                      //String stdPrfPicture = study['std_prf_picture'] ?? 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fdefault_white.png?alt=media&token=e78c656d-4dc3-4b91-b2ad-2bb69a913f64';
+                                      return InkWell(
+                                        onTap: () async {
+                                          await updateStudyUpdateTime(stdName);
+                                          try {
+                                            var result = await context.pushNamed(
+                                              'stdList1',
+                                              queryParameters: {
+                                                'stdName': serializeParam(stdName, ParamType.String),
+                                                'stdLeaderName': serializeParam(stdLeaderName, ParamType.String),
+                                              }.withoutNulls,
+                                            );
+                                            if (result == null) {
+                                              print('저장을 실패했다.');
+                                            } else {
+                                              print('돌아왔다. $result');
+                                            }
+                                          } catch (e) {
+                                            print('Error during navigation: $e');
+                                          }
+                                        },
                                         child: Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Align(
-                                                alignment: const AlignmentDirectional(
-                                                    -1.0, -1.0),
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          3.0, 3.0, 0.0, 0.0),
-                                                  child: Text(
-                                                    currentUserUid ==
-                                                            home1Lv01StudyRecord
-                                                                .stdLeaderId
-                                                        ? '팀장'
-                                                        : '팀원',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'pretendard',
+                                          alignment: const AlignmentDirectional(0.0, 0.0),
+                                          child: Padding(
+                                            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 5.0, 0.0),
+                                            child: Container(
+                                              width: 110.0,
+                                              height: 110.0,
+                                              decoration: BoxDecoration(
+                                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                borderRadius: BorderRadius.circular(10.0),
+                                                border: Border.all(
+                                                  color: FlutterFlowTheme.of(context).alternate,
+                                                ),
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  Align(
+                                                    alignment: const AlignmentDirectional(-1.0, -1.0),
+                                                    child: Padding(
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(3.0, 3.0, 0.0, 0.0),
+                                                      child: Text(
+                                                        stdCurrentUserStatus,
+                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                          fontFamily: 'pretendard',
                                                           fontSize: 12.0,
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: false,
                                                         ),
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                              Text(
-                                                home1Lv01StudyRecord.stdName,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyLarge
-                                                        .override(
-                                                          fontFamily:
-                                                              'pretendard',
-                                                          fontSize: 15.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 10.0, 0.0, 0.0),
-                                                child: Container(
-                                                  width: 48.0,
-                                                  height: 48.0,
-                                                  clipBehavior: Clip.antiAlias,
-                                                  decoration: const BoxDecoration(
-                                                    shape: BoxShape.circle,
+                                                  Text(
+                                                    stdName,
+                                                    style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                      fontFamily: 'pretendard',
+                                                      fontSize: 15.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight: FontWeight.w600,
+                                                      useGoogleFonts: false,
+                                                    ),
                                                   ),
-                                                  child: Image.network(
-                                                    'https://picsum.photos/seed/319/600',
-                                                    fit: BoxFit.cover,
+                                                  Padding(
+                                                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                                                    child: Container(
+                                                      width: 48.0,
+                                                      height: 48.0,
+                                                      clipBehavior: Clip.antiAlias,
+                                                      decoration: const BoxDecoration(shape: BoxShape.circle),
+                                                      child: Image.network(stdPrfPicture, fit: BoxFit.cover),
+                                                    ),
                                                   ),
-                                                ),
+                                                ],
                                               ),
-                                            ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
+                                      );
+                                    },
                                   );
-                                },
-                              ),
+                                }
+                              },
                             ),
                           ),
                         ],
@@ -594,271 +527,6 @@ class _Home1WidgetState extends State<Home1Widget> {
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
-                  child: Material(
-                    color: Colors.transparent,
-                    elevation: 1.0,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10.0),
-                        bottomRight: Radius.circular(10.0),
-                        topLeft: Radius.circular(10.0),
-                        topRight: Radius.circular(10.0),
-                      ),
-                    ),
-                    child: Container(
-                      width: double.infinity,
-                      height: 230.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(10.0),
-                          bottomRight: Radius.circular(10.0),
-                          topLeft: Radius.circular(10.0),
-                          topRight: Radius.circular(10.0),
-                        ),
-                        border: Border.all(
-                          color: FlutterFlowTheme.of(context).alternate,
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            0.0, 12.0, 0.0, 12.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 0.0, 8.0),
-                                  child: Text(
-                                    '전체 스터디',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyLarge
-                                        .override(
-                                          fontFamily: 'pretendard',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 18.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w800,
-                                          useGoogleFonts: false,
-                                        ),
-                                  ),
-                                ),
-                                FFButtonWidget(
-                                  onPressed: () async {
-                                    context.pushNamed('stdList2');
-                                  },
-                                  text: '',
-                                  icon: const Icon(
-                                    Icons.keyboard_arrow_right,
-                                    size: 15.0,
-                                  ),
-                                  options: FFButtonOptions(
-                                    height: 40.0,
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'pretendard',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 19.0,
-                                          letterSpacing: 0.0,
-                                          useGoogleFonts: false,
-                                        ),
-                                    elevation: 0.0,
-                                    borderSide: const BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              height: 164.0,
-                              decoration: const BoxDecoration(),
-                              child: PagedListView<DocumentSnapshot<Object?>?,
-                                  StudyRecord>(
-                                pagingController: _model.setHome1Lv02Controller(
-                                  StudyRecord.collection,
-                                ),
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                reverse: false,
-                                scrollDirection: Axis.vertical,
-                                builderDelegate:
-                                    PagedChildBuilderDelegate<StudyRecord>(
-                                  // Customize what your widget looks like when it's loading the first page.
-                                  firstPageProgressIndicatorBuilder: (_) =>
-                                      Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          FlutterFlowTheme.of(context).primary,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  // Customize what your widget looks like when it's loading another page.
-                                  newPageProgressIndicatorBuilder: (_) =>
-                                      Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          FlutterFlowTheme.of(context).primary,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-
-                                  itemBuilder: (context, _, home1Lv02Index) {
-                                    final home1Lv02StudyRecord = _model
-                                        .home1Lv02PagingController!
-                                        .itemList![home1Lv02Index];
-                                    return AnimatedContainer(
-                                      duration: const Duration(milliseconds: 150),
-                                      curve: Curves.easeInOut,
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            12.0, 8.0, 12.0, 8.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 8.0, 0.0),
-                                              child: Container(
-                                                width: 32.0,
-                                                height: 32.0,
-                                                clipBehavior: Clip.antiAlias,
-                                                decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Image.network(
-                                                  'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnN8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60',
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(4.0, 0.0, 0.0, 0.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'db-스터디명',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Plus Jakarta Sans',
-                                                          color:
-                                                              const Color(0xFF14181B),
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        'db-분야',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'pretendard',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                      ),
-                                                      Text(
-                                                        'db-활동점수',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'pretendard',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                      ),
-                                                      Text(
-                                                        'db-팀원수',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'pretendard',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                     ),
                   ),

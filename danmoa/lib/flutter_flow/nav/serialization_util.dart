@@ -87,6 +87,7 @@ String? serializeParam(
         final reference = (param as FirestoreRecord).reference;
         return _serializeDocumentReference(reference);
 
+
       default:
         return null;
     }
@@ -175,6 +176,8 @@ enum ParamType {
   JSON,
   Document,
   DocumentReference,
+  //custom
+  List,
 }
 
 dynamic deserializeParam<T>(
