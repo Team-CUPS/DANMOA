@@ -24,7 +24,7 @@ class _Set3WidgetState extends State<Set3Widget> {
     super.initState();
     _model = createModel(context, () => Set3Model());
 
-    _model.sign1Tf03Controller ??= TextEditingController();
+    _model.sign1Tf03TextController ??= TextEditingController();
     _model.sign1Tf03FocusNode ??= FocusNode();
   }
 
@@ -110,7 +110,7 @@ class _Set3WidgetState extends State<Set3Widget> {
                     child: SizedBox(
                       width: double.infinity,
                       child: TextFormField(
-                        controller: _model.sign1Tf03Controller,
+                        controller: _model.sign1Tf03TextController,
                         focusNode: _model.sign1Tf03FocusNode,
                         autofocus: true,
                         autofillHints: const [AutofillHints.email],
@@ -182,10 +182,9 @@ class _Set3WidgetState extends State<Set3Widget> {
                               letterSpacing: 0.0,
                               useGoogleFonts: false,
                             ),
-                        minLines: null,
                         keyboardType: TextInputType.emailAddress,
                         cursorColor: FlutterFlowTheme.of(context).primary,
-                        validator: _model.sign1Tf03ControllerValidator
+                        validator: _model.sign1Tf03TextControllerValidator
                             .asValidator(context),
                       ),
                     ),
@@ -195,8 +194,8 @@ class _Set3WidgetState extends State<Set3Widget> {
                         const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        if (_model.sign1Tf03Controller.text != '') {
-                          if (_model.sign1Tf03Controller.text.isEmpty) {
+                        if (_model.sign1Tf03TextController.text != '') {
+                          if (_model.sign1Tf03TextController.text.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text(
@@ -207,7 +206,7 @@ class _Set3WidgetState extends State<Set3Widget> {
                             return;
                           }
                           await authManager.resetPassword(
-                            email: _model.sign1Tf03Controller.text,
+                            email: _model.sign1Tf03TextController.text,
                             context: context,
                           );
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -258,7 +257,7 @@ class _Set3WidgetState extends State<Set3Widget> {
                                   letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
-                        elevation: 3.0,
+                        elevation: 0.0,
                         borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,

@@ -14,7 +14,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 
 
-export 'keep_alive_wrapper.dart';
 export 'lat_lng.dart';
 export 'place.dart';
 export 'uploaded_file.dart';
@@ -503,11 +502,11 @@ void fixStatusBarOniOS16AndBelow(BuildContext context) {
 
 extension ListUniqueExt<T> on Iterable<T> {
   List<T> unique(dynamic Function(T) getKey) {
-    var distinctSet = <T>{};
+    var distinctSet = <dynamic>{};
     var distinctList = <T>[];
     for (var item in this) {
       if (distinctSet.add(getKey(item))) {
-        distinctList.add(getKey(item));
+        distinctList.add(item);
       }
     }
     return distinctList;

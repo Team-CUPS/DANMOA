@@ -24,10 +24,10 @@ class _Sign1WidgetState extends State<Sign1Widget> {
     super.initState();
     _model = createModel(context, () => Sign1Model());
 
-    _model.sign1Tf01Controller ??= TextEditingController();
+    _model.sign1Tf01TextController ??= TextEditingController();
     _model.sign1Tf01FocusNode ??= FocusNode();
 
-    _model.sign1Tf02Controller ??= TextEditingController();
+    _model.sign1Tf02TextController ??= TextEditingController();
     _model.sign1Tf02FocusNode ??= FocusNode();
   }
 
@@ -45,6 +45,7 @@ class _Sign1WidgetState extends State<Sign1Widget> {
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
@@ -84,7 +85,7 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
-                                  fontFamily: 'Black_Han',
+                                  fontFamily: 'pretendard',
                                   color: const Color(0xFF375AC1),
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
@@ -98,7 +99,7 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                           child: SizedBox(
                             width: double.infinity,
                             child: TextFormField(
-                              controller: _model.sign1Tf01Controller,
+                              controller: _model.sign1Tf01TextController,
                               focusNode: _model.sign1Tf01FocusNode,
                               autofocus: true,
                               autofillHints: const [AutofillHints.email],
@@ -181,10 +182,9 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                                     letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
-                              minLines: null,
                               keyboardType: TextInputType.emailAddress,
                               cursorColor: FlutterFlowTheme.of(context).primary,
-                              validator: _model.sign1Tf01ControllerValidator
+                              validator: _model.sign1Tf01TextControllerValidator
                                   .asValidator(context),
                             ),
                           ),
@@ -212,7 +212,7 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                           child: SizedBox(
                             width: double.infinity,
                             child: TextFormField(
-                              controller: _model.sign1Tf02Controller,
+                              controller: _model.sign1Tf02TextController,
                               focusNode: _model.sign1Tf02FocusNode,
                               autofocus: true,
                               autofillHints: const [AutofillHints.password],
@@ -290,9 +290,8 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                                     letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
-                              minLines: null,
                               cursorColor: FlutterFlowTheme.of(context).primary,
-                              validator: _model.sign1Tf02ControllerValidator
+                              validator: _model.sign1Tf02TextControllerValidator
                                   .asValidator(context),
                             ),
                           ),
@@ -307,8 +306,8 @@ class _Sign1WidgetState extends State<Sign1Widget> {
 
                               final user = await authManager.signInWithEmail(
                                 context,
-                                _model.sign1Tf01Controller.text,
-                                _model.sign1Tf02Controller.text,
+                                _model.sign1Tf01TextController.text,
+                                _model.sign1Tf02TextController.text,
                               );
                               if (user == null) {
                                 return;
