@@ -8,16 +8,16 @@ class Contest1Model extends FlutterFlowModel<Contest1Widget> {
 
   final unfocusNode = FocusNode();
   // State field(s) for tf_field widget.
-  String? tfFieldValue;
+  late String? tfFieldValue;
   FormFieldController<String>? tfFieldValueController;
   // State field(s) for tf_person widget.
-  String? tfPersonValue;
+  late String? tfPersonValue;
   FormFieldController<String>? tfPersonValueController;
   // State field(s) for tf_state widget.
-  String? tfStateValue;
+  late String? tfStateValue;
   FormFieldController<String>? tfStateValueController;
   // State field(s) for tf_area widget.
-  String? tfAreaValue;
+  late String? tfAreaValue;
   FormFieldController<String>? tfAreaValueController;
 
   @override

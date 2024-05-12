@@ -4,6 +4,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'contest1_model.dart';
 export 'contest1_model.dart';
 
@@ -30,6 +32,39 @@ class _Contest1WidgetState extends State<Contest1Widget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<void> _sendDataAndGetResponse() async {
+    var response = await http.post(
+      Uri.parse('https://port-0-danmoa-crawserver-rccln2llw1oo1v6.sel5.cloudtype.app/crawl'),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
+        "field": _model.tfFieldValue,
+        "person": _model.tfPersonValue,
+        "sort": _model.tfStateValue,
+        "area": _model.tfAreaValue
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      var body = utf8.decode(response.bodyBytes);
+      var data = json.decode(body) as Map<String, dynamic>;
+      print("Response Data : $data");
+        context.pushNamed(
+          'contest2',
+          queryParameters: {
+            'contents': serializeParam(
+              data,
+              ParamType.JSON,
+            )
+          }, 
+        );
+        // Navigator.pushNamed(context, 'contest2', arguments: data["contents"]);
+
+      } else {
+      // Handle network error
+      print('Failed to connect to the server');
+    }
   }
 
   @override
@@ -267,9 +302,7 @@ class _Contest1WidgetState extends State<Contest1Widget> {
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 64.0),
                     child: FFButtonWidget(
-                      onPressed: () async {
-                        context.pushNamed('contest2');
-                      },
+                      onPressed: _sendDataAndGetResponse,
                       text: '검색',
                       options: FFButtonOptions(
                         width: 320.0,

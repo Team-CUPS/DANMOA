@@ -6,7 +6,12 @@ import 'contest2_model.dart';
 export 'contest2_model.dart';
 
 class Contest2Widget extends StatefulWidget {
-  const Contest2Widget({super.key});
+  const Contest2Widget({
+    super.key,
+    required this.contents,
+  });
+
+  final Map<String, dynamic> contents;
 
   @override
   State<Contest2Widget> createState() => _Contest2WidgetState();
@@ -32,6 +37,10 @@ class _Contest2WidgetState extends State<Contest2Widget> {
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic>? items = (widget.contents['contents'] as List<dynamic>?)!;
+    print("Get Data : $items");
+    var first = items[0];
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -338,6 +347,51 @@ class _Contest2WidgetState extends State<Contest2Widget> {
                     ],
                   ),
                 ),
+                // 아래부터 임시 테스트 출력 코드
+                Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        12.0, 12.0, 12.0, 12.0),
+                    child: Text(
+                      "현재 임시테스트중 : POST response중 첫번째거만 임시로 표시합니다.",
+                      style: FlutterFlowTheme.of(context)
+                        .titleLarge
+                        .override(
+                          fontFamily: 'pretendard',
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                          useGoogleFonts: false,
+                        ),),
+                ),
+                Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        12.0, 12.0, 12.0, 12.0),
+                    child: Text(first[0].toString()),
+                ),
+                Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        12.0, 12.0, 12.0, 12.0),
+                    child: Text(first[1].toString()),
+                ),
+                Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        12.0, 12.0, 12.0, 12.0),
+                    child: Text(first[2].toString()),
+                ),
+                Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        12.0, 12.0, 12.0, 12.0),
+                    child: Text(first[3].toString()),
+                ),
+                Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        12.0, 12.0, 12.0, 12.0),
+                    child: Text(first[4].toString()),
+                ),
+                Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        12.0, 12.0, 12.0, 12.0),
+                    child: Text(first[5].toString()),
+                ),  
               ],
             ),
           ),

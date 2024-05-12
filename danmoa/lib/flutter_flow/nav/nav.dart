@@ -330,7 +330,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'contest2',
           path: '/contest2',
-          builder: (context, params) => const Contest2Widget(),
+          builder: (context, params) => Contest2Widget(
+            contents: params.getParam(
+              'contents',
+              ParamType.JSON
+            )
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
