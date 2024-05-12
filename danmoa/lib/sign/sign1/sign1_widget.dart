@@ -101,7 +101,7 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                             child: TextFormField(
                               controller: _model.sign1Tf01TextController,
                               focusNode: _model.sign1Tf01FocusNode,
-                              autofocus: true,
+                              autofocus: false,
                               autofillHints: const [AutofillHints.email],
                               obscureText: false,
                               decoration: InputDecoration(
@@ -214,7 +214,7 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                             child: TextFormField(
                               controller: _model.sign1Tf02TextController,
                               focusNode: _model.sign1Tf02FocusNode,
-                              autofocus: true,
+                              autofocus: false,
                               autofillHints: const [AutofillHints.password],
                               obscureText: !_model.sign1Tf02Visibility,
                               decoration: InputDecoration(

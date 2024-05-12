@@ -269,7 +269,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'QA1',
           path: '/qa1',
-          builder: (context, params) => const Qa1Widget(),
+          builder: (context, params) =>
+              params.isEmpty ? const NavBarPage(initialPage: 'QA1') : const Qa1Widget(),
         ),
         FFRoute(
           name: 'QA2',
@@ -319,6 +320,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'stdList4',
           path: '/stdList4',
           builder: (context, params) => const StdList4Widget(),
+        ),
+        FFRoute(
+          name: 'contest1',
+          path: '/contest1',
+          builder: (context, params) =>
+              params.isEmpty ? const NavBarPage(initialPage: 'contest1'): const Contest1Widget(),
+        ),
+        FFRoute(
+          name: 'contest2',
+          path: '/contest2',
+          builder: (context, params) => const Contest2Widget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

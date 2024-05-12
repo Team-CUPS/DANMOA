@@ -31,3 +31,5 @@ export '/qa/qa4/qa4_widget.dart' show Qa4Widget;
 export '/std_home/std_home4/std_home4_widget.dart' show StdHome4Widget;
 export '/std_home/std_home5/std_home5_widget.dart' show StdHome5Widget;
 export '/std_list/std_list4/std_list4_widget.dart' show StdList4Widget;
+export '/contest/contest1/contest1_widget.dart' show Contest1Widget;
+export '/contest/contest2/contest2_widget.dart' show Contest2Widget;
