@@ -44,56 +44,66 @@ class _Sign5WidgetState extends State<Sign5Widget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 70.0, 0.0, 0.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                    '\thttps://cdn.pixabay.com/photo/2016/09/30/08/13/christmas-1704641_1280.jpg',
-                    width: 210.0,
-                    height: 280.0,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                child: Text(
-                  '가입완료!',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'pretendard',
-                        fontSize: 36.0,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.bold,
-                        useGoogleFonts: false,
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 70.0, 0.0, 0.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.network(
+                          '\thttps://cdn.pixabay.com/photo/2016/09/30/08/13/christmas-1704641_1280.jpg',
+                          width: 210.0,
+                          height: 280.0,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-                child: Text(
-                  '단국대 이메일로 인증 링크를 보냈습니다.\n확인하여 계정 활성화 후 로그인 부탁드립니다.',
-                  textAlign: TextAlign.center,
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Roboto Condensed',
-                        color: const Color(0x8014181B),
-                        fontSize: 16.0,
-                        letterSpacing: 0.0,
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                      child: Text(
+                        '가입완료!',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'pretendard',
+                              fontSize: 36.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
+                              useGoogleFonts: false,
+                            ),
                       ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                      child: Text(
+                        '단국대 이메일로 인증 링크를 보냈습니다.\n확인하여 계정 활성화 후 로그인 부탁드립니다.',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Roboto Condensed',
+                              color: const Color(0x8014181B),
+                              fontSize: 16.0,
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Align(
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: Padding(
                   padding:
-                      const EdgeInsetsDirectional.fromSTEB(30.0, 150.0, 30.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       context.pushNamed('sign1');
                     },
                     text: '로그인 하러 가기',
                     options: FFButtonOptions(
-                      width: 400.0,
+                      width: 320.0,
                       height: 45.0,
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),

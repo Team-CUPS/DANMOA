@@ -35,6 +35,7 @@ class _Set1WidgetState extends State<Set1Widget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       appBar: AppBar(
@@ -83,20 +84,20 @@ class _Set1WidgetState extends State<Set1Widget> {
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               children: [
-                Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(),
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        context.pushNamed('set2');
-                      },
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.pushNamed('set2');
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(),
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          20.0, 16.0, 20.0, 16.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,20 +131,20 @@ class _Set1WidgetState extends State<Set1Widget> {
                     decoration: const BoxDecoration(),
                   ),
                 ),
-                Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(),
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        context.pushNamed('set3');
-                      },
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.pushNamed('set3');
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(),
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          20.0, 16.0, 20.0, 16.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -217,20 +218,20 @@ class _Set1WidgetState extends State<Set1Widget> {
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: const BoxDecoration(),
-                    child: Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          20.0, 16.0, 20.0, 16.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          context.pushNamed('set4');
-                        },
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed('set4');
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      decoration: const BoxDecoration(),
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            20.0, 16.0, 20.0, 16.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

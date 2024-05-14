@@ -8,23 +8,23 @@ class StdList4Model extends FlutterFlowModel<StdList4Widget> {
 
   final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
-  // State field(s) for stdList4_cc_02 widget.
-  FormFieldController<List<String>>? stdList4Cc02ValueController;
-  String? get stdList4Cc02Value =>
-      stdList4Cc02ValueController?.value?.firstOrNull;
-  set stdList4Cc02Value(String? val) =>
-      stdList4Cc02ValueController?.value = val != null ? [val] : [];
+  // State field(s) for stdMake2_cc_01 widget.
+  FormFieldController<List<String>>? stdMake2Cc01ValueController;
+  String? get stdMake2Cc01Value =>
+      stdMake2Cc01ValueController?.value?.firstOrNull;
+  set stdMake2Cc01Value(String? val) =>
+      stdMake2Cc01ValueController?.value = val != null ? [val] : [];
   // State field(s) for stdList4_cc_03 widget.
   FormFieldController<List<String>>? stdList4Cc03ValueController;
   List<String>? get stdList4Cc03Values => stdList4Cc03ValueController?.value;
   set stdList4Cc03Values(List<String>? val) =>
       stdList4Cc03ValueController?.value = val;
-  // State field(s) for stdList4_cc_06 widget.
-  FormFieldController<List<String>>? stdList4Cc06ValueController;
-  String? get stdList4Cc06Value =>
-      stdList4Cc06ValueController?.value?.firstOrNull;
-  set stdList4Cc06Value(String? val) =>
-      stdList4Cc06ValueController?.value = val != null ? [val] : [];
+  // State field(s) for stdMake2_cc_03 widget.
+  FormFieldController<List<String>>? stdMake2Cc03ValueController;
+  String? get stdMake2Cc03Value =>
+      stdMake2Cc03ValueController?.value?.firstOrNull;
+  set stdMake2Cc03Value(String? val) =>
+      stdMake2Cc03ValueController?.value = val != null ? [val] : [];
 
   @override
   void initState(BuildContext context) {}
