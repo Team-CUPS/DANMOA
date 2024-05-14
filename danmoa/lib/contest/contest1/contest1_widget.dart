@@ -49,7 +49,8 @@ class _Contest1WidgetState extends State<Contest1Widget> {
     if (response.statusCode == 200) {
       var body = utf8.decode(response.bodyBytes);
       var data = json.decode(body) as Map<String, dynamic>;
-      print("Response Data : $data");
+      if (data['status'].toString() == "success"){
+        print("Response Data : $data");
         context.pushNamed(
           'contest2',
           queryParameters: {
@@ -59,9 +60,12 @@ class _Contest1WidgetState extends State<Contest1Widget> {
             )
           }, 
         );
-        // Navigator.pushNamed(context, 'contest2', arguments: data["contents"]);
-
-      } else {
+      }
+      else {
+        context.pushNamed('contest3');
+      }
+    }
+    else {
       // Handle network error
       print('Failed to connect to the server');
     }

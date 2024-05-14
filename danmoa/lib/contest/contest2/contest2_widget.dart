@@ -39,7 +39,6 @@ class _Contest2WidgetState extends State<Contest2Widget> {
   Widget build(BuildContext context) {
     List<dynamic>? items = (widget.contents['contents'] as List<dynamic>?)!;
     print("Get Data : $items");
-    var first = items[0];
 
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
@@ -75,92 +74,203 @@ class _Contest2WidgetState extends State<Contest2Widget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Padding(
+                Padding( // 리스트뷰 시작
                   padding:
                       const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
-                  child: ListView(
+                  child: ListView.builder(
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
                     scrollDirection: Axis.vertical,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-                        child: Material(
-                          color: Colors.transparent,
-                          elevation: 1.0,
-                          child: Container(
-                            width: 100.0,
-                            height: 90.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 0.0,
-                                  color: FlutterFlowTheme.of(context).alternate,
-                                  offset: const Offset(
-                                    0.0,
-                                    1.0,
-                                  ),
-                                )
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 0.0, 10.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Padding(
+                    itemCount: items.length,
+                    itemBuilder: (context, index){
+                      return Padding( // 컨테이너 시작
+                        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            await launchURL('${items[index][0]}');
+                          },
+                          child: Material(
+                            color: Colors.transparent,
+                            elevation: 1.0,
+                            child: Container(
+                              width: 100.0,
+                              height: 90.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 0.0,
+                                    color: FlutterFlowTheme.of(context).alternate,
+                                    offset: const Offset(
+                                      0.0,
+                                      1.0,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              child: Padding( 
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10.0, 0.0, 10.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            12.0, 0.0, 0.0, 0.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsetsDirectional.fromSTEB(
+                                                      0.0, 0.0, 0.0, 8.0),
+                                              child: Text(
+                                                '${items[index][1]}',
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyLarge
+                                                    .override(
+                                                      fontFamily: 'pretendard',
+                                                      fontSize: 14.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight: FontWeight.w800,
+                                                      useGoogleFonts: false,
+                                                    ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsetsDirectional.fromSTEB(
+                                                      0.0, 0.0, 0.0, 2.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    '주최',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'pretendard',
+                                                          color:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primaryText,
+                                                          fontSize: 12.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            6.0, 3.0, 0.0, 0.0),
+                                                    child: Text(
+                                                      '${items[index][2]}',
+                                                      style: FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'pretendard',
+                                                            color:
+                                                                const Color(0xAE57636C),
+                                                            fontSize: 12.0,
+                                                            letterSpacing: 0.0,
+                                                            useGoogleFonts: false,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsetsDirectional.fromSTEB(
+                                                      0.0, 1.0, 0.0, 2.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    '대상',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'pretendard',
+                                                          fontSize: 12.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            6.0, 3.0, 0.0, 0.0),
+                                                    child: Text(
+                                                      '${items[index][3]}',
+                                                      style: FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'pretendard',
+                                                            color:
+                                                                const Color(0xAE57636C),
+                                                            fontSize: 12.0,
+                                                            letterSpacing: 0.0,
+                                                            useGoogleFonts: false,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                          12.0, 0.0, 0.0, 0.0),
+                                          0.0, 27.0, 10.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                            CrossAxisAlignment.end,
                                         children: [
                                           Padding(
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 8.0),
-                                            child: Text(
-                                              '2024 서울 인공지능 해커톤 대회',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyLarge
-                                                  .override(
-                                                    fontFamily: 'pretendard',
-                                                    fontSize: 14.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.w800,
-                                                    useGoogleFonts: false,
-                                                  ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 2.0),
+                                                    0.0, 12.0, 0.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Text(
-                                                  '주최',
+                                                  '접수',
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .labelMedium
+                                                      .bodyMedium
                                                       .override(
-                                                        fontFamily:
-                                                            'pretendard',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
+                                                        fontFamily: 'pretendard',
+                                                        color: const Color(0xFF0019F4),
                                                         fontSize: 12.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
@@ -171,17 +281,16 @@ class _Contest2WidgetState extends State<Contest2Widget> {
                                                 Padding(
                                                   padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
-                                                          6.0, 3.0, 0.0, 0.0),
+                                                          6.0, 2.0, 0.0, 0.0),
                                                   child: Text(
-                                                    '서울디지털재단',
+                                                    '${items[index][4]}',
+                                                    textAlign: TextAlign.end,
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily:
                                                               'pretendard',
-                                                          color:
-                                                              const Color(0xAE57636C),
                                                           fontSize: 12.0,
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: false,
@@ -194,18 +303,18 @@ class _Contest2WidgetState extends State<Contest2Widget> {
                                           Padding(
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 1.0, 0.0, 2.0),
+                                                    0.0, 2.0, 0.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Text(
-                                                  '대상',
+                                                  '심사',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily:
-                                                            'pretendard',
+                                                        fontFamily: 'pretendard',
+                                                        color: const Color(0xFF66BB6A),
                                                         fontSize: 12.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
@@ -216,17 +325,15 @@ class _Contest2WidgetState extends State<Contest2Widget> {
                                                 Padding(
                                                   padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
-                                                          6.0, 3.0, 0.0, 0.0),
+                                                          8.0, 2.0, 0.0, 0.0),
                                                   child: Text(
-                                                    '대학생, 대학원',
+                                                    '${items[index][5]}',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily:
                                                               'pretendard',
-                                                          color:
-                                                              const Color(0xAE57636C),
                                                           fontSize: 12.0,
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: false,
@@ -239,115 +346,18 @@ class _Contest2WidgetState extends State<Contest2Widget> {
                                         ],
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 27.0, 10.0, 0.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 12.0, 0.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                '접수',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'pretendard',
-                                                      color: const Color(0xFF0019F4),
-                                                      fontSize: 12.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        6.0, 2.0, 0.0, 0.0),
-                                                child: Text(
-                                                  '06.03~08.14',
-                                                  textAlign: TextAlign.end,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'pretendard',
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 2.0, 0.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                '심사',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'pretendard',
-                                                      color: const Color(0xFF66BB6A),
-                                                      fontSize: 12.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        8.0, 2.0, 0.0, 0.0),
-                                                child: Text(
-                                                  '08.15~08.21',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'pretendard',
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                  ],
+                                ),
+                              ), 
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ); // 컨테이너 종료
+                    },
                   ),
-                ),
+                ), // 리스트뷰 종료
                 // 아래부터 임시 테스트 출력 코드
+                /*
                 Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(
                         12.0, 12.0, 12.0, 12.0),
@@ -391,7 +401,7 @@ class _Contest2WidgetState extends State<Contest2Widget> {
                     padding: const EdgeInsetsDirectional.fromSTEB(
                         12.0, 12.0, 12.0, 12.0),
                     child: Text(first[5].toString()),
-                ),  
+                ),  */
               ],
             ),
           ),

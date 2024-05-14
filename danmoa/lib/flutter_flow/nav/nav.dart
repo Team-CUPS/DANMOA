@@ -336,6 +336,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.JSON
             )
           ),
+        ),
+        FFRoute(
+          name: 'contest3',
+          path: '/contest3',
+          builder: (context, params) => const Contest3Widget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
