@@ -204,7 +204,7 @@ class _Sign2WidgetState extends State<Sign2Widget> {
                                   child: TextFormField(
                                     controller: _model.sign2Tf01TextController,
                                     focusNode: _model.sign2Tf01FocusNode,
-                                    autofocus: true,
+                                    autofocus: false,
                                     autofillHints: const [AutofillHints.email],
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -278,7 +278,7 @@ class _Sign2WidgetState extends State<Sign2Widget> {
                                   child: TextFormField(
                                     controller: _model.sign2Tf02TextController,
                                     focusNode: _model.sign2Tf02FocusNode,
-                                    autofocus: true,
+                                    autofocus: false,
                                     autofillHints: const [AutofillHints.password],
                                     obscureText: !_model.sign2Tf02Visibility,
                                     decoration: InputDecoration(
@@ -367,7 +367,7 @@ class _Sign2WidgetState extends State<Sign2Widget> {
                                   child: TextFormField(
                                     controller: _model.sign2Tf03TextController,
                                     focusNode: _model.sign2Tf03FocusNode,
-                                    autofocus: true,
+                                    autofocus: false,
                                     autofillHints: const [AutofillHints.password],
                                     obscureText: !_model.sign2Tf03Visibility,
                                     decoration: InputDecoration(

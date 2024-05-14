@@ -27,11 +27,17 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _startTimeController = TextEditingController();
   final TextEditingController _endTimeController = TextEditingController();
+  Map<String, dynamic> studyData = {};
+  String studyName = "";
+  bool isLoading = true;
+
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => StdHome4Model());
+    studyName = widget.stdName;
+    initStudyData(studyName);
   }
 
   Future<void> _selectTime(BuildContext context, {required bool isStartTime}) async {
@@ -59,8 +65,28 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
     super.dispose();
   }
 
+  Future<void> initStudyData(studyName) async {
+    var loadedStudyData  = await loadStudyDataByName(studyName);
+    isLoading = false;
+    setState(() {
+      studyData = loadedStudyData;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return Scaffold(
+        body: Container(
+          color: Colors.black.withOpacity(0.5), // 반투명 배경
+          child: const Center(
+            child: CircularProgressIndicator(), // 로딩 인디케이터
+          ),
+        ),
+      );
+    }
+    _startTimeController.text = studyData['std_times'][studyData['std_times'].length - 2];
+    _endTimeController.text = studyData['std_times'][studyData['std_times'].length - 1];
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -231,7 +257,7 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                                         controller: _model
                                                 .stdMake2Cc01ValueController ??=
                                             FormFieldController<List<String>>(
-                                          [],
+                                          [studyData['std_position']],
                                         ),
                                         wrapped: true,
                                       ),
@@ -359,7 +385,7 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                                                         .stdList4Cc03ValueController ??=
                                                     FormFieldController<
                                                         List<String>>(
-                                                  [],
+                                                  List<String>.from(studyData['std_times']).sublist(0, studyData['std_times'].length - 2),
                                                 ),
                                                 wrapped: true,
                                               ),
@@ -700,7 +726,7 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                                       controller:
                                           _model.stdMake2Cc03ValueController ??=
                                               FormFieldController<List<String>>(
-                                        [],
+                                        [studyData['std_field']],
                                       ),
                                       wrapped: true,
                                     ),

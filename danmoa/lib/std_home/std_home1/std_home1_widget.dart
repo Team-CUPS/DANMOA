@@ -41,7 +41,8 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
     logger.i('init() in stdhome1');
     super.initState();
     _model = createModel(context, () => StdHome1Model());
-    initData();
+    studyName = widget.stdName;
+    loadData(studyName);
   }
 
   @override
@@ -52,8 +53,8 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
     super.dispose();
   }
 
-  Future<void> initData() async {
-    studyName = widget.stdName;
+  Future<void> loadData(studyName) async {
+    
     var loadedStudyData  = await loadStudyDataByName(studyName);
     var loadedUserData = await loadUserData();
     selectedUserData = getUsersFromStudyData(loadedUserData, loadedStudyData);
@@ -64,16 +65,6 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
     });
   }
 
-  Future<void> refreshData(studyName) async {
-    var loadedStudyData  = await loadStudyDataByName(studyName);
-    var loadedUserData = await loadUserData();
-    selectedUserData = getUsersFromStudyData(loadedUserData, loadedStudyData);
-    isLoading = false;
-    setState(() {
-      studyData = loadedStudyData;
-      userData = loadedUserData;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,11 +146,12 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                       'stdHome2',
                       queryParameters: {
                         'stdName': serializeParam(studyData['std_name'], ParamType.String),
+                        'stdPrfPicture': serializeParam(studyData['std_prf_picture'], ParamType.String),
                       }.withoutNulls,
                     );
                     studyName = result as String;
                     isLoading = true;
-                    await refreshData(studyName);
+                    await loadData(studyName);
                     setState(() {});
                   },
                 ),
@@ -233,7 +225,7 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                       ScaffoldMessenger.of(localContext).showSnackBar(snackBar);
                                     }
 
-                                    initData();
+                                    loadData(studyName);
 
                                     // 현재 페이지 새로고침
                                     setState(() {});
@@ -498,7 +490,7 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                               ),
                             }.withoutNulls,
                           );
-                        await initData();
+                        await loadData(studyName);
                         setState(() {},);
                       },
 

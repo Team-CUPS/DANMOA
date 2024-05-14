@@ -12,9 +12,11 @@ class StdHome2Widget extends StatefulWidget {
   const StdHome2Widget({
     super.key,
     required this.stdName,
+    required this.stdPrfPicture,
   });
 
   final String stdName;
+  final String stdPrfPicture;
 
   @override
   State<StdHome2Widget> createState() => _StdHome2WidgetState();
@@ -32,7 +34,8 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => StdHome2Model());
-    initData();
+    studyName = widget.stdName;
+    initStudyData(studyName);
   }
 
   @override
@@ -42,16 +45,8 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
     super.dispose();
   }
 
-  Future<void> initData() async {
+  Future<void> initStudyData(studyName) async {
     studyName = widget.stdName;
-    var loadedStudyData  = await loadStudyDataByName(studyName);
-    isLoading = false;
-    setState(() {
-      studyData = loadedStudyData;
-    });
-  }
-
-  Future<void> refreshData(studyName) async {
     var loadedStudyData  = await loadStudyDataByName(studyName);
     isLoading = false;
     setState(() {
@@ -139,7 +134,7 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
                                   shape: BoxShape.circle,
                                 ),
                                 child: Image.network(
-                                  studyData['std_prf_picture'],
+                                  widget.stdPrfPicture,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -188,7 +183,12 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed('stdHome3');
+                          await context.pushNamed(
+                            'stdHome3',
+                            queryParameters: {
+                              'stdName': serializeParam(widget.stdName, ParamType.String),
+                            }.withoutNulls,
+                          );
                         },
                         child: Container(
                           height: 60.0,
@@ -235,7 +235,6 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
                               'stdName': serializeParam(widget.stdName, ParamType.String),
                             }.withoutNulls,
                           );
-                          setState(() {});
                         },
                         child: Container(
                           height: 60.0,
@@ -276,8 +275,14 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          await context.pushNamed('stdHome5');
-                          refreshData(studyName);
+                          await context.pushNamed(
+                            'stdHome5',
+                            queryParameters: {
+                              'stdName': serializeParam(widget.stdName, ParamType.String),
+                            }.withoutNulls,
+                          );
+                          initStudyData(studyName);
+                          setState(() {});
                         },
                         child: Container(
                           height: 60.0,

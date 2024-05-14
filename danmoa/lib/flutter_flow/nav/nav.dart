@@ -239,17 +239,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'stdName',
               ParamType.String,
             ),
+            stdPrfPicture: params.getParam(
+              'stdPrfPicture',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
           name: 'stdHome3',
           path: '/stdHome3',
-          builder: (context, params) => const StdHome3Widget(),
-        ),
-        FFRoute(
-          name: 'change_position',
-          path: '/changePosition',
-          builder: (context, params) => const ChangePositionWidget(),
+          builder: (context, params) => StdHome3Widget(
+            stdName: params.getParam(
+              'stdName',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: 'stdHome1',
@@ -260,11 +264,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.String,
             ),
           ),
-        ),
-        FFRoute(
-          name: 'stdRoom1',
-          path: '/stdRoom1',
-          builder: (context, params) => const StdRoom1Widget(),
         ),
         FFRoute(
           name: 'QA1',
@@ -281,11 +280,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'QA3',
           path: '/qa3',
           builder: (context, params) => const Qa3Widget(),
-        ),
-        FFRoute(
-          name: 'stdRoom2',
-          path: '/stdRoom2',
-          builder: (context, params) => const StdRoom2Widget(),
         ),
         FFRoute(
           name: 'QA4',
@@ -314,7 +308,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'stdHome5',
           path: '/stdHome5',
-          builder: (context, params) => const StdHome5Widget(),
+          builder: (context, params) => StdHome5Widget(
+            stdName: params.getParam(
+              'stdName',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: 'stdList4',

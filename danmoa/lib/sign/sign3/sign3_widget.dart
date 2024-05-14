@@ -208,7 +208,7 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                   child: TextFormField(
                                     controller: _model.sign3Tf01TextController,
                                     focusNode: _model.sign3Tf01FocusNode,
-                                    autofocus: true,
+                                    autofocus: false,
                                     autofillHints: const [AutofillHints.email],
                                     obscureText: false,
                                     decoration: InputDecoration(

@@ -5,9 +5,15 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'std_home5_model.dart';
 export 'std_home5_model.dart';
+import 'package:danmoa/backend/backend.dart';
 
 class StdHome5Widget extends StatefulWidget {
-  const StdHome5Widget({super.key});
+  const StdHome5Widget({
+    super.key,
+    required this.stdName,
+  });
+
+  final String stdName;
 
   @override
   State<StdHome5Widget> createState() => _StdHome5WidgetState();
@@ -17,6 +23,9 @@ class _StdHome5WidgetState extends State<StdHome5Widget> {
   late StdHome5Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  Map<String, dynamic> studyData = {};
+  String studyName = "";
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -28,6 +37,9 @@ class _StdHome5WidgetState extends State<StdHome5Widget> {
 
     _model.cityTextController ??= TextEditingController();
     _model.cityFocusNode ??= FocusNode();
+
+    studyName = widget.stdName;
+    initStudyData(studyName);
   }
 
   @override
@@ -37,8 +49,27 @@ class _StdHome5WidgetState extends State<StdHome5Widget> {
     super.dispose();
   }
 
+  Future<void> initStudyData(studyName) async {
+    var loadedStudyData  = await loadStudyDataByName(studyName);
+    isLoading = false;
+    setState(() {
+      studyData = loadedStudyData;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return Scaffold(
+        body: Container(
+          color: Colors.black.withOpacity(0.5), // 반투명 배경
+          child: const Center(
+            child: CircularProgressIndicator(), // 로딩 인디케이터
+          ),
+        ),
+      );
+    }
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)

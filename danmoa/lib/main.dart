@@ -160,7 +160,7 @@ class _NavBarPageState extends State<NavBarPage> {
             tooltip: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
+            icon: FaIcon(
               Icons.quiz_sharp,
               size: 24.0,
             ),
@@ -180,7 +180,7 @@ class _NavBarPageState extends State<NavBarPage> {
               FontAwesomeIcons.solidUserCircle,
               size: 24.0,
             ),
-            label: 'Home',
+            label: 'prf',
             tooltip: '',
           )
         ],
