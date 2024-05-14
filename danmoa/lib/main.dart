@@ -122,7 +122,9 @@ class _NavBarPageState extends State<NavBarPage> {
     final tabs = {
       'home1': const Home1Widget(),
       'stdList2': const StdList2Widget(),
-      'prf1': const Prf1Widget(),
+      'QA1': const Qa1Widget(),
+      'contest1': const Contest1Widget(),
+      'prf1': const Prf1Widget(userUid: null,),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -146,7 +148,7 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.home_outlined,
               size: 24.0,
             ),
-            label: 'Home',
+            label: 'home',
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -154,7 +156,23 @@ class _NavBarPageState extends State<NavBarPage> {
               FontAwesomeIcons.bookReader,
               size: 20.0,
             ),
-            label: 'Home',
+            label: 'stdList',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.quiz_sharp,
+              size: 24.0,
+            ),
+            label: 'QA',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.manage_search,
+              size: 26.0,
+            ),
+            label: 'contest',
             tooltip: '',
           ),
           BottomNavigationBarItem(

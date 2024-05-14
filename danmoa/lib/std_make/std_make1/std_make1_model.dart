@@ -6,10 +6,18 @@ class StdMake1Model extends FlutterFlowModel<StdMake1Widget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for stdMake1_tf_01 widget.
-  FocusNode? stdMake1Tf01FocusNode;
-  TextEditingController? stdMake1Tf01TextController;
-  String? Function(BuildContext, String?)? stdMake1Tf01TextControllerValidator;
+  // State field(s) for stdName widget.
+  FocusNode? stdNameFocusNode;
+  TextEditingController? stdNameTextController;
+  String? Function(BuildContext, String?)? stdNameTextControllerValidator;
+  // State field(s) for stdIntro widget.
+  FocusNode? stdIntroFocusNode;
+  TextEditingController? stdIntroTextController;
+  String? Function(BuildContext, String?)? stdIntroTextControllerValidator;
+  // State field(s) for stdUrl widget.
+  FocusNode? stdUrlFocusNode;
+  TextEditingController? stdUrlTextController;
+  String? Function(BuildContext, String?)? stdUrlTextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
@@ -17,7 +25,13 @@ class StdMake1Model extends FlutterFlowModel<StdMake1Widget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    stdMake1Tf01FocusNode?.dispose();
-    stdMake1Tf01TextController?.dispose();
+    stdNameFocusNode?.dispose();
+    stdNameTextController?.dispose();
+
+    stdIntroFocusNode?.dispose();
+    stdIntroTextController?.dispose();
+
+    stdUrlFocusNode?.dispose();
+    stdUrlTextController?.dispose();
   }
 }

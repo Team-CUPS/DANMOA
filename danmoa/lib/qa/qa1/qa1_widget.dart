@@ -109,7 +109,7 @@ class _Qa1WidgetState extends State<Qa1Widget> {
                         TextFormField(
                           controller: _model.textController,
                           focusNode: _model.textFieldFocusNode,
-                          autofocus: true,
+                          autofocus: false,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelStyle: FlutterFlowTheme.of(context)

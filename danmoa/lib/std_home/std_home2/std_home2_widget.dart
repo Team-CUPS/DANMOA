@@ -6,9 +6,15 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'std_home2_model.dart';
 export 'std_home2_model.dart';
+import 'package:danmoa/backend/backend.dart';
 
 class StdHome2Widget extends StatefulWidget {
-  const StdHome2Widget({super.key});
+  const StdHome2Widget({
+    super.key,
+    required this.stdName,
+  });
+
+  final String stdName;
 
   @override
   State<StdHome2Widget> createState() => _StdHome2WidgetState();
@@ -18,11 +24,15 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
   late StdHome2Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  Map<String, dynamic> studyData = {};
+  String studyName = "";
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => StdHome2Model());
+    initData();
   }
 
   @override
@@ -32,8 +42,35 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
     super.dispose();
   }
 
+  Future<void> initData() async {
+    studyName = widget.stdName;
+    var loadedStudyData  = await loadStudyDataByName(studyName);
+    isLoading = false;
+    setState(() {
+      studyData = loadedStudyData;
+    });
+  }
+
+  Future<void> refreshData(studyName) async {
+    var loadedStudyData  = await loadStudyDataByName(studyName);
+    isLoading = false;
+    setState(() {
+      studyData = loadedStudyData;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return Scaffold(
+        body: Container(
+          color: Colors.black.withOpacity(0.5), // 반투명 배경
+          child: const Center(
+            child: CircularProgressIndicator(), // 로딩 인디케이터
+          ),
+        ),
+      );
+    }
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -55,7 +92,7 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
               size: 24.0,
             ),
             onPressed: () async {
-              context.pop();
+              Navigator.pop(context, studyName);
             },
           ),
           title: Text(
@@ -102,13 +139,13 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
                                   shape: BoxShape.circle,
                                 ),
                                 child: Image.network(
-                                  'https://picsum.photos/seed/642/600',
+                                  studyData['std_prf_picture'],
                                   fit: BoxFit.cover,
                                 ),
                               ),
                             ),
                             Text(
-                              '스터디 이름',
+                              studyName,
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -192,7 +229,13 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed('stdHome4');
+                          await context.pushNamed(
+                            'stdHome4',
+                            queryParameters: {
+                              'stdName': serializeParam(widget.stdName, ParamType.String),
+                            }.withoutNulls,
+                          );
+                          setState(() {});
                         },
                         child: Container(
                           height: 60.0,
@@ -233,7 +276,8 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed('stdHome5');
+                          await context.pushNamed('stdHome5');
+                          refreshData(studyName);
                         },
                         child: Container(
                           height: 60.0,

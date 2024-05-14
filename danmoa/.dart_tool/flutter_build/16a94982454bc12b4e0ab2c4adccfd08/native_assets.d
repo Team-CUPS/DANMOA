@@ -1,1 +1,0 @@
- /Users/yunho/Documents/2024/capstone/version/Twelve_Ver/danmoa/.dart_tool/flutter_build/16a94982454bc12b4e0ab2c4adccfd08/native_assets.yaml: 

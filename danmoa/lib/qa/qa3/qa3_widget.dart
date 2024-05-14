@@ -126,7 +126,7 @@ class _Qa3WidgetState extends State<Qa3Widget> with TickerProviderStateMixin {
                           ),
                         ),
                         FutureBuilder<List<Map<String, dynamic>>>(
-                          future: loadFilteredQAData(),
+                          future: loadFilteredQAData(currentUserUid),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
                               return const Center(child: CircularProgressIndicator());

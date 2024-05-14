@@ -39,7 +39,10 @@ class _StdList3WidgetState extends State<StdList3Widget> {
   }
 
   Future<void> initStudyData() async {
-    studyData = await loadStudyData(2); // 1: created time DESC, 2: updated time DESC
+    var loadedData = await loadStudyData(2); // 1: created time DESC, 2: updated time DESC
+    setState(() {
+      studyData = loadedData;
+    });
   }
 
 
@@ -161,7 +164,7 @@ class _StdList3WidgetState extends State<StdList3Widget> {
                 ),
               ),
               FutureBuilder<List<Map<String, dynamic>>>(
-                future: filteredSearchStudyData(studyData, filter), // 비동기 함수 호출
+                future: loadFilteredSearchStudyData(studyData, filter), // 비동기 함수 호출
                 builder: (BuildContext context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());

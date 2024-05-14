@@ -163,39 +163,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'stdPrfPicture',
               ParamType.String,
             ),
+            stdIntro: params.getParam(
+              'stdIntro',
+              ParamType.String,
+            ),
+            stdUrl: params.getParam(
+              'stdUrl',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
           name: 'stdMake3',
           path: '/stdMake3',
-          builder: (context, params) => StdMake3Widget(
-            stdName: params.getParam(
-              'stdName',
-              ParamType.String,
-            ),
-            stdPosition: params.getParam(
-              'stdPosition',
-              ParamType.String,
-            ),
-            stdTimes: params.getParam(
-              'stdTimes',
-              ParamType.String,
-              isList: true,
-            ),
-            stdField: params.getParam(
-              'stdField',
-              ParamType.String,
-            ),
-            stdPrfPicture: params.getParam(
-              'stdPrfPicture',
-              ParamType.String,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: 'stdMake4',
-          path: '/stdMake4',
-          builder: (context, params) => const StdMake4Widget(),
+          builder: (context, params) => const StdMake3Widget()
         ),
         FFRoute(
           name: 'stdList1',
@@ -223,7 +204,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'prf1',
           path: '/prf1',
           builder: (context, params) =>
-              params.isEmpty ? const NavBarPage(initialPage: 'prf1') : const Prf1Widget(),
+              params.isEmpty ? const NavBarPage(initialPage: 'prf1') : Prf1Widget(
+                userUid: params.getParam(
+                  'userUid',
+                  ParamType.String,
+                ),
+              ),
         ),
         FFRoute(
           name: 'set1',
@@ -248,7 +234,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'stdHome2',
           path: '/stdHome2',
-          builder: (context, params) => const StdHome2Widget(),
+          builder: (context, params) => StdHome2Widget(
+            stdName: params.getParam(
+              'stdName',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: 'stdHome3',
@@ -263,7 +254,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'stdHome1',
           path: '/stdHome1',
-          builder: (context, params) => const StdHome1Widget(),
+          builder: (context, params) => StdHome1Widget(
+            stdName: params.getParam(
+              'stdName',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: 'stdRoom1',
@@ -273,7 +269,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'QA1',
           path: '/qa1',
-          builder: (context, params) => const Qa1Widget(),
+          builder: (context, params) =>
+              params.isEmpty ? const NavBarPage(initialPage: 'QA1') : const Qa1Widget(),
         ),
         FFRoute(
           name: 'QA2',
@@ -307,7 +304,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'stdHome4',
           path: '/stdHome4',
-          builder: (context, params) => const StdHome4Widget(),
+          builder: (context, params) => StdHome4Widget(
+            stdName: params.getParam(
+              'stdName',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: 'stdHome5',
@@ -318,6 +320,27 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'stdList4',
           path: '/stdList4',
           builder: (context, params) => const StdList4Widget(),
+        ),
+        FFRoute(
+          name: 'contest1',
+          path: '/contest1',
+          builder: (context, params) =>
+              params.isEmpty ? const NavBarPage(initialPage: 'contest1'): const Contest1Widget(),
+        ),
+        FFRoute(
+          name: 'contest2',
+          path: '/contest2',
+          builder: (context, params) => Contest2Widget(
+            contents: params.getParam(
+              'contents',
+              ParamType.JSON
+            )
+          ),
+        ),
+        FFRoute(
+          name: 'contest3',
+          path: '/contest3',
+          builder: (context, params) => const Contest3Widget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

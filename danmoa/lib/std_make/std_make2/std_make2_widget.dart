@@ -7,17 +7,21 @@ import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'std_make2_model.dart';
 export 'std_make2_model.dart';
+import 'package:danmoa/backend/backend.dart';
 
 class StdMake2Widget extends StatefulWidget {
   const StdMake2Widget({
     super.key,
     required this.stdName,
     required this.stdPrfPicture,
-    
+    required this.stdIntro,
+    required this.stdUrl,
   });
 
   final String? stdName;
   final String? stdPrfPicture;
+  final String? stdIntro;
+  final String? stdUrl;
 
   @override
   State<StdMake2Widget> createState() => _StdMake2WidgetState();
@@ -91,7 +95,7 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
             },
           ),
           title: Text(
-            '스터디 만들기(2/3)',
+            '스터디 만들기(2/2)',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'pretendard',
                   color: FlutterFlowTheme.of(context).primaryText,
@@ -236,7 +240,7 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                                         controller: _model
                                                 .stdMake2Cc01ValueController ??=
                                             FormFieldController<List<String>>(
-                                          ['1학년'],
+                                          [],
                                         ),
                                         wrapped: true,
                                       ),
@@ -460,7 +464,7 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                                                                           8.0,
                                                                           0.0,
                                                                           8.0,
-                                                                          0.0),
+                                                                          10.0),
                                                             ),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
@@ -572,7 +576,7 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                                                                           8.0,
                                                                           0.0,
                                                                           8.0,
-                                                                          0.0),
+                                                                          10.0),
                                                             ),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
@@ -705,7 +709,7 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                                       controller:
                                           _model.stdMake2Cc03ValueController ??=
                                               FormFieldController<List<String>>(
-                                        ['문학·문예'],
+                                        [],
                                       ),
                                       wrapped: true,
                                     ),
@@ -727,40 +731,59 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                       const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      print('name: ${widget.stdName}');
-                      print('times: ${_model.stdList4Cc03Values}');
+                      if(_model.stdMake2Cc01Value == "" ||  _model.stdMake2Cc03Value == "" || listEquals(_model.stdList4Cc03Values, []) == true || _startTimeController.text == "" || _endTimeController.text == "") {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("경고"),
+                              content: const Text("모든 정보를 입력해주세요."),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text("확인"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();  // 대화 상자 닫기
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        return;  // 함수 실행 중지
+                      }
+                      
+                      // widget.stdName, widget.stdTimes, widget.stdPosition, widget.stdField : page parameter
+                      // _model.stdMake3Tf02TextController.text : 소개글
+                      // _model.stdMake3Tf03TextController.text : 채팅방 링크
                       _model.stdList4Cc03Values?.add(_startTimeController.text);
                       _model.stdList4Cc03Values?.add(_endTimeController.text);
-                      await context.pushNamed(
-                        'stdMake3',
-                        queryParameters: {
-                          'stdName': serializeParam(
-                            widget.stdName,
-                            ParamType.String,
-                          ),
-                          'stdPosition': serializeParam(
-                            _model.stdMake2Cc01Value,
-                            ParamType.String,
-                          ),
-                          'stdTimes': serializeParam(
-                            _model.stdList4Cc03Values,
-                            ParamType.String,
-                            true,
-                          ),
-                          'stdField': serializeParam(
-                            _model.stdMake2Cc03Value,
-                            ParamType.String,
-                          ),
-                          'stdPrfPicture': serializeParam(
-                            widget.stdPrfPicture,
-                            ParamType.String,
-                          )
-                        }.withoutNulls,
-                      );
-                      _model.stdList4Cc03Values!.removeLast();
-                      _model.stdList4Cc03Values!.removeLast();
+
+                      String? userName = await getUserInfoByKey('prf_name');
+                      String? firebaseStoragePicUrl = await storeStudyImageToStorage(widget.stdPrfPicture, widget.stdName);
+                      Map<String, dynamic> studyData = {
+                        'std_leader': {
+                          'name': userName,
+                          'uid': currentUserUid
+                        },
+                        'std_members': [],
+                        'std_name': widget.stdName,  // List<String>? 타입일 경우 처리 필요
+                        'std_position': _model.stdMake2Cc01Value,
+                        'std_field': _model.stdMake2Cc03Value,
+                        'std_created_time': DateTime.now(),
+                        'std_updated_time': DateTime.now(),
+                        'std_times': sortTime(_model.stdList4Cc03Values),
+                        'std_intro': widget.stdIntro,
+                        'std_url': widget.stdUrl,
+                        'std_prf_picture': firebaseStoragePicUrl,
+                      };
+                      
+                      await storeStudyData(studyData);
+
+                      if (context.mounted) {
+                        context.pushNamed('stdMake3',);
+                      }
                     },
-                    text: '다음',
+                    text: '저장하기',
                     options: FFButtonOptions(
                       width: 320.0,
                       height: 45.0,

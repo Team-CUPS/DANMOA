@@ -477,7 +477,7 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                                 letterSpacing: 0.0,
                                 useGoogleFonts: false,
                               ),
-                      elevation: 3.0,
+                      elevation: 0.0,
                       borderSide: const BorderSide(
                         color: Colors.transparent,
                         width: 1.0,

@@ -19,6 +19,7 @@ class _StdList2WidgetState extends State<StdList2Widget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController _scrollController = ScrollController();
+  List<dynamic> rst = [null, [], null];
 
   @override
   void initState() {
@@ -97,7 +98,10 @@ class _StdList2WidgetState extends State<StdList2Widget> {
                       alignment: const AlignmentDirectional(0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          var rst = await context.pushNamed('stdList4');
+                          var result = await context.pushNamed('stdList4') as List<dynamic>;
+                          setState(() {
+                            rst = result;
+                          },);
                           print("필터링 요구 값: $rst");
                         },
                         text: '필터',
@@ -134,7 +138,7 @@ class _StdList2WidgetState extends State<StdList2Widget> {
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                   child: FutureBuilder<List<Map<String, dynamic>>>(
-                    future: loadStudyData(2),  // 1: updated time DESC / 2: created time DESC
+                    future: loadFilteredStudyData(stdPosition: rst[0], stdTimes: (rst[1] as List).cast<String>(), stdField: rst[2]),  // 1: updated time DESC / 2: created time DESC
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
@@ -148,11 +152,21 @@ class _StdList2WidgetState extends State<StdList2Widget> {
                             final study = snapshot.data![index];
                             String stdName = study['std_name'];
                             String stdField = study['std_field'];
-                            //String stdPrfPicture = study['std_prf_picture'] ?? 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fdefault_white.png?alt=media&token=e78c656d-4dc3-4b91-b2ad-2bb69a913f64';
+                            String stdPrfPicture = study['std_prf_picture'] ?? 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fdefault_white.png?alt=media&token=e78c656d-4dc3-4b91-b2ad-2bb69a913f64';
                             String stdPeopleNums = study['std_members'] != null ? (study['std_members'].length + 1).toString() : '1';
                             return InkWell(
                               onTap: () async {
-                                
+                                await updateStudyUpdateTime(stdName);
+                                await context.pushNamed(
+                                  'stdHome1',
+                                  queryParameters: {
+                                    'stdName': serializeParam(
+                                      stdName,
+                                      ParamType.String,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                                setState(() {},);
                               },
                               child: Container(
                                 width: double.infinity,

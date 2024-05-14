@@ -1,7 +1,3 @@
-import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
-import 'dart:io';
-
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -22,7 +18,6 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
   late StdMake1Model _model;
   XFile? returnedImg;
   XFile? _imageFile;
-  
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -31,8 +26,14 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
     super.initState();
     _model = createModel(context, () => StdMake1Model());
 
-    _model.stdMake1Tf01TextController ??= TextEditingController();
-    _model.stdMake1Tf01FocusNode ??= FocusNode();
+    _model.stdNameTextController ??= TextEditingController();
+    _model.stdNameFocusNode ??= FocusNode();
+
+    _model.stdIntroTextController ??= TextEditingController();
+    _model.stdIntroFocusNode ??= FocusNode();
+
+    _model.stdUrlTextController ??= TextEditingController();
+    _model.stdUrlFocusNode ??= FocusNode();
   }
 
   @override
@@ -70,7 +71,7 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
             },
           ),
           title: Text(
-            '스터디 만들기(1/3)',
+            '스터디 만들기(1/2)',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'pretendard',
                   color: FlutterFlowTheme.of(context).primaryText,
@@ -98,7 +99,8 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                     Align(
                       alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 80.0, 0.0, 0.0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -112,124 +114,299 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                             });
                           },
                           child: Container(
-                          width: 100.0,
-                          height: 100.0,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: const Color(0xFFBDBDBD),
+                            width: 100.0,
+                            height: 100.0,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color(0xFFBDBDBD),
+                              ),
+                              image: _imageFile != null
+                              ? DecorationImage(
+                                  image: FileImage(File(_imageFile!.path)),
+                                  fit: BoxFit.cover,
+                                )
+                              : null,
                             ),
-                            image: _imageFile != null
-                            ? DecorationImage(
-                                image: FileImage(File(_imageFile!.path)),
-                                fit: BoxFit.cover,
-                              )
-                            : null,
-                          ),
-                          child: Align(
-                            alignment: const AlignmentDirectional(1.0, 1.0),
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 3.0, 3.0),
-                              child: Icon(
-                                Icons.add_a_photo,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                size: 24.0,
+                            child: Align(
+                              alignment: const AlignmentDirectional(1.0, 1.0),
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 3.0, 3.0),
+                                child: Icon(
+                                  Icons.add_a_photo,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 24.0,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(60.0, 60.0, 60.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 60.0, 0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
                             alignment: const AlignmentDirectional(-1.0, 0.0),
-                            child: Text(
-                              '스터디 이름을 입력하세요',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'pretendard',
-                                    fontSize: 18,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                    useGoogleFonts: false,
-                                  ),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  25.0, 0.0, 0.0, 10.0),
+                              child: Text(
+                                '그룹명',
+                                textAlign: TextAlign.start,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'pretendard',
+                                      fontSize: 18.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 20.0, 0.0, 0.0),
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: TextFormField(
-                                controller: _model.stdMake1Tf01TextController,
-                                focusNode: _model.stdMake1Tf01FocusNode,
-                                autofocus: true,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'pretendard',
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: false,
-                                      ),
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'pretendard',
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: false,
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color(0xFFADB3B2),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
+                                20.0, 0.0, 20.0, 16.0),
+                            child: TextFormField(
+                              controller: _model.stdNameTextController,
+                              focusNode: _model.stdNameFocusNode,
+                              textCapitalization: TextCapitalization.words,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: '스터디 이름을 정해주세요',
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
                                     .override(
                                       fontFamily: 'pretendard',
                                       letterSpacing: 0.0,
                                       useGoogleFonts: false,
                                     ),
-                                validator: _model
-                                    .stdMake1Tf01TextControllerValidator
-                                    .asValidator(context),
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'pretendard',
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: false,
+                                    ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                filled: true,
+                                fillColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    20.0, 24.0, 0.0, 24.0),
                               ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'pretendard',
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: false,
+                                  ),
+                              validator: _model.stdNameTextControllerValidator
+                                  .asValidator(context),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Align(
+                            alignment: const AlignmentDirectional(-1.0, 0.0),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  25.0, 15.0, 0.0, 0.0),
+                              child: Text(
+                                '소개 및 링크 ',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'pretendard',
+                                      fontSize: 18.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                20.0, 10.0, 20.0, 12.0),
+                            child: TextFormField(
+                              controller: _model.stdIntroTextController,
+                              focusNode: _model.stdIntroFocusNode,
+                              textCapitalization: TextCapitalization.sentences,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'pretendard',
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: false,
+                                    ),
+                                hintText: '소개글을 간단하게 적어주세요',
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'pretendard',
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: false,
+                                    ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                filled: true,
+                                fillColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    20.0, 24.0, 0.0, 24.0),
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'pretendard',
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: false,
+                                  ),
+                              textAlign: TextAlign.start,
+                              maxLines: 3,
+                              validator: _model.stdIntroTextControllerValidator
+                                  .asValidator(context),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                20.0, 0.0, 20.0, 16.0),
+                            child: TextFormField(
+                              controller: _model.stdUrlTextController,
+                              focusNode: _model.stdUrlFocusNode,
+                              textCapitalization: TextCapitalization.words,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: '채팅방 링크를 넣어주세요',
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'pretendard',
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: false,
+                                    ),
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'pretendard',
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: false,
+                                    ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 2.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                filled: true,
+                                fillColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    20.0, 24.0, 0.0, 24.0),
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'pretendard',
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: false,
+                                  ),
+                              validator: _model.stdUrlTextControllerValidator
+                                  .asValidator(context),
                             ),
                           ),
                         ],
@@ -245,17 +422,70 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                       const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
                   child: FFButtonWidget(
                     onPressed: () async {
+                      String chatLink = _model.stdUrlTextController.text;
+                      //!chatLink.startsWith('https://open.kakao.com')
+                      if(_model.stdNameTextController.text == "" ||   _model.stdIntroTextController.text == "" || _model.stdUrlTextController.text == "") {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("경고"),
+                              content: const Text("모든 정보를 입력해주세요."),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text("확인"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();  // 대화 상자 닫기
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        return;  // 함수 실행 중지
+                      }
+                      else if (!chatLink.startsWith('https://open.kakao.com')) {
+                        // 링크가 올바르지 않을 경우 경고 대화 상자 표시
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("경고"),
+                              content: const Text("카카오톡 오픈채팅방 주소를 올바르게 입력해주세요."),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text("확인"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();  // 대화 상자 닫기
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        return;  // 함수 실행 중지
+                      }
+
+                      
                       context.pushNamed(
                         'stdMake2',
                         queryParameters: {
                           'stdName': serializeParam(
-                            _model.stdMake1Tf01TextController.text,
+                            _model.stdNameTextController.text,
+                            ParamType.String,
+                          ),
+                          'stdIntro': serializeParam(
+                            _model.stdIntroTextController.text,
+                            ParamType.String,
+                          ),
+                          'stdUrl': serializeParam(
+                            _model.stdUrlTextController.text,
                             ParamType.String,
                           ),
                           'stdPrfPicture': serializeParam(
                             returnedImg?.path,
                             ParamType.String,
-                          ) 
+                          ),
                         }.withoutNulls,
                       );
                     },
@@ -275,7 +505,7 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                                 letterSpacing: 0.0,
                                 useGoogleFonts: false,
                               ),
-                      elevation: 3.0,
+                      elevation: 0.0,
                       borderSide: const BorderSide(
                         color: Colors.transparent,
                         width: 1.0,

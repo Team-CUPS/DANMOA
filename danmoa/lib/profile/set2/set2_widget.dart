@@ -1,13 +1,13 @@
-import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/flutter_flow/upload_data.dart';
 import '/sign/sign4_sht_01/sign4_sht01_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:danmoa/backend/backend.dart';
+
 import 'set2_model.dart';
 export 'set2_model.dart';
 
@@ -22,17 +22,23 @@ class _Set2WidgetState extends State<Set2Widget> {
   late Set2Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  XFile? returnedImg;
+  XFile? _imageFile;
+  Map<String, dynamic> userData = {};
+  bool isLoading = true;
+  bool isPickedImg = false;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => Set2Model());
 
-    _model.sign3Tf02TextController ??= TextEditingController();
-    _model.sign3Tf02FocusNode ??= FocusNode();
+    _model.displayNameTextController ??= TextEditingController();
+    _model.displayNameFocusNode ??= FocusNode();
 
-    _model.myBioTextController ??= TextEditingController();
-    _model.myBioFocusNode ??= FocusNode();
+    _model.introTextController ??= TextEditingController();
+    _model.introFocusNode ??= FocusNode();
+    initData();
   }
 
   @override
@@ -42,8 +48,26 @@ class _Set2WidgetState extends State<Set2Widget> {
     super.dispose();
   }
 
+  Future<void> initData() async {
+    var loadedCurrentUserData = await loadUserDataByUid(currentUserUid);
+    isLoading = false;
+    setState(() {
+      userData = loadedCurrentUserData;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return Scaffold(
+        body: Container(
+          color: Colors.black.withOpacity(0.5), // 반투명 배경
+          child: const Center(
+            child: CircularProgressIndicator(), // 로딩 인디케이터
+          ),
+        ),
+      );
+    }
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -57,13 +81,13 @@ class _Set2WidgetState extends State<Set2Widget> {
           automaticallyImplyLeading: false,
           leading: FlutterFlowIconButton(
             borderColor: Colors.transparent,
-            borderRadius: 30.0,
-            borderWidth: 1.0,
-            buttonSize: 60.0,
+            borderRadius: 30,
+            borderWidth: 1,
+            buttonSize: 60,
             icon: const Icon(
               Icons.chevron_left,
               color: Color(0xFF0A0000),
-              size: 30.0,
+              size: 30,
             ),
             onPressed: () async {
               context.safePop();
@@ -71,7 +95,7 @@ class _Set2WidgetState extends State<Set2Widget> {
           ),
           actions: const [],
           centerTitle: false,
-          elevation: 0.0,
+          elevation: 0,
         ),
         body: SafeArea(
           top: true,
@@ -86,162 +110,84 @@ class _Set2WidgetState extends State<Set2Widget> {
                       key: _model.formKey,
                       autovalidateMode: AutovalidateMode.disabled,
                       child: Padding(
-                        padding: const EdgeInsets.all(24.0),
+                        padding: const EdgeInsets.all(24),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              alignment: const AlignmentDirectional(0, 0),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 0.0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                                 child: Container(
-                                  width: 100.0,
-                                  height: 100.0,
+                                  width: 100,
+                                  height: 100,
                                   decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                    color: FlutterFlowTheme.of(context).secondaryBackground,
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
+                                      color: const Color(0xFFBDBDBD),
                                     ),
-                                  ),
-                                  child: Align(
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Container(
-                                        width: 100.0,
-                                        height: 100.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(50.0),
-                                            child: Image.network(
-                                              'https://ifh.cc/g/QMmTbH.jpg',
-                                              width: 100.0,
-                                              height: 100.0,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
+                                    image: isPickedImg == false
+                                    ? DecorationImage(
+                                        image: NetworkImage(userData['photo_url'] ?? 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/users%2Fdefault%2F1000000036.jpg?alt=media&token=e89a0182-6090-465d-8065-ee98fc2c7c35'),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : DecorationImage(
+                                        image: FileImage(File(_imageFile!.path)),
+                                        fit: BoxFit.cover,
                                       ),
-                                    ),
                                   ),
                                 ),
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(0.0, -1.0),
+                              alignment: const AlignmentDirectional(0, -1),
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 12.0, 0.0, 32.0),
+                                    0, 12, 0, 32),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    final selectedMedia = await selectMedia(
-                                      mediaSource: MediaSource.photoGallery,
-                                      multiImage: false,
-                                    );
-                                    if (selectedMedia != null &&
-                                        selectedMedia.every((m) =>
-                                            validateFileFormat(
-                                                m.storagePath, context))) {
-                                      setState(
-                                          () => _model.isDataUploading = true);
-                                      var selectedUploadedFiles =
-                                          <FFUploadedFile>[];
+                                    returnedImg = await getImageFromGallery();
 
-                                      var downloadUrls = <String>[];
-                                      try {
-                                        showUploadMessage(
-                                          context,
-                                          'Uploading file...',
-                                          showLoading: true,
-                                        );
-                                        selectedUploadedFiles = selectedMedia
-                                            .map((m) => FFUploadedFile(
-                                                  name: m.storagePath
-                                                      .split('/')
-                                                      .last,
-                                                  bytes: m.bytes,
-                                                  height: m.dimensions?.height,
-                                                  width: m.dimensions?.width,
-                                                  blurHash: m.blurHash,
-                                                ))
-                                            .toList();
-
-                                        downloadUrls = (await Future.wait(
-                                          selectedMedia.map(
-                                            (m) async => await uploadData(
-                                                m.storagePath, m.bytes),
-                                          ),
-                                        ))
-                                            .where((u) => u != null)
-                                            .map((u) => u!)
-                                            .toList();
-                                      } finally {
-                                        ScaffoldMessenger.of(context)
-                                            .hideCurrentSnackBar();
-                                        _model.isDataUploading = false;
+                                    setState(() {
+                                      if (returnedImg != null ){
+                                        isPickedImg = true;
                                       }
-                                      if (selectedUploadedFiles.length ==
-                                              selectedMedia.length &&
-                                          downloadUrls.length ==
-                                              selectedMedia.length) {
-                                        setState(() {
-                                          _model.uploadedLocalFile =
-                                              selectedUploadedFiles.first;
-                                          _model.uploadedFileUrl =
-                                              downloadUrls.first;
-                                        });
-                                        showUploadMessage(context, 'Success!');
-                                      } else {
-                                        setState(() {});
-                                        showUploadMessage(
-                                            context, 'Failed to upload data');
-                                        return;
-                                      }
-                                    }
+                                      _imageFile = returnedImg;
+                                    });
                                   },
                                   text: '프로필 사진 편집',
                                   options: FFButtonOptions(
-                                    width: 130.0,
-                                    height: 40.0,
+                                    width: 130,
+                                    height: 40,
                                     padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
+                                        0, 0, 0, 0),
                                     iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
+                                        0, 0, 0, 0),
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                     textStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'pretendard',
-                                          letterSpacing: 0.0,
+                                          letterSpacing: 0,
                                           useGoogleFonts: false,
                                         ),
-                                    elevation: 0.0,
+                                    elevation: 0,
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
-                                      width: 1.0,
+                                      width: 1,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 0.0),
+                              padding:
+                                  const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -249,13 +195,14 @@ class _Set2WidgetState extends State<Set2Widget> {
                                   Expanded(
                                     child: Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 8.0, 16.0, 16.0),
+                                          0, 8, 16, 16),
                                       child: SizedBox(
                                         width: double.infinity,
                                         child: TextFormField(
                                           controller:
-                                              _model.sign3Tf02TextController,
-                                          focusNode: _model.sign3Tf02FocusNode,
+                                              _model.displayNameTextController,
+                                          focusNode:
+                                              _model.displayNameFocusNode,
                                           autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -266,7 +213,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                     .override(
                                                       fontFamily: 'pretendard',
                                                       color: const Color(0x7057636C),
-                                                      letterSpacing: 0.0,
+                                                      letterSpacing: 0,
                                                       useGoogleFonts: false,
                                                     ),
                                             hintStyle:
@@ -275,8 +222,8 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                     .override(
                                                       fontFamily: 'pretendard',
                                                       color: const Color(0x7057636C),
-                                                      fontSize: 25.0,
-                                                      letterSpacing: 0.0,
+                                                      fontSize: 25,
+                                                      letterSpacing: 0,
                                                       useGoogleFonts: false,
                                                     ),
                                             enabledBorder: OutlineInputBorder(
@@ -284,29 +231,27 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .alternate,
-                                                width: 1.0,
+                                                width: 1,
                                               ),
                                               borderRadius: const BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(12.0),
+                                                bottomLeft: Radius.circular(12),
                                                 bottomRight:
-                                                    Radius.circular(12.0),
-                                                topLeft: Radius.circular(12.0),
-                                                topRight: Radius.circular(12.0),
+                                                    Radius.circular(12),
+                                                topLeft: Radius.circular(12),
+                                                topRight: Radius.circular(12),
                                               ),
                                             ),
                                             focusedBorder: const OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Color(0xFF375AC1),
-                                                width: 1.0,
+                                                width: 1,
                                               ),
                                               borderRadius: BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(12.0),
+                                                bottomLeft: Radius.circular(12),
                                                 bottomRight:
-                                                    Radius.circular(12.0),
-                                                topLeft: Radius.circular(12.0),
-                                                topRight: Radius.circular(12.0),
+                                                    Radius.circular(12),
+                                                topLeft: Radius.circular(12),
+                                                topRight: Radius.circular(12),
                                               ),
                                             ),
                                             errorBorder: OutlineInputBorder(
@@ -314,15 +259,14 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .error,
-                                                width: 1.0,
+                                                width: 1,
                                               ),
                                               borderRadius: const BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(12.0),
+                                                bottomLeft: Radius.circular(12),
                                                 bottomRight:
-                                                    Radius.circular(12.0),
-                                                topLeft: Radius.circular(12.0),
-                                                topRight: Radius.circular(12.0),
+                                                    Radius.circular(12),
+                                                topLeft: Radius.circular(12),
+                                                topRight: Radius.circular(12),
                                               ),
                                             ),
                                             focusedErrorBorder:
@@ -331,15 +275,14 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .error,
-                                                width: 1.0,
+                                                width: 1,
                                               ),
                                               borderRadius: const BorderRadius.only(
-                                                bottomLeft:
-                                                    Radius.circular(12.0),
+                                                bottomLeft: Radius.circular(12),
                                                 bottomRight:
-                                                    Radius.circular(12.0),
-                                                topLeft: Radius.circular(12.0),
-                                                topRight: Radius.circular(12.0),
+                                                    Radius.circular(12),
+                                                topLeft: Radius.circular(12),
+                                                topRight: Radius.circular(12),
                                               ),
                                             ),
                                             filled: true,
@@ -348,42 +291,42 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                     .secondaryBackground,
                                             contentPadding:
                                                 const EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 0.0, 5.0),
+                                                    10, 0, 0, 5),
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'pretendard',
-                                                fontSize: 14.0,
-                                                letterSpacing: 0.0,
+                                                fontSize: 14,
+                                                letterSpacing: 0,
                                                 useGoogleFonts: false,
                                               ),
                                           textAlign: TextAlign.justify,
                                           validator: _model
-                                              .sign3Tf02TextControllerValidator
+                                              .displayNameTextControllerValidator
                                               .asValidator(context),
                                         ),
                                       ),
                                     ),
                                   ),
                                   Align(
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0, 0),
                                     child: Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 11.0),
+                                          0, 0, 0, 11),
                                       child: FFButtonWidget(
                                         onPressed: () {
                                           print('Button pressed ...');
                                         },
                                         text: '중복체크',
                                         options: FFButtonOptions(
-                                          height: 40.0,
+                                          height: 40,
                                           padding:
                                               const EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 0.0, 24.0, 0.0),
+                                                  24, 0, 24, 0),
                                           iconPadding:
                                               const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
+                                                  0, 0, 0, 0),
                                           color: const Color(0xFF375AC1),
                                           textStyle:
                                               FlutterFlowTheme.of(context)
@@ -391,19 +334,19 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                   .override(
                                                     fontFamily: 'pretendard',
                                                     color: Colors.white,
-                                                    letterSpacing: 0.0,
+                                                    letterSpacing: 0,
                                                     useGoogleFonts: false,
                                                   ),
-                                          elevation: 0.0,
+                                          elevation: 0,
                                           borderSide: const BorderSide(
                                             color: Colors.transparent,
-                                            width: 1.0,
+                                            width: 1,
                                           ),
                                           borderRadius: const BorderRadius.only(
-                                            bottomLeft: Radius.circular(50.0),
-                                            bottomRight: Radius.circular(50.0),
-                                            topLeft: Radius.circular(50.0),
-                                            topRight: Radius.circular(50.0),
+                                            bottomLeft: Radius.circular(50),
+                                            bottomRight: Radius.circular(50),
+                                            topLeft: Radius.circular(50),
+                                            topRight: Radius.circular(50),
                                           ),
                                         ),
                                       ),
@@ -413,11 +356,11 @@ class _Set2WidgetState extends State<Set2Widget> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 12.0),
+                              padding:
+                                  const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
                               child: TextFormField(
-                                controller: _model.myBioTextController,
-                                focusNode: _model.myBioFocusNode,
+                                controller: _model.introTextController,
+                                focusNode: _model.introFocusNode,
                                 textCapitalization:
                                     TextCapitalization.sentences,
                                 obscureText: false,
@@ -428,7 +371,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                                       .override(
                                         fontFamily: 'pretendard',
                                         color: const Color(0x7057636C),
-                                        letterSpacing: 0.0,
+                                        letterSpacing: 0,
                                         useGoogleFonts: false,
                                       ),
                                   hintStyle: FlutterFlowTheme.of(context)
@@ -436,7 +379,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                                       .override(
                                         fontFamily: 'pretendard',
                                         color: const Color(0x7057636C),
-                                        letterSpacing: 0.0,
+                                        letterSpacing: 0,
                                         useGoogleFonts: false,
                                       ),
                                   errorStyle: FlutterFlowTheme.of(context)
@@ -445,56 +388,56 @@ class _Set2WidgetState extends State<Set2Widget> {
                                         fontFamily: 'pretendard',
                                         color:
                                             FlutterFlowTheme.of(context).error,
-                                        letterSpacing: 0.0,
+                                        letterSpacing: 0,
                                         useGoogleFonts: false,
                                       ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
                                           .alternate,
-                                      width: 1.0,
+                                      width: 1,
                                     ),
                                     borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(12.0),
-                                      bottomRight: Radius.circular(12.0),
-                                      topLeft: Radius.circular(12.0),
-                                      topRight: Radius.circular(12.0),
+                                      bottomLeft: Radius.circular(12),
+                                      bottomRight: Radius.circular(12),
+                                      topLeft: Radius.circular(12),
+                                      topRight: Radius.circular(12),
                                     ),
                                   ),
                                   focusedBorder: const OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0xFF375AC1),
-                                      width: 1.0,
+                                      width: 1,
                                     ),
                                     borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(12.0),
-                                      bottomRight: Radius.circular(12.0),
-                                      topLeft: Radius.circular(12.0),
-                                      topRight: Radius.circular(12.0),
+                                      bottomLeft: Radius.circular(12),
+                                      bottomRight: Radius.circular(12),
+                                      topLeft: Radius.circular(12),
+                                      topRight: Radius.circular(12),
                                     ),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
+                                      width: 1,
                                     ),
                                     borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(12.0),
-                                      bottomRight: Radius.circular(12.0),
-                                      topLeft: Radius.circular(12.0),
-                                      topRight: Radius.circular(12.0),
+                                      bottomLeft: Radius.circular(12),
+                                      bottomRight: Radius.circular(12),
+                                      topLeft: Radius.circular(12),
+                                      topRight: Radius.circular(12),
                                     ),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).error,
-                                      width: 1.0,
+                                      width: 1,
                                     ),
                                     borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(12.0),
-                                      bottomRight: Radius.circular(12.0),
-                                      topLeft: Radius.circular(12.0),
-                                      topRight: Radius.circular(12.0),
+                                      bottomLeft: Radius.circular(12),
+                                      bottomRight: Radius.circular(12),
+                                      topLeft: Radius.circular(12),
+                                      topRight: Radius.circular(12),
                                     ),
                                   ),
                                   filled: true,
@@ -502,39 +445,39 @@ class _Set2WidgetState extends State<Set2Widget> {
                                       .secondaryBackground,
                                   contentPadding:
                                       const EdgeInsetsDirectional.fromSTEB(
-                                          20.0, 24.0, 0.0, 24.0),
+                                          20, 24, 0, 24),
                                 ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'pretendard',
-                                      letterSpacing: 0.0,
+                                      letterSpacing: 0,
                                       useGoogleFonts: false,
                                     ),
                                 textAlign: TextAlign.start,
                                 maxLines: 3,
                                 cursorColor:
                                     FlutterFlowTheme.of(context).primary,
-                                validator: _model.myBioTextControllerValidator
+                                validator: _model.introTextControllerValidator
                                     .asValidator(context),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 20.0, 0.0, 0.0),
+                              padding:
+                                  const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Align(
-                                    alignment: const AlignmentDirectional(-1.0, 0.0),
+                                    alignment: const AlignmentDirectional(-1, 0),
                                     child: Text(
                                       '학과',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'pretendard',
-                                            fontSize: 16.0,
-                                            letterSpacing: 0.0,
+                                            fontSize: 16,
+                                            letterSpacing: 0,
                                             fontWeight: FontWeight.normal,
                                             useGoogleFonts: false,
                                           ),
@@ -543,32 +486,32 @@ class _Set2WidgetState extends State<Set2Widget> {
                                   Expanded(
                                     child: Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                          12.0, 0.0, 8.0, 0.0),
+                                          12, 0, 8, 0),
                                       child: Container(
-                                        width: 150.0,
-                                        height: 48.0,
+                                        width: 150,
+                                        height: 48,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           borderRadius: const BorderRadius.only(
-                                            bottomLeft: Radius.circular(12.0),
-                                            bottomRight: Radius.circular(12.0),
-                                            topLeft: Radius.circular(12.0),
-                                            topRight: Radius.circular(12.0),
+                                            bottomLeft: Radius.circular(12),
+                                            bottomRight: Radius.circular(12),
+                                            topLeft: Radius.circular(12),
+                                            topRight: Radius.circular(12),
                                           ),
                                           border: Border.all(
                                             color: FlutterFlowTheme.of(context)
                                                 .alternate,
-                                            width: 2.0,
+                                            width: 2,
                                           ),
                                         ),
                                         child: Align(
                                           alignment:
-                                              const AlignmentDirectional(-1.0, 0.0),
+                                              const AlignmentDirectional(-1, 0),
                                           child: Padding(
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
-                                                    8.0, 0.0, 0.0, 0.0),
+                                                    8, 0, 0, 0),
                                             child: Text(
                                               valueOrDefault<String>(
                                                 _model.dept,
@@ -580,7 +523,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                       .override(
                                                         fontFamily:
                                                             'pretendard',
-                                                        letterSpacing: 0.0,
+                                                        letterSpacing: 0,
                                                         useGoogleFonts: false,
                                                       ),
                                             ),
@@ -591,7 +534,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 16.0, 0.0),
+                                        0, 0, 16, 0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
                                         await showModalBottomSheet(
@@ -612,7 +555,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                     MediaQuery.viewInsetsOf(
                                                         context),
                                                 child: const SizedBox(
-                                                  height: 400.0,
+                                                  height: 400,
                                                   child: Sign4Sht01Widget(),
                                                 ),
                                               ),
@@ -625,12 +568,12 @@ class _Set2WidgetState extends State<Set2Widget> {
                                       },
                                       text: '학과찾기',
                                       options: FFButtonOptions(
-                                        height: 40.0,
+                                        height: 40,
                                         padding: const EdgeInsetsDirectional.fromSTEB(
-                                            24.0, 0.0, 24.0, 0.0),
+                                            24, 0, 24, 0),
                                         iconPadding:
                                             const EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
+                                                0, 0, 0, 0),
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
                                         textStyle: FlutterFlowTheme.of(context)
@@ -638,20 +581,20 @@ class _Set2WidgetState extends State<Set2Widget> {
                                             .override(
                                               fontFamily: 'pretendard',
                                               color: const Color(0xFF375AC1),
-                                              fontSize: 16.0,
-                                              letterSpacing: 0.0,
+                                              fontSize: 16,
+                                              letterSpacing: 0,
                                               useGoogleFonts: false,
                                             ),
-                                        elevation: 0.0,
+                                        elevation: 0,
                                         borderSide: const BorderSide(
                                           color: Color(0xFF375AC1),
-                                          width: 1.0,
+                                          width: 1,
                                         ),
                                         borderRadius: const BorderRadius.only(
-                                          bottomLeft: Radius.circular(50.0),
-                                          bottomRight: Radius.circular(50.0),
-                                          topLeft: Radius.circular(50.0),
-                                          topRight: Radius.circular(50.0),
+                                          bottomLeft: Radius.circular(50),
+                                          bottomRight: Radius.circular(50),
+                                          topLeft: Radius.circular(50),
+                                          topRight: Radius.circular(50),
                                         ),
                                       ),
                                     ),
@@ -660,21 +603,21 @@ class _Set2WidgetState extends State<Set2Widget> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 20.0, 0.0, 0.0),
+                              padding:
+                                  const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Align(
-                                    alignment: const AlignmentDirectional(-1.0, 0.0),
+                                    alignment: const AlignmentDirectional(-1, 0),
                                     child: Text(
                                       '학력',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'pretendard',
-                                            fontSize: 16.0,
-                                            letterSpacing: 0.0,
+                                            fontSize: 16,
+                                            letterSpacing: 0,
                                             fontWeight: FontWeight.normal,
                                             useGoogleFonts: false,
                                           ),
@@ -683,7 +626,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                                   Expanded(
                                     child: Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                          19.0, 8.0, 0.0, 0.0),
+                                          19, 8, 0, 0),
                                       child: FlutterFlowChoiceChips(
                                         options: const [
                                           ChipData('1학년'),
@@ -698,7 +641,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                                           ChipData('기타')
                                         ],
                                         onChanged: (val) => setState(() =>
-                                            _model.sign4Cc01Value =
+                                            _model.positionValue =
                                                 val?.firstOrNull),
                                         selectedChipStyle: ChipStyle(
                                           backgroundColor:
@@ -712,24 +655,24 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                letterSpacing: 0.0,
+                                                letterSpacing: 0,
                                                 fontWeight: FontWeight.normal,
                                                 useGoogleFonts: false,
                                               ),
                                           iconColor:
                                               FlutterFlowTheme.of(context)
                                                   .primaryText,
-                                          iconSize: 18.0,
+                                          iconSize: 18,
                                           labelPadding:
                                               const EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 0.0, 10.0, 0.0),
-                                          elevation: 0.0,
+                                                  10, 0, 10, 0),
+                                          elevation: 0,
                                           borderColor:
                                               FlutterFlowTheme.of(context)
                                                   .primary,
-                                          borderWidth: 1.0,
+                                          borderWidth: 1,
                                           borderRadius:
-                                              BorderRadius.circular(16.0),
+                                              BorderRadius.circular(16),
                                         ),
                                         unselectedChipStyle: ChipStyle(
                                           backgroundColor:
@@ -743,26 +686,26 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryText,
-                                                letterSpacing: 0.0,
+                                                letterSpacing: 0,
                                                 useGoogleFonts: false,
                                               ),
                                           iconColor: const Color(0xFFB6B6B6),
-                                          iconSize: 18.0,
+                                          iconSize: 18,
                                           labelPadding:
                                               const EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 0.0, 10.0, 0.0),
-                                          elevation: 0.0,
+                                                  10, 0, 10, 0),
+                                          elevation: 0,
                                           borderColor: const Color(0xFFD9D9D9),
-                                          borderWidth: 1.0,
+                                          borderWidth: 1,
                                           borderRadius:
-                                              BorderRadius.circular(16.0),
+                                              BorderRadius.circular(16),
                                         ),
-                                        chipSpacing: 8.0,
-                                        rowSpacing: 8.0,
+                                        chipSpacing: 8,
+                                        rowSpacing: 8,
                                         multiselect: false,
                                         alignment: WrapAlignment.start,
                                         controller: _model
-                                                .sign4Cc01ValueController ??=
+                                                .positionValueController ??=
                                             FormFieldController<List<String>>(
                                           [],
                                         ),
@@ -781,12 +724,30 @@ class _Set2WidgetState extends State<Set2Widget> {
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
+                alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(20, 16, 20, 16),
                   child: FFButtonWidget(
                     onPressed: () async {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            '프로필 수정중...',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 2000),
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).alternate,
+                        ),
+                      );
+
+                      // _model.introTextController
+                      String? photoUrl = await storeStudyImageToStorage(returnedImg?.path, currentUserUid)?? "";
+                      await updateProfile(currentUserUid, _model.displayNameTextController.text, _model.dept ?? "", _model.positionValue ?? "", photoUrl);
+
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
@@ -802,30 +763,29 @@ class _Set2WidgetState extends State<Set2Widget> {
                         ),
                       );
 
-                      context.pushNamed('set1');
+
+                      context.pop();
                     },
                     text: '수정완료',
                     options: FFButtonOptions(
-                      width: 320.0,
-                      height: 45.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      width: 320,
+                      height: 45,
+                      padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+                      iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                       color: const Color(0xFF375AC1),
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'pretendard',
                                 color: Colors.white,
-                                letterSpacing: 0.0,
+                                letterSpacing: 0,
                                 useGoogleFonts: false,
                               ),
-                      elevation: 0.0,
+                      elevation: 0,
                       borderSide: const BorderSide(
                         color: Colors.transparent,
-                        width: 1.0,
+                        width: 1,
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                 ),

@@ -7,9 +7,15 @@ import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'std_home4_model.dart';
 export 'std_home4_model.dart';
+import 'package:danmoa/backend/backend.dart';
 
 class StdHome4Widget extends StatefulWidget {
-  const StdHome4Widget({super.key});
+  const StdHome4Widget({
+    super.key,
+    required this.stdName,
+  });
+
+  final String stdName;
 
   @override
   State<StdHome4Widget> createState() => _StdHome4WidgetState();
@@ -19,11 +25,31 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
   late StdHome4Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final TextEditingController _startTimeController = TextEditingController();
+  final TextEditingController _endTimeController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => StdHome4Model());
+  }
+
+  Future<void> _selectTime(BuildContext context, {required bool isStartTime}) async {
+    final TimeOfDay initialTime = TimeOfDay.now();
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: initialTime,
+    );
+
+    if (pickedTime != null) {
+      setState(() {
+        if (isStartTime) {
+          _startTimeController.text = pickedTime.format(context);
+        } else {
+          _endTimeController.text = pickedTime.format(context);
+        }
+      });
+    }
   }
 
   @override
@@ -205,7 +231,7 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                                         controller: _model
                                                 .stdMake2Cc01ValueController ??=
                                             FormFieldController<List<String>>(
-                                          ['1학년'],
+                                          [],
                                         ),
                                         wrapped: true,
                                       ),
@@ -360,7 +386,7 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                                                                   4.0,
                                                                   0.0),
                                                       child: Container(
-                                                        width: 75.0,
+                                                        width: 90.0,
                                                         height: 38.0,
                                                         decoration:
                                                             BoxDecoration(
@@ -374,28 +400,76 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                                                             width: 1.0,
                                                           ),
                                                         ),
-                                                        child: Align(
-                                                          alignment:
-                                                              const AlignmentDirectional(
-                                                                  0.0, 0.0),
-                                                          child: Text(
-                                                            '12:00',
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      8.0,
+                                                                      0.0,
+                                                                      8.0,
+                                                                      0.0),
+                                                          child:  TextFormField(
+                                                            controller: _startTimeController,
+                                                            obscureText: false,
+                                                            decoration:
+                                                                InputDecoration(
+                                                              labelStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'pretendard',
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            false,
+                                                                      ),
+                                                              hintStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'pretendard',
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            false,
+                                                                      ),
+                                                              enabledBorder:
+                                                                  InputBorder
+                                                                      .none,
+                                                              focusedBorder:
+                                                                  InputBorder
+                                                                      .none,
+                                                              errorBorder:
+                                                                  InputBorder
+                                                                      .none,
+                                                              focusedErrorBorder:
+                                                                  InputBorder
+                                                                      .none,
+                                                              contentPadding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          8.0,
+                                                                          0.0,
+                                                                          8.0,
+                                                                          10.0),
+                                                            ),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'pretendard',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  fontSize:
-                                                                      16.0,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   useGoogleFonts:
                                                                       false,
                                                                 ),
+                                                            readOnly: true,
+                                                            onTap: () => _selectTime(context, isStartTime: true),
                                                           ),
                                                         ),
                                                       ),
@@ -423,7 +497,7 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                                                                   4.0,
                                                                   0.0),
                                                       child: Container(
-                                                        width: 75.0,
+                                                        width: 90.0,
                                                         height: 38.0,
                                                         decoration:
                                                             BoxDecoration(
@@ -437,28 +511,77 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                                                             width: 1.0,
                                                           ),
                                                         ),
-                                                        child: Align(
-                                                          alignment:
-                                                              const AlignmentDirectional(
-                                                                  0.0, 0.0),
-                                                          child: Text(
-                                                            '15:00',
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      8.0,
+                                                                      0.0,
+                                                                      8.0,
+                                                                      0.0),
+                                                          child: TextFormField(
+                                                            controller: _endTimeController,
+                                                            autofocus: true,
+                                                            obscureText: false,
+                                                            decoration:
+                                                                InputDecoration(
+                                                              labelStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'pretendard',
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            false,
+                                                                      ),
+                                                              hintStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'pretendard',
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            false,
+                                                                      ),
+                                                              enabledBorder:
+                                                                  InputBorder
+                                                                      .none,
+                                                              focusedBorder:
+                                                                  InputBorder
+                                                                      .none,
+                                                              errorBorder:
+                                                                  InputBorder
+                                                                      .none,
+                                                              focusedErrorBorder:
+                                                                  InputBorder
+                                                                      .none,
+                                                              contentPadding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          8.0,
+                                                                          0.0,
+                                                                          8.0,
+                                                                          10.0),
+                                                            ),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'pretendard',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  fontSize:
-                                                                      16.0,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   useGoogleFonts:
                                                                       false,
                                                                 ),
+                                                            readOnly: true,
+                                                            onTap: () => _selectTime(context, isStartTime: false),
                                                           ),
                                                         ),
                                                       ),
@@ -577,7 +700,7 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                                       controller:
                                           _model.stdMake2Cc03ValueController ??=
                                               FormFieldController<List<String>>(
-                                        ['문학·문예'],
+                                        [],
                                       ),
                                       wrapped: true,
                                     ),
@@ -598,8 +721,70 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                   padding:
                       const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
                   child: FFButtonWidget(
-                    onPressed: () {
-                      print('stdMake2_btn_02 pressed ...');
+                    onPressed: () async {
+                      if (_startTimeController.text == "" || _endTimeController.text == ""){
+                        print('함수 통과! ${_startTimeController.text}/${ _endTimeController.text}');
+                        if (_model.stdList4Cc03Values!.isNotEmpty) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text("경고"),
+                                content: const Text("올바른 시간대 정보를 입력해주세요."),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text("확인"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();  // 대화 상자 닫기
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          return;  // 함수 실행 중지
+                        }
+                      }
+                        
+                      // _model.stdMake2Cc01Value : stdPosition
+                      // _model.stdMake2Cc03Value : stdField
+                      _model.stdList4Cc03Values?.add(_startTimeController.text);
+                      _model.stdList4Cc03Values?.add(_endTimeController.text);
+                      
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            '스터디 정보 수정중...',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 1500),
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).alternate,
+                        ),
+                      );
+
+                      logger.i(' 변경된 시간: ${sortTime(_model.stdList4Cc03Values)}');
+                      await updateStudyDetails(widget.stdName, _model.stdMake2Cc01Value ?? "", sortTime(_model.stdList4Cc03Values), _model.stdMake2Cc03Value ?? "");
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            '스터디 정보 수정 완료!',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 4000),
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).alternate,
+                        ),
+                      );
+
+                      context.pop();
                     },
                     text: '저장하기',
                     options: FFButtonOptions(

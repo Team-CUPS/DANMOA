@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'home1_model.dart';
 export 'home1_model.dart';
 import 'package:danmoa/backend/backend.dart';
-import 'package:logger/logger.dart';
+
 
 class Home1Widget extends StatefulWidget {
   const Home1Widget({super.key});
@@ -26,12 +26,16 @@ class _Home1WidgetState extends State<Home1Widget> {
   );
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  List<Map<String, dynamic>> studyData = [];
+  List<Map<String, dynamic>> filteredPersonalStudyData = [];
+  bool isLoading = true;
 
   @override
   void initState() {
     logger.i('init() in home1');
     super.initState();
     _model = createModel(context, () => Home1Model());
+    initData();
   }
 
   @override
@@ -47,10 +51,32 @@ class _Home1WidgetState extends State<Home1Widget> {
     super.didChangeDependencies(); 
   }
 
+  Future<void> initData() async {
+    var loadedStudyData  = await loadStudyData(1);
+    var loadedFilteredPersonalStudyData = await loadFilteredPersonalStudyData(loadedStudyData, currentUserUid);
+    
+    isLoading = false;
+    setState(() {
+      studyData = loadedStudyData;
+      filteredPersonalStudyData = loadedFilteredPersonalStudyData;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return Scaffold(
+        body: Container(
+          color: Colors.black.withOpacity(0.5), // 반투명 배경
+          child: const Center(
+            child: CircularProgressIndicator(), // 로딩 인디케이터
+          ),
+        ),
+      );
+    }
     logger.i("build() in home1: ${context.toString()}");
+    logger.i("홈1: $filteredPersonalStudyData");
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -62,7 +88,7 @@ class _Home1WidgetState extends State<Home1Widget> {
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           automaticallyImplyLeading: false,
           leading: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 15.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 8.0, 0.0, 8.0),
             child: Container(
               width: 120.0,
               height: 120.0,
@@ -95,7 +121,7 @@ class _Home1WidgetState extends State<Home1Widget> {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 15.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 5.0, 8.0),
               child: FlutterFlowIconButton(
                 borderColor: Colors.transparent,
                 borderRadius: 14.0,
@@ -327,109 +353,89 @@ class _Home1WidgetState extends State<Home1Widget> {
                                 topRight: Radius.circular(30.0),
                               ),
                             ),
-                            child: FutureBuilder<List<Map<String, dynamic>>>(
-                              future: loadFilteredPersonalStudyData(1), // 1: updated time DESC / 2: created time DESC
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return const Center(child: CircularProgressIndicator());
-                                } else if (snapshot.hasError) {
-                                  return Text('오류 발생: ${snapshot.error}');
-                                } else {
-                                  return ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    itemCount: snapshot.data!.length > 3 ? 3 : snapshot.data!.length, // 최대 3개 요소만 표시
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      final study = snapshot.data![index];
-                                      String stdCurrentUserStatus = study['std_leader']['uid'] == currentUserUid ? '팀장' : '팀원';
-                                      String stdName = study['std_name'];
-                                      String stdLeaderName = study['std_leader']['name'];
-                                      //String stdPrfPicture = study['std_prf_picture'] ?? 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fdefault_white.png?alt=media&token=e78c656d-4dc3-4b91-b2ad-2bb69a913f64';
-                                      return InkWell(
-                                        onTap: () async {
-                                          await updateStudyUpdateTime(stdName);
-                                          try {
-                                            var result = await context.pushNamed(
-                                              'stdList1',
-                                              queryParameters: {
-                                                'stdName': serializeParam(stdName, ParamType.String),
-                                                'stdLeaderName': serializeParam(stdLeaderName, ParamType.String),
-                                              }.withoutNulls,
-                                            );
-                                            if (result == null) {
-                                              print('저장을 실패했다.');
-                                            } else {
-                                              print('돌아왔다. $result');
-                                            }
-                                          } catch (e) {
-                                            print('Error during navigation: $e');
-                                          }
-                                        },
-                                        child: Align(
-                                          alignment: const AlignmentDirectional(0.0, 0.0),
-                                          child: Padding(
-                                            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 5.0, 0.0),
-                                            child: Container(
-                                              width: 110.0,
-                                              height: 110.0,
-                                              decoration: BoxDecoration(
-                                                color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                borderRadius: BorderRadius.circular(10.0),
-                                                border: Border.all(
-                                                  color: FlutterFlowTheme.of(context).alternate,
+                            child: ListView.builder(
+                            padding: EdgeInsets.zero,
+                            itemCount: filteredPersonalStudyData.length > 3 ? 3 : filteredPersonalStudyData.length, // 최대 3개 요소만 표시
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (BuildContext context, int index) {
+                              final study = filteredPersonalStudyData[index];
+                              String stdCurrentUserStatus = study['std_leader']['uid'] == currentUserUid ? '팀장' : '팀원';
+                              String stdName = study['std_name'];
+                              String stdPrfPicture = study['std_prf_picture'] ?? 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fdefault_white.png?alt=media&token=e78c656d-4dc3-4b91-b2ad-2bb69a913f64';
+
+                              return InkWell(
+                                onTap: () async {
+                                  await updateStudyUpdateTime(stdName);
+                                  await context.pushNamed(
+                                    'stdHome1',
+                                    queryParameters: {
+                                      'stdName': serializeParam(stdName, ParamType.String),
+                                    }.withoutNulls,
+                                  );
+                                  setState(() {});
+                                },
+                                child: Align(
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 5.0, 0.0),
+                                    child: Container(
+                                      width: 110.0,
+                                      height: 110.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        border: Border.all(
+                                          color: FlutterFlowTheme.of(context).alternate,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Align(
+                                            alignment: const AlignmentDirectional(-1.0, -1.0),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional.fromSTEB(3.0, 3.0, 0.0, 0.0),
+                                              child: Text(
+                                                stdCurrentUserStatus,
+                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                  fontFamily: 'Pretendard',
+                                                  fontSize: 12.0,
+                                                  letterSpacing: 0.0,
+                                                  useGoogleFonts: false,
                                                 ),
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                children: [
-                                                  Align(
-                                                    alignment: const AlignmentDirectional(-1.0, -1.0),
-                                                    child: Padding(
-                                                      padding: const EdgeInsetsDirectional.fromSTEB(3.0, 3.0, 0.0, 0.0),
-                                                      child: Text(
-                                                        stdCurrentUserStatus,
-                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                          fontFamily: 'pretendard',
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    stdName,
-                                                    style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                      fontFamily: 'pretendard',
-                                                      fontSize: 15.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight: FontWeight.w600,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                                                    child: Container(
-                                                      width: 48.0,
-                                                      height: 48.0,
-                                                      clipBehavior: Clip.antiAlias,
-                                                      decoration: const BoxDecoration(shape: BoxShape.circle),
-                                                      child: Image.network(stdPrfPicture, fit: BoxFit.cover),
-                                                    ),
-                                                  ),
-                                                ],
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                }
-                              },
-                            ),
+                                          Text(
+                                            stdName,
+                                            style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                              fontFamily: 'Pretendard',
+                                              fontSize: 15.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                              useGoogleFonts: false,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                                            child: Container(
+                                              width: 48.0,
+                                              height: 48.0,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: const BoxDecoration(shape: BoxShape.circle),
+                                              child: Image.network(stdPrfPicture, fit: BoxFit.cover),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                           ),
                         ],
                       ),
