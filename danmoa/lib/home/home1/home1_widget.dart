@@ -1,3 +1,5 @@
+import 'package:auto_size_text/auto_size_text.dart';
+
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -56,8 +58,8 @@ class _Home1WidgetState extends State<Home1Widget> {
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
               ),
-              child: Image.network(
-                'https://ifh.cc/g/sfqAqz.png',
+              child: Image.asset(
+                'assets/images/danmoa_logo.png',
                 fit: BoxFit.cover,
               ),
             ),
@@ -81,7 +83,7 @@ class _Home1WidgetState extends State<Home1Widget> {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 5.0, 8.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 5.0, 8.0),
               child: FlutterFlowIconButton(
                 borderColor: Colors.transparent,
                 borderRadius: 14.0,
@@ -192,7 +194,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 20.0, 5.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 15.0, 5.0, 0.0),
                   child: Material(
                     color: Colors.transparent,
                     elevation: 1.0,
@@ -246,7 +248,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                   alignment: const AlignmentDirectional(-1.0, 0.0),
                                   child: Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
-                                        15.0, 0.0, 0.0, 0.0),
+                                        18.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       '내 스터디',
                                       style: FlutterFlowTheme.of(context)
@@ -255,6 +257,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                             fontFamily: 'pretendard',
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
+                                            fontSize: 18,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w800,
                                             useGoogleFonts: false,
@@ -269,12 +272,12 @@ class _Home1WidgetState extends State<Home1Widget> {
                                   text: '',
                                   icon: const Icon(
                                     Icons.keyboard_arrow_right,
-                                    size: 15.0,
+                                    size: 24.0,
                                   ),
                                   options: FFButtonOptions(
                                     height: 40.0,
                                     padding: const EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 0.0, 24.0, 0.0),
+                                        24.0, 0.0, 20.0, 0.0),
                                     iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context)
@@ -285,7 +288,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                           fontFamily: 'pretendard',
                                           color: FlutterFlowTheme.of(context)
                                               .primaryText,
-                                          fontSize: 19.0,
+                                          fontSize: 18.0,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: false,
                                         ),
@@ -386,7 +389,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                       ),
                                                     ),
                                                   ),
-                                                  Text(
+                                                  AutoSizeText(
                                                     stdName,
                                                     style: FlutterFlowTheme.of(context).bodyLarge.override(
                                                       fontFamily: 'Pretendard',
@@ -424,98 +427,235 @@ class _Home1WidgetState extends State<Home1Widget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 10.0, 5.0, 10.0),
-                  child: Material(
-                    color: Colors.transparent,
-                    elevation: 1.0,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10.0),
-                        bottomRight: Radius.circular(10.0),
-                        topLeft: Radius.circular(10.0),
-                        topRight: Radius.circular(10.0),
-                      ),
-                    ),
-                    child: Container(
-                      width: double.infinity,
-                      height: 40.0,
-                      constraints: const BoxConstraints(
-                        minWidth: double.infinity,
-                      ),
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: const BorderRadius.only(
+                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 15.0, 5.0, 10.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed('stdMake1');
+                    },
+                    child: Material(
+                      color: Colors.transparent,
+                      elevation: 1.0,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(10.0),
                           bottomRight: Radius.circular(10.0),
                           topLeft: Radius.circular(10.0),
                           topRight: Radius.circular(10.0),
                         ),
-                        border: Border.all(
-                          color: FlutterFlowTheme.of(context).alternate,
+                      ),
+                      child: Container(
+                        width: double.infinity,
+                        height: 40.0,
+                        constraints: const BoxConstraints(
+                          minWidth: double.infinity,
+                        ),
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(10.0),
+                            bottomRight: Radius.circular(10.0),
+                            topLeft: Radius.circular(10.0),
+                            topRight: Radius.circular(10.0),
+                          ),
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).alternate,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Align(
+                              alignment: const AlignmentDirectional(-1.0, 0.0),
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    18.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  '스터디 만들기',
+                                  style: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .override(
+                                        fontFamily: 'pretendard',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        fontSize: 17,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w800,
+                                        useGoogleFonts: false,
+                                      ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 32, 0),
+                              child: Icon(
+                                Icons.add,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                size: 20,
+                              )
+                            ),
+                          ],
                         ),
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Align(
-                            alignment: const AlignmentDirectional(-1.0, 0.0),
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  15.0, 0.0, 0.0, 0.0),
-                              child: Text(
-                                '스터디 만들기',
-                                style: FlutterFlowTheme.of(context)
-                                    .titleMedium
-                                    .override(
-                                      fontFamily: 'pretendard',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w800,
-                                      useGoogleFonts: false,
-                                    ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 15.0, 0.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                context.pushNamed('stdMake1');
-                              },
-                              text: '+',
-                              options: FFButtonOptions(
-                                height: 40.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'pretendard',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      fontSize: 19.0,
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: false,
-                                    ),
-                                elevation: 0.0,
-                                borderSide: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
+                  )
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: Align(
+                          alignment: AlignmentDirectional(-1, 0),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                await launchURL(
+                                    'https://lib.dankook.ac.kr/local/html/studyRoomGuide');
+                              },
+                              child: Material(
+                                color: Colors.transparent,
+                                elevation: 1,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
+                                ),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 39,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10),
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.menu_book_sharp,
+                                        color: FlutterFlowTheme.of(context).primary,
+                                        size: 24,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 0, 0, 0),
+                                        child: Text(
+                                          '스터디룸 예약 ',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'pretendard',
+                                                fontSize: 15,
+                                                letterSpacing: 0,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts: false,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: Align(
+                          alignment: AlignmentDirectional(-1, 0),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(8, 0, 5, 0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                await launchURL(
+                                    'https://lib.dankook.ac.kr/local/html/studyRoomGuide3');
+                              },
+                              child: Material(
+                                color: Colors.transparent,
+                                elevation: 1,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
+                                ),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 39,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10),
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.people,
+                                        color: FlutterFlowTheme.of(context).primary,
+                                        size: 24,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 0, 0, 0),
+                                        child: Text(
+                                          '도산라운지 예약 ',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'pretendard',
+                                                fontSize: 15,
+                                                letterSpacing: 0,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts: false,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

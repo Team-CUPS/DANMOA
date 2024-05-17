@@ -17,6 +17,7 @@ class Sign1Widget extends StatefulWidget {
 class _Sign1WidgetState extends State<Sign1Widget> {
   late Sign1Model _model;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -25,16 +26,41 @@ class _Sign1WidgetState extends State<Sign1Widget> {
 
     _model.sign1Tf01TextController ??= TextEditingController();
     _model.sign1Tf01FocusNode ??= FocusNode();
+    _model.sign1Tf01FocusNode!.addListener(() {
+      if (_model.sign1Tf01FocusNode!.hasFocus) {
+        _scrollToFocusedField(_model.sign1Tf01FocusNode!);
+      }
+    });
 
     _model.sign1Tf02TextController ??= TextEditingController();
     _model.sign1Tf02FocusNode ??= FocusNode();
+    _model.sign1Tf02FocusNode!.addListener(() {
+      if (_model.sign1Tf02FocusNode!.hasFocus) {
+        _scrollToFocusedField(_model.sign1Tf02FocusNode!);
+      }
+    });
   }
 
   @override
   void dispose() {
     _model.dispose();
-
+    _scrollController.dispose();
     super.dispose();
+  }
+
+  void _scrollToFocusedField(FocusNode focusNode) {
+    Future.delayed(Duration(milliseconds: 300), () {
+      if (focusNode.context != null) {
+        final object = focusNode.context!.findRenderObject();
+        if (object is RenderBox) {
+          _scrollController.animateTo(
+            _scrollController.offset + object.localToGlobal(Offset.zero).dy - 100,
+            duration: Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+        }
+      }
+    });
   }
 
   @override
@@ -44,24 +70,25 @@ class _Sign1WidgetState extends State<Sign1Widget> {
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
-          child: Padding(
+          child: SingleChildScrollView(
+            controller: _scrollController,
             padding: const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 20.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      'https://ifh.cc/g/sfqAqz.png',
-                      width: 180.0,
-                      height: 180.0,
+                    child: Image.asset(
+                      'assets/images/danmoa_main.png',
+                      width: 150.0,
+                      height: 210.0,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -70,7 +97,7 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                   alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(32.0, 16.0, 32.0, 32.0),
+                        const EdgeInsetsDirectional.fromSTEB(32.0, 8.0, 32.0, 32.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,6 +123,7 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 16.0),
                           child: SizedBox(
+                            height: 50.0,
                             width: double.infinity,
                             child: TextFormField(
                               controller: _model.sign1Tf01TextController,
@@ -104,6 +132,7 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                               autofillHints: const [AutofillHints.email],
                               obscureText: false,
                               decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelLarge
                                     .override(
@@ -207,8 +236,9 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                         ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 16.0),
+                              0.0, 0.0, 0.0, 12.0),
                           child: SizedBox(
+                            height: 50.0,
                             width: double.infinity,
                             child: TextFormField(
                               controller: _model.sign1Tf02TextController,
@@ -217,6 +247,7 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                               autofillHints: const [AutofillHints.password],
                               obscureText: !_model.sign1Tf02Visibility,
                               decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelLarge
                                     .override(
@@ -370,7 +401,7 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                           alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 24.0, 16.0, 15.0),
+                                16.0, 8.0, 16.0, 15.0),
                             child: Text(
                               '계정이 없으신가요?',
                               textAlign: TextAlign.center,

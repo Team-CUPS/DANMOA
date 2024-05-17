@@ -111,71 +111,10 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(5.0, 20.0, 5.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 20.0, 0.0, 35.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 0.0, 0.0),
-                                  child: Container(
-                                    width: 100.0,
-                                    height: 100.0,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.network(
-                                      _firebaseService.getStudyPhotoUrl(studyData['std_prf_picture']),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  studyData['std_name'],
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'pretendard',
-                                        fontSize: 22.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts: false,
-                                      ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 16.0, 0.0),
-                                  child: FlutterFlowIconButton(
-                                    borderColor:
-                                        FlutterFlowTheme.of(context).secondaryText,
-                                    borderRadius: 20.0,
-                                    borderWidth: 1.0,
-                                    buttonSize: 40.0,
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    icon: Icon(
-                                      Icons.edit,
-                                      color:
-                                          FlutterFlowTheme.of(context).primaryText,
-                                      size: 24.0,
-                                    ),
-                                    onPressed: () {
-                                      print('IconButton pressed ...');
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                        children: [ 
                           InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -317,20 +256,12 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 15.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding:
-                              const EdgeInsetsDirectional.fromSTEB(10.0, 12.0, 0.0, 0.0),
-                          child: FFButtonWidget(
-                            onPressed: () async {
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
                               var confirmDialogResponse = await showDialog<bool>(
                                     context: context,
                                     builder: (alertDialogContext) {
@@ -361,31 +292,41 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
                                 context.pushNamed('home1');
                               }
                             },
-                            text: '스터디 삭제',
-                            options: FFButtonOptions(
-                              height: 40.0,
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 0.0, 24.0, 0.0),
-                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              color:
-                                  FlutterFlowTheme.of(context).secondaryBackground,
-                              textStyle:
-                                  FlutterFlowTheme.of(context).labelMedium.override(
-                                        fontFamily: 'pretendard',
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: false,
-                                      ),
-                              elevation: 0.0,
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).alternate,
-                                width: 1.0,
+                            child: Container(
+                              height: 60.0,
+                              decoration: const BoxDecoration(),
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 16.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      '스터디 삭제',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'pretendard',
+                                            fontSize: 14.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w600,
+                                            useGoogleFonts: false,
+                                          ),
+                                    ),
+                                    Icon(
+                                      Icons.chevron_right,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
+                                    ),
+                                  ],
+                                ),
                               ),
-                              borderRadius: BorderRadius.circular(50.0),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],

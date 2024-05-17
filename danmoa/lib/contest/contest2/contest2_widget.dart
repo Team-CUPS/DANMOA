@@ -1,3 +1,5 @@
+import 'package:auto_size_text/auto_size_text.dart';
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -92,69 +94,73 @@ class _Contest2WidgetState extends State<Contest2Widget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            await launchURL('${items[index][0]}');
+                            await launchURL(
+                                '${items[index][0]}');
                           },
                           child: Material(
                             color: Colors.transparent,
-                            elevation: 1.0,
+                            elevation: 1,
                             child: Container(
-                              width: 100.0,
-                              height: 90.0,
+                              width: 100,
+                              height: 90,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
                                 boxShadow: [
                                   BoxShadow(
-                                    blurRadius: 0.0,
-                                    color: FlutterFlowTheme.of(context).alternate,
-                                    offset: const Offset(
-                                      0.0,
-                                      1.0,
+                                    blurRadius: 0,
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    offset: Offset(
+                                      0,
+                                      1,
                                     ),
                                   )
                                 ],
                               ),
-                              child: Padding( 
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    10.0, 0.0, 10.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            12.0, 0.0, 0.0, 0.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional.fromSTEB(
-                                                      0.0, 0.0, 0.0, 8.0),
-                                              child: Text(
-                                                '${items[index][1]}',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyLarge
-                                                    .override(
-                                                      fontFamily: 'pretendard',
-                                                      fontSize: 14.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight: FontWeight.w800,
-                                                      useGoogleFonts: false,
-                                                    ),
-                                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Align(
+                                    alignment: AlignmentDirectional(-1, 0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16, 12, 0, 0),
+                                      child: AutoSizeText(
+                                        '${items[index][1]}',
+                                        softWrap: false,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .override(
+                                              fontFamily: 'pretendard',
+                                              fontSize: 14,
+                                              letterSpacing: 0,
+                                              fontWeight: FontWeight.w800,
+                                              useGoogleFonts: false,
                                             ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional.fromSTEB(
-                                                      0.0, 0.0, 0.0, 2.0),
-                                              child: Row(
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16, 10, 0, 8),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
                                                   Text(
@@ -165,102 +171,104 @@ class _Contest2WidgetState extends State<Contest2Widget> {
                                                         .override(
                                                           fontFamily:
                                                               'pretendard',
-                                                          color:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primaryText,
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          fontSize: 12,
+                                                          letterSpacing: 0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           useGoogleFonts: false,
                                                         ),
                                                   ),
                                                   Padding(
-                                                    padding: const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            6.0, 3.0, 0.0, 0.0),
-                                                    child: Text(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                6, 3, 0, 0),
+                                                    child: AutoSizeText(
                                                       '${items[index][2]}',
-                                                      style: FlutterFlowTheme.of(
-                                                              context)
+                                                      softWrap: false,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily:
                                                                 'pretendard',
-                                                            color:
-                                                                const Color(0xAE57636C),
-                                                            fontSize: 12.0,
-                                                            letterSpacing: 0.0,
-                                                            useGoogleFonts: false,
+                                                            color: Color(
+                                                                0xAE57636C),
+                                                            fontSize: 12,
+                                                            letterSpacing: 0,
+                                                            useGoogleFonts:
+                                                                false,
                                                           ),
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional.fromSTEB(
-                                                      0.0, 1.0, 0.0, 2.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    '대상',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'pretendard',
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            6.0, 3.0, 0.0, 0.0),
-                                                    child: Text(
-                                                      '${items[index][3]}',
-                                                      style: FlutterFlowTheme.of(
-                                                              context)
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 2, 0, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      '대상',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily:
                                                                 'pretendard',
-                                                            color:
-                                                                const Color(0xAE57636C),
-                                                            fontSize: 12.0,
-                                                            letterSpacing: 0.0,
-                                                            useGoogleFonts: false,
+                                                            fontSize: 12,
+                                                            letterSpacing: 0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            useGoogleFonts:
+                                                                false,
                                                           ),
                                                     ),
-                                                  ),
-                                                ],
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  6, 3, 0, 0),
+                                                      child: Text(
+                                                        '${items[index][3]}',
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'pretendard',
+                                                              color: Color(
+                                                                  0xAE57636C),
+                                                              fontSize: 12,
+                                                              letterSpacing: 0,
+                                                              useGoogleFonts:
+                                                                  false,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 27.0, 10.0, 0.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 12.0, 0.0, 0.0),
-                                            child: Row(
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 12, 16, 8),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Text(
@@ -269,19 +277,20 @@ class _Contest2WidgetState extends State<Contest2Widget> {
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'pretendard',
-                                                        color: const Color(0xFF0019F4),
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
+                                                        fontFamily:
+                                                            'pretendard',
+                                                        color:
+                                                            Color(0xFF0019F4),
+                                                        fontSize: 12,
+                                                        letterSpacing: 0,
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         useGoogleFonts: false,
                                                       ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          6.0, 2.0, 0.0, 0.0),
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(6, 2, 0, 0),
                                                   child: Text(
                                                     '${items[index][4]}',
                                                     textAlign: TextAlign.end,
@@ -291,64 +300,67 @@ class _Contest2WidgetState extends State<Contest2Widget> {
                                                         .override(
                                                           fontFamily:
                                                               'pretendard',
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
+                                                          fontSize: 12,
+                                                          letterSpacing: 0,
                                                           useGoogleFonts: false,
                                                         ),
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 2.0, 0.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  '심사',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'pretendard',
-                                                        color: const Color(0xFF66BB6A),
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          8.0, 2.0, 0.0, 0.0),
-                                                  child: Text(
-                                                    '${items[index][5]}',
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 2, 0, 0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    '심사',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily:
                                                               'pretendard',
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
+                                                          color:
+                                                              Color(0xFF66BB6A),
+                                                          fontSize: 12,
+                                                          letterSpacing: 0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                           useGoogleFonts: false,
                                                         ),
                                                   ),
-                                                ),
-                                              ],
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                8, 2, 0, 0),
+                                                    child: Text(
+                                                      '${items[index][5]}',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'pretendard',
+                                                            fontSize: 12,
+                                                            letterSpacing: 0,
+                                                            useGoogleFonts:
+                                                                false,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ), 
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

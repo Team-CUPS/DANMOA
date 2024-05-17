@@ -227,11 +227,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const Set3Widget(),
         ),
         FFRoute(
-          name: 'set4',
-          path: '/set4',
-          builder: (context, params) => const Set4Widget(),
-        ),
-        FFRoute(
           name: 'stdHome2',
           path: '/stdHome2',
           builder: (context, params) => StdHome2Widget(

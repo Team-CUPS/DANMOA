@@ -50,20 +50,20 @@ class _Sign5WidgetState extends State<Sign5Widget> {
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 70.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(20.0, 70.0, 0.0, 0.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
-                        child: Image.network(
-                          '\thttps://cdn.pixabay.com/photo/2016/09/30/08/13/christmas-1704641_1280.jpg',
-                          width: 210.0,
-                          height: 280.0,
+                        child: Image.asset(
+                          'assets/images/danmoa_sign.png',
+                          width: 160.0,
+                          height: 260.0,
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                       child: Text(
                         '가입완료!',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -96,7 +96,7 @@ class _Sign5WidgetState extends State<Sign5Widget> {
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: Padding(
                   padding:
-                      const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
+                      const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 48.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       context.pushNamed('sign1');

@@ -47,20 +47,6 @@ class _Qa1WidgetState extends State<Qa1Widget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30.0,
-            borderWidth: 1.0,
-            buttonSize: 60.0,
-            icon: Icon(
-              Icons.chevron_left,
-              color: FlutterFlowTheme.of(context).black,
-              size: 30.0,
-            ),
-            onPressed: () async {
-              context.pop();
-            },
-          ),
           actions: const [],
           centerTitle: true,
           elevation: 0.0,

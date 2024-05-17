@@ -275,7 +275,7 @@ class _Sign4WidgetState extends State<Sign4Widget> {
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
                                               child: const SizedBox(
-                                                height: 400.0,
+                                                height: 550.0,
                                                 child: Sign4Sht01Widget(),
                                               ),
                                             ),
@@ -437,7 +437,7 @@ class _Sign4WidgetState extends State<Sign4Widget> {
                 alignment: const AlignmentDirectional(0.0, 0.0),
                 child: Padding(
                   padding:
-                      const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
+                      const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 48.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       if (_model.dept != null && _model.dept != '') {

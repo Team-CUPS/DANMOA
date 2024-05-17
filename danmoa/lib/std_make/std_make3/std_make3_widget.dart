@@ -68,16 +68,16 @@ class _StdMake4WidgetState extends State<StdMake3Widget> {
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
-                        child: Image.network(
-                          'https://cdn.pixabay.com/photo/2016/09/30/08/13/christmas-1704641_1280.jpg',
-                          width: 210.0,
-                          height: 280.0,
+                        child: Image.asset(
+                          'assets/images/danmoa_std.png',
+                          width: 180.0,
+                          height: 260.0,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -119,7 +119,7 @@ class _StdMake4WidgetState extends State<StdMake3Widget> {
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: Padding(
                   padding:
-                      const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
+                      const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 48.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       context.pushNamed('home1');

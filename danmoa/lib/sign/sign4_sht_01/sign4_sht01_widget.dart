@@ -845,43 +845,76 @@ class _Sign4Sht01WidgetState extends State<Sign4Sht01Widget> {
                             if (_model.sign4Drp01Value == '기타') {
                               Navigator.pop(context, '기타');
                             } else {
-                              Navigator.pop(
-                                  context,
-                                  '${_model.sign4Drp01Value}${() {
-                                    if (_model.sign4Drp01Value == '문과대학 ') {
-                                      return _model.sign4Cc02Value;
-                                    } else if (_model.sign4Drp01Value ==
-                                        '법과대학 ') {
-                                      return _model.sign4Cc03Value;
-                                    } else if (_model.sign4Drp01Value ==
-                                        '사회과학대학 ') {
-                                      return _model.sign4Cc04Value;
-                                    } else if (_model.sign4Drp01Value ==
-                                        '경영경제대학 ') {
-                                      return _model.sign4Cc05Value;
-                                    } else if (_model.sign4Drp01Value ==
-                                        '공과대학 ') {
-                                      return _model.sign4Cc06Value;
-                                    } else if (_model.sign4Drp01Value ==
-                                        'SW융합대학 ') {
-                                      return _model.sign4Cc07Value;
-                                    } else if (_model.sign4Drp01Value ==
-                                        '사범대학 ') {
-                                      return _model.sign4Cc08Value;
-                                    } else if (_model.sign4Drp01Value ==
-                                        '음악 · 예술대학 ') {
-                                      return _model.sign4Cc09Value;
-                                    } else {
-                                      return 'err';
-                                    }
-                                  }()}');
-                            }
+                              if ((_model.sign4Cc02Value != null &&
+                                      _model.sign4Cc02Value != '') ||
+                                  (_model.sign4Cc03Value != null &&
+                                      _model.sign4Cc03Value != '') ||
+                                  (_model.sign4Cc04Value != null &&
+                                      _model.sign4Cc04Value != '') ||
+                                  (_model.sign4Cc05Value != null &&
+                                      _model.sign4Cc05Value != '') ||
+                                  (_model.sign4Cc06Value != null &&
+                                      _model.sign4Cc06Value != '') ||
+                                  (_model.sign4Cc07Value != null &&
+                                      _model.sign4Cc07Value != '') ||
+                                  (_model.sign4Cc08Value != null &&
+                                      _model.sign4Cc08Value != '') ||
+                                  (_model.sign4Cc09Value != null &&
+                                      _model.sign4Cc09Value != '')){
+                                Navigator.pop(
+                                    context,
+                                    '${_model.sign4Drp01Value}${() {
+                                      if (_model.sign4Drp01Value == '문과대학 ') {
+                                        return _model.sign4Cc02Value;
+                                      } else if (_model.sign4Drp01Value ==
+                                          '법과대학 ') {
+                                        return _model.sign4Cc03Value;
+                                      } else if (_model.sign4Drp01Value ==
+                                          '사회과학대학 ') {
+                                        return _model.sign4Cc04Value;
+                                      } else if (_model.sign4Drp01Value ==
+                                          '경영경제대학 ') {
+                                        return _model.sign4Cc05Value;
+                                      } else if (_model.sign4Drp01Value ==
+                                          '공과대학 ') {
+                                        return _model.sign4Cc06Value;
+                                      } else if (_model.sign4Drp01Value ==
+                                          'SW융합대학 ') {
+                                        return _model.sign4Cc07Value;
+                                      } else if (_model.sign4Drp01Value ==
+                                          '사범대학 ') {
+                                        return _model.sign4Cc08Value;
+                                      } else if (_model.sign4Drp01Value ==
+                                          '음악 · 예술대학 ') {
+                                        return _model.sign4Cc09Value;
+                                      } else {
+                                        return 'err';
+                                      }
+                                    }()}');
                           } else {
                             await showDialog(
                               context: context,
                               builder: (alertDialogContext) {
                                 return AlertDialog(
-                                  content: const Text('학부/학과를 선택해주세요.'),
+                                  content: const Text('학과를 선택해주세요.'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: const Text('확인'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        }
+                      } else {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  content: const Text('학부를 선택해주세요.'),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>
@@ -919,7 +952,7 @@ class _Sign4Sht01WidgetState extends State<Sign4Sht01Widget> {
                         ),
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),

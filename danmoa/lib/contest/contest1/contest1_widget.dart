@@ -36,7 +36,7 @@ class _Contest1WidgetState extends State<Contest1Widget> {
 
   Future<void> _sendDataAndGetResponse() async {
     var response = await http.post(
-      Uri.parse('https://port-0-danmoa-crawserver-rccln2llw1oo1v6.sel5.cloudtype.app/crawl'),
+      Uri.parse('https://port-0-danmoa-crawserver-rccln2llw1oo1v6.sel5.cloudtype.app/contest'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode({
         "field": _model.tfFieldValue,

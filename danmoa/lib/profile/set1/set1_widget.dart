@@ -223,7 +223,7 @@ class _Set1WidgetState extends State<Set1Widget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      context.pushNamed('set4');
+                      await launchURL('https://plip.kr/pcc/5c3fb0c5-fe09-4f18-855f-a5a96bb87202/consent/2.html');
                     },
                     child: Container(
                       width: double.infinity,

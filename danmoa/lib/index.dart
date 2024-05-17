@@ -17,7 +17,6 @@ export '/profile/prf1/prf1_widget.dart' show Prf1Widget;
 export '/profile/set1/set1_widget.dart' show Set1Widget;
 export '/profile/set2/set2_widget.dart' show Set2Widget;
 export '/profile/set3/set3_widget.dart' show Set3Widget;
-export '/profile/set4/set4_widget.dart' show Set4Widget;
 export '/std_home/std_home1/std_home1_widget.dart' show StdHome1Widget;
 export '/std_home/std_home2/std_home2_widget.dart' show StdHome2Widget;
 export '/std_home/std_home3/std_home3_widget.dart' show StdHome3Widget;
