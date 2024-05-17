@@ -5,7 +5,9 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'std_make1_model.dart';
 export 'std_make1_model.dart';
-import 'package:danmoa/backend/backend.dart';
+import 'package:danmoa/backend/service/firebase_service.dart';
+import '/std_make/photo_sht_stdmake/photo_sht_stdmake_widget.dart';
+
 
 class StdMake1Widget extends StatefulWidget {
   const StdMake1Widget({super.key});
@@ -16,10 +18,12 @@ class StdMake1Widget extends StatefulWidget {
 
 class _StdMake1WidgetState extends State<StdMake1Widget> {
   late StdMake1Model _model;
-  XFile? returnedImg;
-  XFile? _imageFile;
-
+  bool isPickedImg = false;
+  XFile? returnedXfileImg;
+  String? returnedStringImg;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final FirebaseService _firebaseService = FirebaseService.instance;
+
 
   @override
   void initState() {
@@ -39,7 +43,6 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
@@ -107,10 +110,37 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            returnedImg = await getImageFromGallery();
-                            
-                            setState(() {
-                              _imageFile = returnedImg;
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              enableDrag: false,
+                              context: context,
+                              builder: (context) {
+                                return GestureDetector(
+                                  onTap: () => _model
+                                          .unfocusNode.canRequestFocus
+                                      ? FocusScope.of(context)
+                                          .requestFocus(
+                                              _model.unfocusNode)
+                                      : FocusScope.of(context)
+                                          .unfocus(),
+                                  child: Padding(
+                                    padding: MediaQuery.viewInsetsOf(
+                                        context),
+                                    child: PhotoShtStdmakeWidget(
+                                      isPickedImgSht: isPickedImg,
+                                      shtXfileImg: returnedXfileImg,
+                                      shtStringImg: returnedStringImg,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ).then((result) {
+                              isPickedImg = result['isPickedImgSht'];
+                              returnedXfileImg = result['shtXfileImg'];
+                              returnedStringImg = result['shtStringImg'];
+
+                              setState(() {});
                             });
                           },
                           child: Container(
@@ -121,12 +151,15 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                               border: Border.all(
                                 color: const Color(0xFFBDBDBD),
                               ),
-                              image: _imageFile != null
-                              ? DecorationImage(
-                                  image: FileImage(File(_imageFile!.path)),
-                                  fit: BoxFit.cover,
-                                )
-                              : null,
+                              image: isPickedImg == false
+                                    ? DecorationImage(
+                                        image: NetworkImage(_firebaseService.getStudyPhotoUrl(returnedStringImg)),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : DecorationImage(
+                                        image: FileImage(File(returnedXfileImg!.path)),
+                                        fit: BoxFit.cover,
+                                      ),
                             ),
                             child: Align(
                               alignment: const AlignmentDirectional(1.0, 1.0),
@@ -483,7 +516,7 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                             ParamType.String,
                           ),
                           'stdPrfPicture': serializeParam(
-                            returnedImg?.path,
+                            isPickedImg ? returnedXfileImg!.path : returnedStringImg,
                             ParamType.String,
                           ),
                         }.withoutNulls,

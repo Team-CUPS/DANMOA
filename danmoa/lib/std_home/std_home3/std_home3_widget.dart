@@ -23,9 +23,7 @@ class _StdHome3WidgetState extends State<StdHome3Widget> {
   late StdHome3Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  Map<String, dynamic> studyData = {};
-  String studyName = "";
-  bool isLoading = true;
+
 
   @override
   void initState() {
@@ -34,38 +32,17 @@ class _StdHome3WidgetState extends State<StdHome3Widget> {
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
-
-    studyName = widget.stdName;
-    initStudyData(studyName);
   }
 
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
-  Future<void> initStudyData(studyName) async {
-    var loadedStudyData  = await loadStudyDataByName(studyName);
-    isLoading = false;
-    setState(() {
-      studyData = loadedStudyData;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading) {
-      return Scaffold(
-        body: Container(
-          color: Colors.black.withOpacity(0.5), // 반투명 배경
-          child: const Center(
-            child: CircularProgressIndicator(), // 로딩 인디케이터
-          ),
-        ),
-      );
-    }
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)

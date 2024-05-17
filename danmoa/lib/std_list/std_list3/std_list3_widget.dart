@@ -4,7 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'std_list3_model.dart';
 export 'std_list3_model.dart';
-import 'package:danmoa/backend/backend.dart';
+import 'package:danmoa/backend/service/firebase_service.dart';
 
 class StdList3Widget extends StatefulWidget {
   const StdList3Widget({super.key});
@@ -19,32 +19,29 @@ class _StdList3WidgetState extends State<StdList3Widget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String filter = '';
   List<Map<String, dynamic>> studyData = [];
-  List<Map<String, dynamic>> filteredStudyData = [];
+  final FirebaseService _firebaseService = FirebaseService.instance;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => StdList3Model());
-
     _model.stdList3Tf01TextController ??= TextEditingController();
     _model.stdList3Tf01FocusNode ??= FocusNode();
-    initStudyData();
   }
 
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
-  Future<void> initStudyData() async {
-    var loadedData = await loadStudyData(2); // 1: created time DESC, 2: updated time DESC
-    setState(() {
-      studyData = loadedData;
-    });
+  Future<List<Map<String, dynamic>>> initStudyData() async {
+    return await _firebaseService.getStudyData(2); // 1: created time DESC, 2: updated time DESC
   }
 
+  Future<List<Map<String, dynamic>>> getFilteredSearchStudyData(String filter) async {
+    return _firebaseService.getFilteredSearchStudyData(studyData, filter);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,14 +84,12 @@ class _StdList3WidgetState extends State<StdList3Widget> {
                     Align(
                       alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.75,
                           height: 44.0,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            color: FlutterFlowTheme.of(context).secondaryBackground,
                             borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(12.0),
                               bottomRight: Radius.circular(12.0),
@@ -107,8 +102,7 @@ class _StdList3WidgetState extends State<StdList3Widget> {
                           ),
                           alignment: const AlignmentDirectional(0.0, 1.0),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                12.0, 0, 12.0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0, 12.0, 0),
                             child: TextFormField(
                               controller: _model.stdList3Tf01TextController,
                               focusNode: _model.stdList3Tf01FocusNode,
@@ -120,19 +114,14 @@ class _StdList3WidgetState extends State<StdList3Widget> {
                                 });
                               },
                               decoration: InputDecoration(
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
+                                labelStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'pretendard',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color: FlutterFlowTheme.of(context).primaryText,
                                       letterSpacing: 0.0,
                                       useGoogleFonts: false,
                                     ),
                                 hintText: '스터디 이름 검색 ',
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
+                                hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                                       fontFamily: 'pretendard',
                                       color: const Color(0x7057636C),
                                       letterSpacing: 0.0,
@@ -143,18 +132,13 @@ class _StdList3WidgetState extends State<StdList3Widget> {
                                 errorBorder: InputBorder.none,
                                 focusedErrorBorder: InputBorder.none,
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'pretendard',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                                    color: FlutterFlowTheme.of(context).primaryText,
                                     letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
-                              validator: _model
-                                  .stdList3Tf01TextControllerValidator
-                                  .asValidator(context),
+                              validator: _model.stdList3Tf01TextControllerValidator.asValidator(context),
                             ),
                           ),
                         ),
@@ -164,105 +148,119 @@ class _StdList3WidgetState extends State<StdList3Widget> {
                 ),
               ),
               FutureBuilder<List<Map<String, dynamic>>>(
-                future: loadFilteredSearchStudyData(studyData, filter), // 비동기 함수 호출
-                builder: (BuildContext context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
+                future: initStudyData(),
+                builder: (BuildContext context, AsyncSnapshot<List<Map<String, dynamic>>> studySnapshot) {
+                  if (studySnapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Text('오류 발생: ${snapshot.error}');
-                  } else {
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: snapshot.data!.length,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (BuildContext context, int index) {
-                        var study = snapshot.data![index];
-                        String stdName = study['std_name'];
-                        String stdField = study['std_field'];
-                        String stdPrfPicture = study['std_prf_picture'] ?? 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fdefault_white.png?alt=media&token=e78c656d-4dc3-4b91-b2ad-2bb69a913f64';
-                        String stdPeopleNums = study['std_members'] != null ? (study['std_members'].length + 1).toString() : '1';
-                        return Container(
-                          width: double.infinity,
-                          height: 70.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).secondaryBackground,
-                            border: Border.all(
-                              color: FlutterFlowTheme.of(context).secondaryBackground,
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Container(
-                                    width: 44.0,
-                                    height: 44.0,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.network(
-                                      stdPrfPicture,
-                                      fit: BoxFit.cover,
-                                    ),
+                  } else if (studySnapshot.hasError) {
+                    return Text('오류 발생: ${studySnapshot.error}');
+                  } else if (studySnapshot.hasData) {
+                    studyData = studySnapshot.data!;
+                    return FutureBuilder<List<Map<String, dynamic>>>(
+                      future: getFilteredSearchStudyData(filter),
+                      builder: (BuildContext context, AsyncSnapshot<List<Map<String, dynamic>>> filteredSnapshot) {
+                        if (filteredSnapshot.connectionState == ConnectionState.waiting) {
+                          return const Center(child: CircularProgressIndicator());
+                        } else if (filteredSnapshot.hasError) {
+                          return Text('오류 발생: ${filteredSnapshot.error}');
+                        } else {
+                          return ListView.builder(
+                            padding: EdgeInsets.zero,
+                            itemCount: filteredSnapshot.data!.length,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (BuildContext context, int index) {
+                              var study = filteredSnapshot.data![index];
+                              String stdName = study['std_name'];
+                              String stdField = study['std_field'];
+                              String stdPrfPicture = _firebaseService.getStudyPhotoUrl(study['std_prf_picture']);
+                              String stdPeopleNums = study['std_members'] != null ? (study['std_members'].length + 1).toString() : '1';
+                              return Container(
+                                width: double.infinity,
+                                height: 70.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context).secondaryBackground,
                                   ),
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
-                                          child: Text(
-                                            stdName, // 실제 데이터 사용
-                                            style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                              fontFamily: 'Pretendard',
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w600,
-                                              useGoogleFonts: false,
-                                            ),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: Container(
+                                          width: 44.0,
+                                          height: 44.0,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Image.network(
+                                            stdPrfPicture,
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              stdField, // 실제 데이터 사용
-                                              style: FlutterFlowTheme.of(context).labelMedium.override(
-                                                fontFamily: 'Pretendard',
-                                                letterSpacing: 0.0,
-                                                useGoogleFonts: false,
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                                                child: Text(
+                                                  stdName, // 실제 데이터 사용
+                                                  style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                        fontFamily: 'Pretendard',
+                                                        letterSpacing: 0.0,
+                                                        fontWeight: FontWeight.w600,
+                                                        useGoogleFonts: false,
+                                                      ),
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              ' / 팀원 $stdPeopleNums명 ', // 실제 데이터 사용
-                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                fontFamily: 'Pretendard',
-                                                letterSpacing: 0.0,
-                                                useGoogleFonts: false,
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    stdField, // 실제 데이터 사용
+                                                    style: FlutterFlowTheme.of(context).labelMedium.override(
+                                                          fontFamily: 'Pretendard',
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  ),
+                                                  Text(
+                                                    ' / 팀원 $stdPeopleNums명 ', // 실제 데이터 사용
+                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                          fontFamily: 'Pretendard',
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        );
+                              );
+                            },
+                          );
+                        }
                       },
                     );
+                  } else {
+                    return const Center(child: Text('데이터가 없습니다.'));
                   }
                 },
               ),

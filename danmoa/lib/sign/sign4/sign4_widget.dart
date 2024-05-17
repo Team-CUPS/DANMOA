@@ -473,6 +473,7 @@ class _Sign4WidgetState extends State<Sign4Widget> {
                                 prfGender: widget.gender,
                                 prfMajor: _model.dept,
                                 prfPosition: _model.sign4Cc01Value,
+                                photoUrl: null,
                               ));
 
                           await authManager.sendEmailVerification();

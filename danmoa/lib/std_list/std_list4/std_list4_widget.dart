@@ -458,8 +458,14 @@ class _StdList4WidgetState extends State<StdList4Widget> {
                       const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      var ls = [_model.stdMake2Cc01Value, _model.stdList4Cc03Values, _model.stdMake2Cc03Value];
-                      Navigator.pop(context, ls);
+                      // _model.stdMake2Cc01Value, _model.stdMake2Cc03Value : String?
+                      // _model.stdList4Cc03Values : List<String>?
+                      List<dynamic> selectedFilter = [
+                        _model.stdMake2Cc01Value,
+                        _model.stdList4Cc03Values,
+                        _model.stdMake2Cc03Value
+                      ];
+                      Navigator.pop(context, selectedFilter);
                     },
                     text: '결과확인',
                     options: FFButtonOptions(

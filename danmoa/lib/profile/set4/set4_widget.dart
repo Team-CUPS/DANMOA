@@ -26,7 +26,6 @@ class _Set4WidgetState extends State<Set4Widget> {
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 

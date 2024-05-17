@@ -31,7 +31,6 @@ class _Set3WidgetState extends State<Set3Widget> {
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 

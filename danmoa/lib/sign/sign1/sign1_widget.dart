@@ -16,7 +16,6 @@ class Sign1Widget extends StatefulWidget {
 
 class _Sign1WidgetState extends State<Sign1Widget> {
   late Sign1Model _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

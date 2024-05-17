@@ -3,13 +3,11 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart'
-    as smooth_page_indicator;
+import 'package:smooth_page_indicator/smooth_page_indicator.dart' as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'home1_model.dart';
 export 'home1_model.dart';
-import 'package:danmoa/backend/backend.dart';
-
+import 'package:danmoa/backend/service/firebase_service.dart';
 
 class Home1Widget extends StatefulWidget {
   const Home1Widget({super.key});
@@ -20,63 +18,25 @@ class Home1Widget extends StatefulWidget {
 
 class _Home1WidgetState extends State<Home1Widget> {
   late Home1Model _model;
-  
-  var logger = Logger(
-    printer: PrettyPrinter(), // Use the PrettyPrinter to format and print log
-  );
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  List<Map<String, dynamic>> studyData = [];
-  List<Map<String, dynamic>> filteredPersonalStudyData = [];
-  bool isLoading = true;
+
+  final FirebaseService _firebaseService = FirebaseService.instance;
 
   @override
   void initState() {
-    logger.i('init() in home1');
     super.initState();
     _model = createModel(context, () => Home1Model());
-    initData();
   }
 
   @override
   void dispose() {
-    logger.i('dispose() in home1');
     _model.dispose();
     super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    logger.i("didChangeDependencies() in home1: ${context.toString()}");
-    super.didChangeDependencies(); 
-  }
-
-  Future<void> initData() async {
-    var loadedStudyData  = await loadStudyData(1);
-    var loadedFilteredPersonalStudyData = await loadFilteredPersonalStudyData(loadedStudyData, currentUserUid);
-    
-    isLoading = false;
-    setState(() {
-      studyData = loadedStudyData;
-      filteredPersonalStudyData = loadedFilteredPersonalStudyData;
-    });
   }
 
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading) {
-      return Scaffold(
-        body: Container(
-          color: Colors.black.withOpacity(0.5), // 반투명 배경
-          child: const Center(
-            child: CircularProgressIndicator(), // 로딩 인디케이터
-          ),
-        ),
-      );
-    }
-    logger.i("build() in home1: ${context.toString()}");
-    logger.i("홈1: $filteredPersonalStudyData");
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -340,102 +300,123 @@ class _Home1WidgetState extends State<Home1Widget> {
                               ],
                             ),
                           ),
-                          Container(
-                            width: double.infinity,
-                            height: 160.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: const BorderRadius.only(
-                                bottomLeft: Radius.circular(30.0),
-                                bottomRight: Radius.circular(30.0),
-                                topLeft: Radius.circular(30.0),
-                                topRight: Radius.circular(30.0),
-                              ),
-                            ),
-                            child: ListView.builder(
-                            padding: EdgeInsets.zero,
-                            itemCount: filteredPersonalStudyData.length > 3 ? 3 : filteredPersonalStudyData.length, // 최대 3개 요소만 표시
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (BuildContext context, int index) {
-                              final study = filteredPersonalStudyData[index];
-                              String stdCurrentUserStatus = study['std_leader']['uid'] == currentUserUid ? '팀장' : '팀원';
-                              String stdName = study['std_name'];
-                              String stdPrfPicture = study['std_prf_picture'] ?? 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fdefault_white.png?alt=media&token=e78c656d-4dc3-4b91-b2ad-2bb69a913f64';
+                          FutureBuilder<List<Map<String, dynamic>>>(
+                            future: _firebaseService.getUserStudies(currentUserUid, 1),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return const Center(child: CircularProgressIndicator());
+                              } else if (snapshot.hasError) {
+                                return Center(child: Text('Error: ${snapshot.error}'));
+                              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                                return const Center(child: Text('가입된 스터디가 없습니다.'));
+                              } else {
+                                final userStudyData = snapshot.data!;
+                                return Container(
+                                  width: double.infinity,
+                                  height: 160.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(30.0),
+                                      bottomRight: Radius.circular(30.0),
+                                      topLeft: Radius.circular(30.0),
+                                      topRight: Radius.circular(30.0),
+                                    ),
+                                  ),
+                                  child: ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    itemCount: userStudyData.length > 3 ? 3 : userStudyData.length, // 최대 3개 요소만 표시
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      final study = userStudyData[index];
+                                      String stdCurrentUserStatus = study['std_leader']['uid'] == currentUserUid ? '팀장' : '팀원';
+                                      String stdName = study['std_name'];
+                                      String stdPrfPicture = _firebaseService.getStudyPhotoUrl(study['std_prf_picture']);
 
-                              return InkWell(
-                                onTap: () async {
-                                  await updateStudyUpdateTime(stdName);
-                                  await context.pushNamed(
-                                    'stdHome1',
-                                    queryParameters: {
-                                      'stdName': serializeParam(stdName, ParamType.String),
-                                    }.withoutNulls,
-                                  );
-                                  setState(() {});
-                                },
-                                child: Align(
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 5.0, 0.0),
-                                    child: Container(
-                                      width: 110.0,
-                                      height: 110.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        border: Border.all(
-                                          color: FlutterFlowTheme.of(context).alternate,
-                                        ),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Align(
-                                            alignment: const AlignmentDirectional(-1.0, -1.0),
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional.fromSTEB(3.0, 3.0, 0.0, 0.0),
-                                              child: Text(
-                                                stdCurrentUserStatus,
-                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                  fontFamily: 'Pretendard',
-                                                  fontSize: 12.0,
-                                                  letterSpacing: 0.0,
-                                                  useGoogleFonts: false,
+                                      return InkWell(
+                                        onTap: () async {
+                                          if (await _firebaseService.doesStudyExist(stdName)) {
+                                            await _firebaseService.updateUserStudyIfJoined(stdName, currentUserUid);
+                                            await context.pushNamed(
+                                              'stdHome1',
+                                              queryParameters: {
+                                                'stdName': serializeParam(stdName, ParamType.String),
+                                              }.withoutNulls,
+                                            );
+                                            setState(() {});// 데이터 새로 고침
+                                          }
+                                          else {
+                                            setState(() {});// 데이터 새로 고침
+                                          }
+
+                                          
+                                        },
+                                        child: Align(
+                                          alignment: const AlignmentDirectional(0.0, 0.0),
+                                          child: Padding(
+                                            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 5.0, 0.0),
+                                            child: Container(
+                                              width: 110.0,
+                                              height: 110.0,
+                                              decoration: BoxDecoration(
+                                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                borderRadius: BorderRadius.circular(10.0),
+                                                border: Border.all(
+                                                  color: FlutterFlowTheme.of(context).alternate,
                                                 ),
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  Align(
+                                                    alignment: const AlignmentDirectional(-1.0, -1.0),
+                                                    child: Padding(
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(3.0, 3.0, 0.0, 0.0),
+                                                      child: Text(
+                                                        stdCurrentUserStatus,
+                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                          fontFamily: 'Pretendard',
+                                                          fontSize: 12.0,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    stdName,
+                                                    style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                      fontFamily: 'Pretendard',
+                                                      fontSize: 15.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight: FontWeight.w600,
+                                                      useGoogleFonts: false,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                                                    child: Container(
+                                                      width: 48.0,
+                                                      height: 48.0,
+                                                      clipBehavior: Clip.antiAlias,
+                                                      decoration: const BoxDecoration(shape: BoxShape.circle),
+                                                      child: Image.network(stdPrfPicture, fit: BoxFit.cover),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
-                                          Text(
-                                            stdName,
-                                            style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                              fontFamily: 'Pretendard',
-                                              fontSize: 15.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w600,
-                                              useGoogleFonts: false,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                                            child: Container(
-                                              width: 48.0,
-                                              height: 48.0,
-                                              clipBehavior: Clip.antiAlias,
-                                              decoration: const BoxDecoration(shape: BoxShape.circle),
-                                              child: Image.network(stdPrfPicture, fit: BoxFit.cover),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                ),
-                              );
+                                );
+                              }
                             },
-                          ),
                           ),
                         ],
                       ),

@@ -1,3 +1,5 @@
+import 'package:danmoa/backend/backend.dart';
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -5,7 +7,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'std_list2_model.dart';
 export 'std_list2_model.dart';
-import 'package:danmoa/backend/backend.dart';
+import 'package:danmoa/backend/service/firebase_service.dart';
+
 
 class StdList2Widget extends StatefulWidget {
   const StdList2Widget({super.key});
@@ -18,8 +21,9 @@ class _StdList2WidgetState extends State<StdList2Widget> {
   late StdList2Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final ScrollController _scrollController = ScrollController();
+
   List<dynamic> rst = [null, [], null];
+  final FirebaseService _firebaseService = FirebaseService.instance;
 
   @override
   void initState() {
@@ -30,7 +34,6 @@ class _StdList2WidgetState extends State<StdList2Widget> {
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
@@ -38,10 +41,6 @@ class _StdList2WidgetState extends State<StdList2Widget> {
 
   @override
   Widget build(BuildContext context) {
-    _scrollController.addListener((){
-      print(_scrollController.offset);
-    });
-
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -138,7 +137,7 @@ class _StdList2WidgetState extends State<StdList2Widget> {
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                   child: FutureBuilder<List<Map<String, dynamic>>>(
-                    future: loadFilteredStudyData(stdPosition: rst[0], stdTimes: (rst[1] as List).cast<String>(), stdField: rst[2]),  // 1: updated time DESC / 2: created time DESC
+                    future: _firebaseService.getFilteredStudyData(stdPosition: rst[0], stdTimes: (rst[1] as List).cast<String>(), stdField: rst[2]),  // 1: updated time DESC / 2: created time DESC
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
@@ -152,11 +151,11 @@ class _StdList2WidgetState extends State<StdList2Widget> {
                             final study = snapshot.data![index];
                             String stdName = study['std_name'];
                             String stdField = study['std_field'];
-                            String stdPrfPicture = study['std_prf_picture'] ?? 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fdefault_white.png?alt=media&token=e78c656d-4dc3-4b91-b2ad-2bb69a913f64';
+                            String stdPrfPicture = _firebaseService.getStudyPhotoUrl(study['std_prf_picture']);
                             String stdPeopleNums = study['std_members'] != null ? (study['std_members'].length + 1).toString() : '1';
                             return InkWell(
                               onTap: () async {
-                                await updateStudyUpdateTime(stdName);
+                                await _firebaseService.updateUserStudyIfJoined(stdName, currentUserUid);
                                 await context.pushNamed(
                                   'stdHome1',
                                   queryParameters: {
