@@ -476,8 +476,27 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                           },
                         );
                         return;  // 함수 실행 중지
-                      }
-                      else if (!chatLink.startsWith('https://open.kakao.com')) {
+                        // 위 조건에 의해 빈 문자열은 스터디이름이 되지 않음
+                      } else if (!(await _firebaseService.isStudyNameUnique(_model.stdNameTextController.text))) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("경고"),
+                              content: const Text("동일한 스터디 이름이 존재합니다."),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text("확인"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();  // 대화 상자 닫기
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        return;  // 함수 실행 중지
+                      } else if (!chatLink.startsWith('https://open.kakao.com')) {
                         // 링크가 올바르지 않을 경우 경고 대화 상자 표시
                         showDialog(
                           context: context,
