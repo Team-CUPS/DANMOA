@@ -65,6 +65,24 @@ class UtilService {
   }
 
 
+  // 스터디 이름 유효성 검사
+  static Map<String, dynamic> validateStudyName(String value) {
+    if (value.length > 10) {
+      return {
+        'helperText': '스터디 이름은 10글자 이하만 가능합니다.',
+        'isCheckButtonEnabled': false,
+        'helperTextColor': Colors.red
+      };
+    } else {
+      return {
+        'helperText': '',
+        'isCheckButtonEnabled': true,
+        'helperTextColor': Colors.black
+      };
+    }
+  }
+
+
   // 기본 이미지인지 구별하기 위한 메소드
   static bool isDefaultImage(String? imgPath) {
     if (imgPath == null) {

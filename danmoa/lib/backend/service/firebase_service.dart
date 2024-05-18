@@ -284,7 +284,9 @@ class FirebaseService {
   // 스터디 이미지 링크 반환 (나중에 앱이 확장되면 해당 메소드를 하드코딩 -> path방식으로 변경하면 됨 / 이 때는 Future 사용)
   String getStudyPhotoUrl(String? imgPath) {
     if (UtilService.isDefaultImage(imgPath)) {
-      return 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fdefault_white.png?alt=media&token=e78c656d-4dc3-4b91-b2ad-2bb69a913f64';
+      return 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fbearstudyblue.jpg?alt=media&token=c0a9e16d-dd9e-47c2-bebc-907bab756880';
+      //return 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fbearstudy.jpg?alt=media&token=75debbe7-c83e-4f86-8035-35ceb3333b35';
+      //return 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fdefault_white.png?alt=media&token=e78c656d-4dc3-4b91-b2ad-2bb69a913f64';
     } else {
       return imgPath!;
     }

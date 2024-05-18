@@ -20,6 +20,10 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
   bool isPickedImg = false;
   XFile? returnedXfileImg;
   String? returnedStringImg;
+  final bool _isUnique = false;
+  String _helperText = '';
+  Color _helperTextColor = Colors.red;
+  bool _isCheckButtonEnabled = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final FirebaseService _firebaseService = FirebaseService.instance;
   final ScrollController _scrollController = ScrollController();
@@ -68,7 +72,7 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
         if (object is RenderBox) {
           _scrollController.animateTo(
             _scrollController.offset + object.localToGlobal(Offset.zero).dy - 100,
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
           );
         }
@@ -222,13 +226,26 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                       ),
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
-                        child: Container(
-                          height: 60.0, // Set the desired height
+                        child: SizedBox(
+                          height: 80.0, // Set the desired height
                           child: TextFormField(
                             controller: _model.stdNameTextController,
                             focusNode: _model.stdNameFocusNode,
                             textCapitalization: TextCapitalization.words,
                             obscureText: false,
+                            // onChanged이벤트 발생 시
+                            // 1. validateStudyName에 따른 helperText 내용 생성
+                            // 2. 스터디명 10글자 이하일 때만 _isCheckButtonEnabled = true. _isButtonEnabled = false이면 다음버튼시 경고문구 출력
+                            // 3. _helperTextColor는 _isButtonEnabled = false일 때, Black->Red로 변경
+                            // 4. _helperText는 올바른 형식의 입력중일 시 ''
+                            onChanged: (value) {
+                              final result = UtilService.validateStudyName(value);
+                              setState(() {
+                                _helperText = result['helperText'];
+                                _isCheckButtonEnabled = result['isCheckButtonEnabled'];
+                                _helperTextColor = result['helperTextColor'];
+                              });
+                            },
                             decoration: InputDecoration(
                               labelText: '스터디 이름을 정해주세요',
                               labelStyle: FlutterFlowTheme.of(context)
@@ -245,6 +262,10 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                                     letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
+                              // TextFormField의 decoration: InputDecoration에 존재하는 helperText, helperTextStyle 속성
+                              // onChanged에서 정해진 _helperText(내용), _helperTextColor(색상) 이용
+                              helperText: _helperText,
+                              helperStyle: TextStyle(color: _helperTextColor),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: FlutterFlowTheme.of(context).alternate,
@@ -317,7 +338,7 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                       ),
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 12.0),
-                        child: Container(
+                        child: SizedBox(
                           height: 100.0, // Set the desired height
                           child: TextFormField(
                             controller: _model.stdIntroTextController,
@@ -387,7 +408,7 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                       ),
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
-                        child: Container(
+                        child: SizedBox(
                           height: 60.0, // Set the desired height
                           child: TextFormField(
                             controller: _model.stdUrlTextController,
@@ -462,6 +483,7 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                     padding: const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
                     child: FFButtonWidget(
                       onPressed: () async {
+                        bool isUnique = await _firebaseService.isStudyNameUnique(_model.stdNameTextController.text);
                         String chatLink = _model.stdUrlTextController.text;
                         if(_model.stdNameTextController.text == "" ||   _model.stdIntroTextController.text == "" || _model.stdUrlTextController.text == "") {
                           showDialog(
@@ -480,6 +502,24 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                                 ],
                               );
                             },
+                          );
+                          return;  // 함수 실행 중지
+                        }
+                        else if (!_isCheckButtonEnabled) {
+                          UtilService.showDialogWithMessage(
+                            context,
+                            '',
+                            '올바른 스터디 이름을 입력해주세요',
+                          );
+                          return;  // 함수 실행 중지
+                        }
+                        else if (!isUnique) {
+                          _helperText = '이미 사용중인 스터디명입니다';
+                          _helperTextColor = Colors.red;
+                          UtilService.showDialogWithMessage(
+                            context,
+                            '',
+                            '이미 사용중인 스터디명입니다',
                           );
                           return;  // 함수 실행 중지
                         }
@@ -504,6 +544,9 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                           );
                           return;  // 함수 실행 중지
                         }
+
+                        _helperText = '사용 가능한 스터디명입니다';
+                        _helperTextColor = Colors.green;
 
                         context.pushNamed(
                           'stdMake2',
