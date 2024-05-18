@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -10,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'home1_model.dart';
 export 'home1_model.dart';
 import 'package:danmoa/backend/service/firebase_service.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Home1Widget extends StatefulWidget {
   const Home1Widget({super.key});
@@ -21,13 +25,71 @@ class Home1Widget extends StatefulWidget {
 class _Home1WidgetState extends State<Home1Widget> {
   late Home1Model _model;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
   final FirebaseService _firebaseService = FirebaseService.instance;
+
+  static List<dynamic>? week;
+  static List<dynamic>? menu1;
+  static List<dynamic>? menu2;
+  static var week_status;
+  static var menu1_status;
+  static var menu2_status;
+  static bool dataFetched = false; // 데이터 한번만 fetch하기 위함
+  static bool isLoading = true; // 데이터 로딩 상태를 관리
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => Home1Model());
+    if (!dataFetched) {
+      fetchData();
+    }
+  }
+
+  Future<void> fetchData() async { // 주간일정, 학생식당메뉴, 교직원식당메뉴 크롤링 데이터 저장
+    setState(() {
+      isLoading = true; // 데이터 로딩 시작
+    });
+
+    try {
+      final week_response = await http.post(
+        Uri.parse('https://port-0-danmoa-crawserver-rccln2llw1oo1v6.sel5.cloudtype.app/week'),
+      );
+      final menu1_response = await http.post(
+        Uri.parse('https://port-0-danmoa-crawserver-rccln2llw1oo1v6.sel5.cloudtype.app/menu1'),
+      );
+      final menu2_response = await http.post(
+        Uri.parse('https://port-0-danmoa-crawserver-rccln2llw1oo1v6.sel5.cloudtype.app/menu2'),
+      );
+
+      if (week_response.statusCode == 200 && menu1_response.statusCode == 200 && menu2_response.statusCode == 200) {
+        setState(() {
+          var week_data = json.decode(utf8.decode(week_response.bodyBytes)) as Map<String, dynamic>;
+          var menu1_data = json.decode(utf8.decode(menu1_response.bodyBytes)) as Map<String, dynamic>;
+          var menu2_data = json.decode(utf8.decode(menu2_response.bodyBytes)) as Map<String, dynamic>;
+          week = (week_data['contents'] as List<dynamic>?) ?? [];
+          menu1 = (menu1_data['contents'] as List<dynamic>?) ?? [];
+          menu2 = (menu2_data['contents'] as List<dynamic>?) ?? [];
+          week_status = week_data['status'];
+          menu1_status = menu1_data['status'];
+          menu2_status = menu2_data['status'];
+
+          dataFetched = true;
+          isLoading = false; // 데이터 로딩 완료
+        });
+      } else {
+        // Handle error
+        print('Failed to fetch data');
+        setState(() {
+          isLoading = false; // 데이터 로딩 실패
+        });
+      }
+    } catch (e) {
+      // Handle exception
+      print('Error: $e');
+      setState(() {
+        isLoading = false; // 데이터 로딩 실패
+      });
+    }
   }
 
   @override
@@ -39,6 +101,13 @@ class _Home1WidgetState extends State<Home1Widget> {
 
   @override
   Widget build(BuildContext context) {
+    
+    print("Get Data : $week");
+    print("Status : $week_status");
+    print("Get Data : $menu1");
+    print("Status : $menu1_status");
+    print("Get Data : $menu2");
+    print("Status : $menu2_status");
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -109,87 +178,597 @@ class _Home1WidgetState extends State<Home1Widget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  width: double.infinity,
-                  height: 300.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                Material(
+                  color: Colors.transparent,
+                  elevation: 1,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
                   ),
-                  child: SizedBox(
+                  child: Container(
                     width: double.infinity,
-                    height: 500.0,
-                    child: Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 40.0),
-                          child: PageView(
-                            controller: _model.home1Pv01Controller ??=
-                                PageController(initialPage: 0),
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Image.network(
-                                  'https://images.unsplash.com/photo-1560961911-ba7ef651a56c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxNXx8bGVnb3xlbnwwfHx8fDE3MTA1OTkzMjl8MA&ixlib=rb-4.0.3&q=80&w=1080',
-                                  width: double.infinity,
-                                  height: 200.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.network(
-                                  'https://picsum.photos/seed/163/600',
-                                  width: 300.0,
-                                  height: 200.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.network(
-                                  'https://picsum.photos/seed/836/600',
-                                  width: 300.0,
-                                  height: 200.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(-1.0, 1.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 0.0, 16.0),
-                            child: smooth_page_indicator.SmoothPageIndicator(
-                              controller: _model.home1Pv01Controller ??=
+                    height: 300,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context)
+                          .secondaryBackground,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      height: 500,
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 20),
+                            child: PageView(
+                              controller: _model
+                                      .home1Pv01Controller ??=
                                   PageController(initialPage: 0),
-                              count: 3,
-                              axisDirection: Axis.horizontal,
-                              onDotClicked: (i) async {
-                                await _model.home1Pv01Controller!.animateToPage(
-                                  i,
-                                  duration: const Duration(milliseconds: 500),
-                                  curve: Curves.ease,
-                                );
-                              },
-                              effect: smooth_page_indicator.ExpandingDotsEffect(
-                                expansionFactor: 3.0,
-                                spacing: 8.0,
-                                radius: 16.0,
-                                dotWidth: 16.0,
-                                dotHeight: 8.0,
-                                dotColor: FlutterFlowTheme.of(context).accent1,
-                                activeDotColor:
-                                    FlutterFlowTheme.of(context).primary,
-                                paintStyle: PaintingStyle.fill,
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional
+                                      .fromSTEB(10, 0, 10, 0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisSize:
+                                            MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional
+                                                    .fromSTEB(0, 10,
+                                                        0, 0),
+                                            child: FaIcon(
+                                              FontAwesomeIcons.school,
+                                              color: FlutterFlowTheme
+                                                      .of(context)
+                                                  .secondaryText,
+                                              size: 20,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional
+                                                    .fromSTEB(5, 10,
+                                                        0, 0),
+                                            child: Text(
+                                              '이번주 학사일정',
+                                              style: FlutterFlowTheme
+                                                      .of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        'pretendard',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    fontSize: 18,
+                                                    letterSpacing:
+                                                        0,
+                                                    fontWeight:
+                                                        FontWeight
+                                                            .bold,
+                                                    useGoogleFonts:
+                                                        false,
+                                                  ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(
+                                        thickness: 1,
+                                        color: FlutterFlowTheme.of(
+                                                context)
+                                            .alternate,
+                                      ),
+                                      isLoading
+                                      ? Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(0, 90, 0, 0),
+                                          child: Center(
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                        )
+                                      : week_status == "empty"
+                                        ? Column(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                                child: Center(
+                                                  child: Text(
+                                                    '이번주는 쉬어가는 한주입니다!',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                          fontFamily: 'pretendard',
+                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                          fontSize: 16,
+                                                          letterSpacing: 0,
+                                                          fontWeight: FontWeight.bold,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  ),
+                                                )
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                                                child: Center(
+                                                  child: Image.asset(
+                                                    'assets/images/danmoa_rest.png',
+                                                    width: 120,
+                                                    height: 150,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                )
+                                              ),
+                                            ]
+                                          )
+                                        : ListView.builder(
+                                          shrinkWrap: true,
+                                          physics: NeverScrollableScrollPhysics(),
+                                          itemCount: week != null ? (week!.length > 4 ? 4 : week!.length) : 0,
+                                          itemBuilder: (context, index) {
+                                            return Padding(
+                                              padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 4),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    week![index][0],
+                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                          fontFamily: 'pretendard',
+                                                          letterSpacing: 0,
+                                                          fontWeight: FontWeight.w600,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  ),
+                                                  Text(
+                                                    week![index][1],
+                                                    style: FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'pretendard',
+                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                          fontSize: 14,
+                                                          letterSpacing: 0,
+                                                          fontWeight: FontWeight.normal,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional
+                                      .fromSTEB(10, 0, 10, 0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Row(
+                                        mainAxisSize:
+                                            MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional
+                                                    .fromSTEB(0, 10,
+                                                        0, 0),
+                                            child: Icon(
+                                              Icons.fastfood_rounded,
+                                              color: FlutterFlowTheme
+                                                      .of(context)
+                                                  .secondaryText,
+                                              size: 24,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional
+                                                    .fromSTEB(5, 10,
+                                                        0, 0),
+                                            child: Text(
+                                              '학생식당 ',
+                                              style: FlutterFlowTheme
+                                                      .of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        'pretendard',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    fontSize: 18,
+                                                    letterSpacing:
+                                                        0,
+                                                    fontWeight:
+                                                        FontWeight
+                                                            .bold,
+                                                    useGoogleFonts:
+                                                        false,
+                                                  ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(
+                                        thickness: 1,
+                                        color: FlutterFlowTheme.of(
+                                                context)
+                                            .alternate,
+                                      ),
+                                      isLoading
+                                      ? Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(0, 90, 0, 0),
+                                          child: Center(
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                        )
+                                      : menu1_status == "empty"
+                                        ? Column(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                                child: Center(
+                                                  child: Text(
+                                                    '오늘은 식당이 쉬는날입니다.',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                          fontFamily: 'pretendard',
+                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                          fontSize: 16,
+                                                          letterSpacing: 0,
+                                                          fontWeight: FontWeight.bold,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  ),
+                                                )
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                                                child: Center(
+                                                  child: Image.asset(
+                                                    'assets/images/danmoa_play.png',
+                                                    width: 120,
+                                                    height: 150,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                )
+                                              ),
+                                            ]
+                                          )
+                                        : Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 4),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Flexible(
+                                                flex: 1,
+                                                child:
+                                                  ListView.builder(
+                                                  shrinkWrap: true,
+                                                  physics: NeverScrollableScrollPhysics(),
+                                                  itemCount: menu1?[0].length ?? 0,
+                                                  itemBuilder: (context, index) {
+                                                    return Padding(
+                                                      padding: EdgeInsetsDirectional.fromSTEB(16, 4, 4, 4),
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            menu1![0][index],
+                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                  fontFamily: 'pretendard',
+                                                                  letterSpacing: 0,
+                                                                  fontWeight: FontWeight.w600,
+                                                                  fontSize: 13,
+                                                                  useGoogleFonts: false,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                              Flexible(
+                                                flex: 1,
+                                                child: 
+                                                  ListView.builder(
+                                                  shrinkWrap: true,
+                                                  physics: NeverScrollableScrollPhysics(),
+                                                  itemCount: menu1?[1].length ?? 0,
+                                                  itemBuilder: (context, index) {
+                                                    return Padding(
+                                                      padding: EdgeInsetsDirectional.fromSTEB(16, 4, 4, 4),
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            menu1![1][index],
+                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                  fontFamily: 'pretendard',
+                                                                  letterSpacing: 0,
+                                                                  fontWeight: FontWeight.w600,
+                                                                  fontSize: 13,
+                                                                  useGoogleFonts: false,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                              Flexible(
+                                                flex: 1,
+                                                child:
+                                                  ListView.builder(
+                                                  shrinkWrap: true,
+                                                  physics: NeverScrollableScrollPhysics(),
+                                                  itemCount: menu1?[2].length ?? 0,
+                                                  itemBuilder: (context, index) {
+                                                    return Padding(
+                                                      padding: EdgeInsetsDirectional.fromSTEB(16, 4, 4, 4),
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            menu1![2][index],
+                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                  fontFamily: 'pretendard',
+                                                                  letterSpacing: 0,
+                                                                  fontWeight: FontWeight.w600,
+                                                                  fontSize: 13,
+                                                                  useGoogleFonts: false,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional
+                                      .fromSTEB(10, 0, 10, 0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Row(
+                                        mainAxisSize:
+                                            MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional
+                                                    .fromSTEB(0, 10,
+                                                        0, 0),
+                                            child: Icon(
+                                              Icons.food_bank,
+                                              color: FlutterFlowTheme
+                                                      .of(context)
+                                                  .secondaryText,
+                                              size: 24,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional
+                                                    .fromSTEB(5, 10,
+                                                        0, 0),
+                                            child: Text(
+                                              '교직원식당',
+                                              style: FlutterFlowTheme
+                                                      .of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        'pretendard',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    fontSize: 18,
+                                                    letterSpacing:
+                                                        0,
+                                                    fontWeight:
+                                                        FontWeight
+                                                            .bold,
+                                                    useGoogleFonts:
+                                                        false,
+                                                  ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(
+                                        thickness: 1,
+                                        color: FlutterFlowTheme.of(
+                                                context)
+                                            .alternate,
+                                      ),
+                                      isLoading
+                                      ? Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(0, 90, 0, 0),
+                                          child: Center(
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                        )
+                                      : menu2_status == "empty"
+                                        ? Column(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                                child: Center(
+                                                  child: Text(
+                                                    '오늘은 식당이 쉬는날입니다.',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                          fontFamily: 'pretendard',
+                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                          fontSize: 16,
+                                                          letterSpacing: 0,
+                                                          fontWeight: FontWeight.bold,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  ),
+                                                )
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                                                child: Center(
+                                                  child: Image.asset(
+                                                    'assets/images/danmoa_play.png',
+                                                    width: 120,
+                                                    height: 150,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                )
+                                              ),
+                                            ]
+                                          )
+                                        : Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 4),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Flexible(
+                                                flex: 1,
+                                                child:
+                                                  ListView.builder(
+                                                  shrinkWrap: true,
+                                                  physics: NeverScrollableScrollPhysics(),
+                                                  itemCount: menu2?[0].length ?? 0,
+                                                  itemBuilder: (context, index) {
+                                                    return Padding(
+                                                      padding: EdgeInsetsDirectional.fromSTEB(16, 2, 4, 2),
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            menu2![0][index],
+                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                  fontFamily: 'pretendard',
+                                                                  letterSpacing: 0,
+                                                                  fontWeight: FontWeight.w600,
+                                                                  fontSize: 13,
+                                                                  useGoogleFonts: false,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                              Flexible(
+                                                flex: 1,
+                                                child: 
+                                                  ListView.builder(
+                                                  shrinkWrap: true,
+                                                  physics: NeverScrollableScrollPhysics(),
+                                                  itemCount: menu2?[1].length ?? 0,
+                                                  itemBuilder: (context, index) {
+                                                    return Padding(
+                                                      padding: EdgeInsetsDirectional.fromSTEB(16, 2, 4, 2),
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            menu2![1][index],
+                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                  fontFamily: 'pretendard',
+                                                                  letterSpacing: 0,
+                                                                  fontWeight: FontWeight.w600,
+                                                                  fontSize: 13,
+                                                                  useGoogleFonts: false,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Align(
+                            alignment: AlignmentDirectional(-1, 1),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(
+                                      16, 0, 0, 16),
+                              child: smooth_page_indicator
+                                  .SmoothPageIndicator(
+                                controller: _model
+                                        .home1Pv01Controller ??=
+                                    PageController(initialPage: 0),
+                                count: 3,
+                                axisDirection: Axis.horizontal,
+                                onDotClicked: (i) async {
+                                  await _model.home1Pv01Controller!
+                                      .animateToPage(
+                                    i,
+                                    duration:
+                                        Duration(milliseconds: 500),
+                                    curve: Curves.ease,
+                                  );
+                                  setState(() {});
+                                },
+                                effect: smooth_page_indicator
+                                    .ExpandingDotsEffect(
+                                  expansionFactor: 3,
+                                  spacing: 8,
+                                  radius: 16,
+                                  dotWidth: 16,
+                                  dotHeight: 8,
+                                  dotColor:
+                                      FlutterFlowTheme.of(context)
+                                          .accent1,
+                                  activeDotColor:
+                                      FlutterFlowTheme.of(context)
+                                          .primary,
+                                  paintStyle: PaintingStyle.fill,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
