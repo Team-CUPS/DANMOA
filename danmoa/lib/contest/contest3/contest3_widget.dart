@@ -72,9 +72,9 @@ class _Contest3WidgetState extends State<Contest3Widget> {
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 200.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 160.0, 0.0, 0.0),
                       child: Text(
-                        '등록된 공모전이 없습니다.\n\n뒤로 가서 다시 검색해주세요!',
+                        '등록된 공모전이 없습니다.\n뒤로 가서 다시 검색해주세요!',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Roboto Condensed',
@@ -84,6 +84,17 @@ class _Contest3WidgetState extends State<Contest3Widget> {
                               letterSpacing: 0.0,
                             ),
                       ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/images/danmoa_not.png',
+                          width: 150,
+                          height: 280,
+                          fit: BoxFit.cover,
+                        ),
+                      )
                     ),
                   ],
                 ),
