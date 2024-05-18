@@ -58,12 +58,14 @@ class _PhotoShtStdmakeWidgetState extends State<PhotoShtStdmakeWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
-                // 앨범에서 사진 선택 클릭시
-                widget.isPickedImgSht = true;
+                // 앨범에서 사진 선택 클릭시  
                 widget.shtXfileImg = await UtilService.getImageFromGallery();
-                widget.shtStringImg = 'not url'; // 크게 의미 있는 코드는 아니다. 추후 개발시 null과 구분할 가능성 염두해 설정.
-                
-                Navigator.pop(context, {'isPickedImgSht': widget.isPickedImgSht, 'shtXfileImg': widget.shtXfileImg, 'shtStringImg': widget.shtStringImg});
+
+                if (widget.shtXfileImg != null) {
+                  widget.isPickedImgSht = true;
+                  widget.shtStringImg = 'not url'; // 크게 의미 있는 코드는 아니다. 추후 개발시 null과 구분할 가능성 염두해 설정.
+                  Navigator.pop(context, {'isPickedImgSht': widget.isPickedImgSht, 'shtXfileImg': widget.shtXfileImg, 'shtStringImg': widget.shtStringImg});
+                }
               },
               child: Container(
                 width: MediaQuery.sizeOf(context).width * 0.95,

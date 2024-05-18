@@ -41,12 +41,12 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
 
   Future<Map<String, dynamic>> _loadData() async {
     var loadedStudyData = await _firebaseService.getStudyDataByName(widget.stdName);
-    var selectedUserData = await _firebaseService.getUserDataFromStudyData(loadedStudyData);
+    var selectedMembersData = await _firebaseService.getMembersDataFromStudyData(loadedStudyData);
     bool memberStatus = UtilService.isMember(loadedStudyData, currentUserUid);
 
     return {
       'studyData': loadedStudyData,
-      'selectedUserData': selectedUserData,
+      'selectedMembersData': selectedMembersData,
       'memberStatus': memberStatus,
     };
   }
@@ -78,7 +78,7 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
             }
 
             final studyData = snapshot.data!['studyData'] as Map<String, dynamic>;
-            final selectedUserData = snapshot.data!['selectedUserData'] as List<Map<String, dynamic>>;
+            final selectedMembersData = snapshot.data!['selectedMembersData'] as List<Map<String, dynamic>>;
             final memberStatus = snapshot.data!['memberStatus'] as bool;
             
             return Scaffold(
@@ -273,12 +273,12 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                               '기본정보',
                               textAlign: TextAlign.start,
                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                fontFamily: 'pretendard',
-                                fontSize: 18,
-                                letterSpacing: 0,
-                                fontWeight: FontWeight.bold,
-                                useGoogleFonts: false,
-                              ),
+                                    fontFamily: 'pretendard',
+                                    fontSize: 18,
+                                    letterSpacing: 0,
+                                    fontWeight: FontWeight.bold,
+                                    useGoogleFonts: false,
+                                  ),
                             ),
                             Column(
                               mainAxisSize: MainAxisSize.max,
@@ -294,26 +294,26 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                         '팀장',
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                          fontFamily: 'pretendard',
-                                          color: FlutterFlowTheme.of(context).grey700,
-                                          fontSize: 14,
-                                          letterSpacing: 0,
-                                          fontWeight: FontWeight.w500,
-                                          useGoogleFonts: false,
-                                          lineHeight: 0,
-                                        ),
+                                              fontFamily: 'pretendard',
+                                              color: FlutterFlowTheme.of(context).grey700,
+                                              fontSize: 14,
+                                              letterSpacing: 0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts: false,
+                                              lineHeight: 0,
+                                            ),
                                       ),
                                     ),
                                     Text(
                                       studyData['std_leader']['name'],
                                       textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'pretendard',
-                                        fontSize: 14,
-                                        letterSpacing: 0,
-                                        fontWeight: FontWeight.w500,
-                                        useGoogleFonts: false,
-                                      ),
+                                            fontFamily: 'pretendard',
+                                            fontSize: 14,
+                                            letterSpacing: 0,
+                                            fontWeight: FontWeight.w500,
+                                            useGoogleFonts: false,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -325,28 +325,29 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                       width: 60,
                                       decoration: const BoxDecoration(),
                                       child: Text(
-                                        '소개',
+                                        '요일대',
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                          fontFamily: 'pretendard',
-                                          color: FlutterFlowTheme.of(context).grey700,
-                                          fontSize: 14,
-                                          letterSpacing: 0,
-                                          fontWeight: FontWeight.w500,
-                                          useGoogleFonts: false,
-                                        ),
+                                              fontFamily: 'pretendard',
+                                              color: FlutterFlowTheme.of(context).grey700,
+                                              fontSize: 14,
+                                              letterSpacing: 0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts: false,
+                                              lineHeight: 0,
+                                            ),
                                       ),
                                     ),
                                     Text(
-                                      studyData['std_intro'],
+                                      '${studyData['std_times'].sublist(0, studyData['std_times'].length - 2).join(', ')}',
                                       textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'pretendard',
-                                        fontSize: 14,
-                                        letterSpacing: 0,
-                                        fontWeight: FontWeight.w500,
-                                        useGoogleFonts: false,
-                                      ),
+                                            fontFamily: 'pretendard',
+                                            fontSize: 14,
+                                            letterSpacing: 0,
+                                            fontWeight: FontWeight.w500,
+                                            useGoogleFonts: false,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -361,25 +362,26 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                         '시간대',
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                          fontFamily: 'pretendard',
-                                          color: FlutterFlowTheme.of(context).grey700,
-                                          fontSize: 14,
-                                          letterSpacing: 0,
-                                          fontWeight: FontWeight.w500,
-                                          useGoogleFonts: false,
-                                        ),
+                                              fontFamily: 'pretendard',
+                                              color: FlutterFlowTheme.of(context).grey700,
+                                              fontSize: 14,
+                                              letterSpacing: 0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts: false,
+                                              lineHeight: 0,
+                                            ),
                                       ),
                                     ),
                                     Text(
-                                      '요일: ${studyData['std_times'].sublist(0, studyData['std_times'].length - 2).join(', ')} / 시간: ${studyData['std_times'].sublist(studyData['std_times'].length - 2).join('~')}',
+                                      '${studyData['std_times'].sublist(studyData['std_times'].length - 2).join('~')}',
                                       textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'pretendard',
-                                        fontSize: 14,
-                                        letterSpacing: 0,
-                                        fontWeight: FontWeight.w500,
-                                        useGoogleFonts: false,
-                                      ),
+                                            fontFamily: 'pretendard',
+                                            fontSize: 14,
+                                            letterSpacing: 0,
+                                            fontWeight: FontWeight.w500,
+                                            useGoogleFonts: false,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -394,25 +396,60 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                         '개설일',
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                          fontFamily: 'pretendard',
-                                          color: FlutterFlowTheme.of(context).grey700,
-                                          fontSize: 14,
-                                          letterSpacing: 0,
-                                          fontWeight: FontWeight.w500,
-                                          useGoogleFonts: false,
-                                        ),
+                                              fontFamily: 'pretendard',
+                                              color: FlutterFlowTheme.of(context).grey700,
+                                              fontSize: 14,
+                                              letterSpacing: 0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts: false,
+                                              lineHeight: 0,
+                                            ),
                                       ),
                                     ),
                                     Text(
                                       DateFormat('yyyy.MM.dd').format(studyData['std_created_time'].toDate()).toString(),
                                       textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'pretendard',
-                                        fontSize: 14,
-                                        letterSpacing: 0,
-                                        fontWeight: FontWeight.w500,
-                                        useGoogleFonts: false,
+                                            fontFamily: 'pretendard',
+                                            fontSize: 14,
+                                            letterSpacing: 0,
+                                            fontWeight: FontWeight.w500,
+                                            useGoogleFonts: false,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 60,
+                                      decoration: const BoxDecoration(),
+                                      child: Text(
+                                        '소개',
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                              fontFamily: 'pretendard',
+                                              color: FlutterFlowTheme.of(context).grey700,
+                                              fontSize: 14,
+                                              letterSpacing: 0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts: false,
+                                              lineHeight: 0,
+                                            ),
                                       ),
+                                    ),
+                                    Text(
+                                      studyData['std_intro'].trim(),
+                                      textAlign: TextAlign.start,
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                            fontFamily: 'pretendard',
+                                            fontSize: 14,
+                                            letterSpacing: 0,
+                                            fontWeight: FontWeight.w500,
+                                            useGoogleFonts: false,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -438,7 +475,7 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                       Expanded(
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
-                          itemCount: selectedUserData.length,
+                          itemCount: selectedMembersData.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
@@ -448,7 +485,7 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                     'prf1',
                                     queryParameters: {
                                       'userUid': serializeParam(
-                                        selectedUserData[index]['uid'],
+                                        selectedMembersData[index]['uid'],
                                         ParamType.String,
                                       ),
                                     }.withoutNulls,
@@ -472,7 +509,7 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
-                                            _firebaseService.getUserPhotoUrl(selectedUserData[index]['photo_url']),
+                                            _firebaseService.getUserPhotoUrl(selectedMembersData[index]['photo_url']),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -484,7 +521,7 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                           Padding(
                                             padding: const EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                                             child: Text(
-                                              selectedUserData[index]['prf_name'],
+                                              selectedMembersData[index]['display_name'],
                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                 fontFamily: 'pretendard',
                                                 fontSize: 14,
@@ -509,7 +546,7 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                             child: Padding(
                                               padding: const EdgeInsetsDirectional.fromSTEB(8, 4, 8, 4),
                                               child: Text(
-                                                selectedUserData[index]['prf_major'],
+                                                selectedMembersData[index]['prf_major'],
                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                   fontFamily: 'pretendard',
                                                   fontSize: 12,

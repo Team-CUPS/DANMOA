@@ -234,10 +234,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'stdName',
               ParamType.String,
             ),
-            stdPrfPicture: params.getParam(
-              'stdPrfPicture',
-              ParamType.String,
-            ),
           ),
         ),
         FFRoute(

@@ -90,7 +90,7 @@ class FirebaseService {
   }
 
 
-  // 스터디 데이터를 스터디 컬렉션에 저장
+  // 스터디 모든 데이터를 study 컬렉션에 저장
   Future<void> addStudyData(String stdName, Map<String, dynamic> data) async {
     final hash = UtilService.generateHash(stdName.toLowerCase());
 
@@ -100,13 +100,13 @@ class FirebaseService {
         .set(data);
   }
 
-  // 사용자가 스터디에 가입한 정보와 스터디 데이터를 저장
+  // 특정 사용자가 스터디에 가입시 users, studies 콜렉션에 해당 스터디 데이터를 저장
   Future<void> storeUserStudy(String stdName, String uid, Map<String, dynamic> data) async {
-    await addUserStudy(stdName, uid, DateTime.now());
-    await addStudyData(stdName, data);
+    await addUserStudy(stdName, uid, DateTime.now()); // users subcollection으로 studies콜렉션에 'stdName': stdName, 'std_updated_time': stdUpdatedTime
+    await addStudyData(stdName, data); // 스터디 모든 데이터를 study콜렉션에 저장
   }
 
-  // 사용자가 가입한 스터디 목록을 가져옴
+  // 특정 사용자가 가입한 스터디의 전체 데이터를 가져와서 리스트에 저장
   Future<List<Map<String, dynamic>>> getUserStudies(String uid, int flag) async {
     // 사용자의 스터디 목록을 가져옴
     final userStudiesSnapshot = await FirebaseFirestore.instance
@@ -140,7 +140,7 @@ class FirebaseService {
     await storeStudyMember(stdName, uid, prfName);
   }
 
-  // 스터디 멤버 정보를 스터디 문서에 추가
+  // 스터디 가입시 멤버 정보를 스터디 문서에 추가
   Future<void> storeStudyMember(String stdName, String uid, String name) async {
     final hash = UtilService.generateHash(stdName.toLowerCase());
     final studyDoc = FirebaseFirestore.instance.collection('study').doc(hash);
@@ -250,8 +250,8 @@ class FirebaseService {
   }
 
 
-  // 특정 스터디에 가입된 유저들의 데이터를 가져오는 메소드
-  Future<List<Map<String, dynamic>>> getUserDataFromStudyData(Map<String, dynamic> studyData) async {
+  // 특정 스터디에 가입된 팀원들의 데이터를 가져오는 메소드
+  Future<List<Map<String, dynamic>>> getMembersDataFromStudyData(Map<String, dynamic> studyData) async {
     List<Map<String, dynamic>> selectedUsers = [];
 
     if (studyData['std_members'] == null || studyData['std_members'].isEmpty) {
@@ -268,6 +268,7 @@ class FirebaseService {
     }
     return selectedUsers;
   }
+
 
 
   // 유저 이미지 링크 반환 (나중에 앱이 확장되면 해당 메소드를 하드코딩 -> path방식으로 변경하면 됨 / 이 때는 Future 사용)
@@ -503,6 +504,44 @@ class FirebaseService {
     } catch (e) {
       // 오류 발생 시 로그 출력
       logger.e('Error deleting study: $e');
+    }
+  }
+
+  // 스터디 멤버 추방
+  Future<void> removeMemberFromStudy(String stdName, String uid) async {
+    final hash = UtilService.generateHash(stdName.toLowerCase());
+    final studyDocRef = FirebaseFirestore.instance.collection('study').doc(hash);
+
+    try {
+      // 스터디 문서 가져오기
+      final studyDocSnapshot = await studyDocRef.get();
+
+      if (studyDocSnapshot.exists) {
+        final studyData = studyDocSnapshot.data() as Map<String, dynamic>;
+
+        // 멤버 목록에서 해당 UID를 가진 멤버 제거
+        final updatedMembers = List<Map<String, dynamic>>.from(studyData['std_members'])
+          ..removeWhere((member) => member['uid'] == uid);
+
+        // Firestore 문서 업데이트
+        await studyDocRef.update({'std_members': updatedMembers});
+
+        // 유저 컬렉션의 studies 서브 컬렉션에서도 해당 스터디를 제거
+        final userStudyDocRef = FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            .collection('studies')
+            .doc(hash);
+
+        await userStudyDocRef.delete();
+
+        // 로그 출력
+        logger.i('Member removed successfully from study: $stdName and user\'s studies subcollection.');
+      } else {
+        logger.w('Study does not exist: $stdName');
+      }
+    } catch (e) {
+      logger.e('Error removing member from study: $e');
     }
   }
 

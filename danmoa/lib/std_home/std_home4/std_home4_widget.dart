@@ -31,11 +31,13 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
   final TextEditingController _endTimeController = TextEditingController();
   final FirebaseService _firebaseService = FirebaseService.instance;
   bool isInit = true;
+  late Future<Map<String, dynamic>> _loadDataFuture;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => StdHome4Model());
+    _loadDataFuture = _loadStudyData();
   }
 
   @override
@@ -71,7 +73,7 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>>(
-      future: _loadStudyData(),
+      future: _loadDataFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -565,6 +567,7 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                           );
 
                           // updateStudyDetails에서 stdPrfPicture을 반드시 저장되게 했으므로 예외적으로 보존을 해줘야 함. (하지 않으려면 이 함수를 쪼개야함.)
+                          // 넣어주지 않으면 null이 되기 때문
                           await _firebaseService.updateStudyDetails(widget.stdName, stdPosition: _model.stdMake2Cc01Value!, stdTimes: UtilService.sortTime(_model.stdList4Cc03Values), stdField: _model.stdMake2Cc03Value!, stdPrfPicture: studyData['std_prf_picture']);
 
                           ScaffoldMessenger.of(context).showSnackBar(

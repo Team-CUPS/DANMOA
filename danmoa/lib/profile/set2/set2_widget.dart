@@ -30,6 +30,7 @@ class _Set2WidgetState extends State<Set2Widget> {
   bool isPickedImg = false;
   String displayName = '';
   bool isInit = true;
+  late Future<Map<String, dynamic>> _loadDataFuture;
 
   @override
   void initState() {
@@ -38,6 +39,8 @@ class _Set2WidgetState extends State<Set2Widget> {
 
     _model.introTextController ??= TextEditingController();
     _model.introFocusNode ??= FocusNode();
+
+    _loadDataFuture = _loadData();
   }
 
   @override
@@ -54,7 +57,7 @@ class _Set2WidgetState extends State<Set2Widget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>>(
-      future: _loadData(),
+      future: _loadDataFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(

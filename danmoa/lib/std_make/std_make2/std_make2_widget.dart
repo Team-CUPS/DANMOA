@@ -33,11 +33,13 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
   final TextEditingController _endTimeController = TextEditingController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final FirebaseService _firebaseService = FirebaseService.instance;
+  late Future<Map<String, dynamic>> _loadDataFuture;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => StdMake2Model());
+    _loadDataFuture = _loadData();
   }
 
   Future<void> _selectTime(BuildContext context, {required bool isStartTime}) async {
@@ -68,7 +70,6 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
 
   Future<Map<String, dynamic>> _loadData() async {
     var userData = await _firebaseService.getUserDataByUid(currentUserUid);
-
     return {
       'userData': userData,
     };
@@ -77,7 +78,7 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>>(
-      future: _loadData(),
+      future: _loadDataFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
