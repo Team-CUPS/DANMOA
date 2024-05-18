@@ -8,6 +8,8 @@ export 'package:image_picker/image_picker.dart';
 export 'dart:io'; // for use FILE type
 export 'package:flutter/foundation.dart'; // for use listEquals
 import 'package:logger/logger.dart';
+import 'package:flutter/material.dart';
+export 'package:flutter/material.dart';
 
 var logger = Logger(
   printer: PrettyPrinter(), // Use the PrettyPrinter to format and print log
@@ -36,6 +38,29 @@ class UtilService {
       return DateFormat('M월 d일').format(updateTime);
     } else {
       return DateFormat('yyyy. MM. dd').format(updateTime);
+    }
+  }
+
+  // 닉네임 유효성 검사
+  static Map<String, dynamic> validateDisplayName(String value) {
+    if (value.length > 10 || value.length < 3) {
+      return {
+        'helperText': '닉네임은 3글자 이상 10글자 이하입니다.',
+        'isCheckButtonEnabled': false,
+        'helperTextColor': Colors.red
+      };
+    } else if (RegExp(r'[^a-zA-Z0-9가-힣]').hasMatch(value)) {
+      return {
+        'helperText': '닉네임은 영문, 한글, 숫자만 가능합니다.',
+        'isCheckButtonEnabled': false,
+        'helperTextColor': Colors.red
+      };
+    } else {
+      return {
+        'helperText': '',
+        'isCheckButtonEnabled': true,
+        'helperTextColor': Colors.black
+      };
     }
   }
 
@@ -124,5 +149,25 @@ class UtilService {
       });
     }
     return stdTimes;
+  }
+
+  static Future<void> showDialogWithMessage(BuildContext context, String title, String message) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('확인'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

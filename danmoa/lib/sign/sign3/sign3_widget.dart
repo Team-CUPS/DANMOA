@@ -7,6 +7,7 @@ import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'sign3_model.dart';
 export 'sign3_model.dart';
+import 'package:danmoa/backend/service/firebase_service.dart';
 
 class Sign3Widget extends StatefulWidget {
   const Sign3Widget({
@@ -24,8 +25,14 @@ class Sign3Widget extends StatefulWidget {
 
 class _Sign3WidgetState extends State<Sign3Widget> {
   late Sign3Model _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final FirebaseService _firebaseService = FirebaseService.instance;
+  bool _isChecked = false;
+  bool _isUnique = false;
+  String _helperText = '';
+  Color _helperTextColor = Colors.red;
+  bool _isCheckButtonEnabled = false;
 
   @override
   void initState() {
@@ -45,8 +52,18 @@ class _Sign3WidgetState extends State<Sign3Widget> {
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
+  }
+
+  Future<void> checkDisplayName() async {
+    String displayName = _model.sign3Tf02TextController?.text ?? '';
+    bool isUnique = await _firebaseService.isDisplayNameUnique(displayName);
+    setState(() {
+      _isChecked = true;
+      _isUnique = isUnique;
+      _helperText = isUnique ? '사용 가능한 닉네임입니다.' : '이미 사용 중인 닉네임입니다.';
+      _helperTextColor = isUnique ? Colors.green : Colors.red;
+    });
   }
 
   @override
@@ -310,6 +327,20 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                                 _model.sign3Tf02FocusNode,
                                             autofocus: false,
                                             obscureText: false,
+                                            // onChanged이벤트 발생 시
+                                            // 1. validateDisplayName에 따른 helperText 내용 생성
+                                            // 2. 닉네임 3-10자, 한글,영문,숫자일 때만 _isCheckButtonEnabled = true. _isButtonEnabled = false이면, 추후 버튼 비활성화
+                                            // 3. _helperTextColor는 _isButtonEnabled = false일 때, Black->Red로 변경
+                                            // 4. 한 번이라도 클릭 시 _isChecked = false가 되어, 다시 중복 체크를 해야 함.
+                                            onChanged: (value) {
+                                              final result = UtilService.validateDisplayName(value);
+                                              setState(() {
+                                                _helperText = result['helperText'];
+                                                _isCheckButtonEnabled = result['isCheckButtonEnabled'];
+                                                _helperTextColor = result['helperTextColor'];
+                                                _isChecked = false;
+                                              });
+                                            },
                                             decoration: InputDecoration(
                                               labelText: '닉네임',
                                               labelStyle: FlutterFlowTheme.of(
@@ -321,6 +352,8 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                                     letterSpacing: 0.0,
                                                     useGoogleFonts: false,
                                                   ),
+                                              helperText: _helperText,
+                                              helperStyle: TextStyle(color: _helperTextColor),
                                               hintStyle: FlutterFlowTheme.of(
                                                       context)
                                                   .labelMedium
@@ -431,11 +464,11 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                       alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 11.0),
+                                            0.0, 0.0, 0.0, 36.0),
                                         child: FFButtonWidget(
-                                          onPressed: () {
-                                            print('sign3_btn_02 pressed ...');
-                                          },
+                                          // 닉네임 필드에 타자를 칠 때 마다 _isCheckButtonEnabled 가 참인지 검사
+                                          // 해당 조건이 참인 경우는 위에서 서술했 듯 닉네임 3-10자, 한글,영문,숫자일 때이다. 
+                                          onPressed: _isCheckButtonEnabled ? checkDisplayName : null,
                                           text: '중복체크',
                                           options: FFButtonOptions(
                                             height: 40.0,
@@ -445,7 +478,7 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                             iconPadding:
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
-                                            color: const Color(0xFF375AC1),
+                                            color: _isCheckButtonEnabled ? const Color(0xFF375AC1) : Colors.grey,
                                             textStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -487,7 +520,7 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                         child: Padding(
                                           padding:
                                               const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 8.0, 12.0, 16.0),
+                                                  0.0, 0.0, 12.0, 0.0),
                                           child: SizedBox(
                                             width: double.infinity,
                                             child: TextFormField(
@@ -828,99 +861,7 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    if (_model.sign3Tf01TextController.text != '') {
-                      if (_model.sign3Tf02TextController.text != '') {
-                        if (_model.sign3Tf03TextController.text != '') {
-                          if (_model.sign3Rad01Value != null &&
-                              _model.sign3Rad01Value != '') {
-                            context.pushNamed(
-                              'sign4',
-                              queryParameters: {
-                                'email': serializeParam(
-                                  widget.email,
-                                  ParamType.String,
-                                ),
-                                'pw': serializeParam(
-                                  widget.pw,
-                                  ParamType.String,
-                                ),
-                                'name': serializeParam(
-                                  _model.sign3Tf01TextController.text,
-                                  ParamType.String,
-                                ),
-                                'subname': serializeParam(
-                                  _model.sign3Tf02TextController.text,
-                                  ParamType.String,
-                                ),
-                                'birth': serializeParam(
-                                  _model.datePicked,
-                                  ParamType.DateTime,
-                                ),
-                                'gender': serializeParam(
-                                  _model.sign3Rad01Value,
-                                  ParamType.String,
-                                ),
-                              }.withoutNulls,
-                              extra: <String, dynamic>{
-                                kTransitionInfoKey: const TransitionInfo(
-                                  hasTransition: true,
-                                  transitionType:
-                                      PageTransitionType.rightToLeft,
-                                ),
-                              },
-                            );
-                          } else {
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  content: const Text('성별을 선택해주세요.'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: const Text('확인'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
-                        } else {
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                content: const Text('생년월일을 입력해주세요.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: const Text('확인'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                      } else {
-                        await showDialog(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return AlertDialog(
-                              content: const Text('닉네임을 입력해주세요.'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext),
-                                  child: const Text('확인'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    } else {
+                    if (_model.sign3Tf01TextController.text == '') {
                       await showDialog(
                         context: context,
                         builder: (alertDialogContext) {
@@ -928,12 +869,93 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                             content: const Text('이름을 입력해주세요.'),
                             actions: [
                               TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(alertDialogContext),
+                                onPressed: () => Navigator.pop(alertDialogContext),
                                 child: const Text('확인'),
                               ),
                             ],
                           );
+                        },
+                      );
+                    } else if (_model.sign3Tf02TextController.text == '') {
+                      await showDialog(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return AlertDialog(
+                            content: const Text('닉네임을 입력해주세요.'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(alertDialogContext),
+                                child: const Text('확인'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else if (_model.sign3Tf03TextController.text == '') {
+                      await showDialog(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return AlertDialog(
+                            content: const Text('생년월일을 입력해주세요.'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(alertDialogContext),
+                                child: const Text('확인'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else if (_model.sign3Rad01Value == null || _model.sign3Rad01Value == '') {
+                      await showDialog(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return AlertDialog(
+                            content: const Text('성별을 선택해주세요.'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(alertDialogContext),
+                                child: const Text('확인'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else if (_model.sign3Tf01TextController.text.length < 2 || _model.sign3Tf01TextController.text.length > 6) {
+                      UtilService.showDialogWithMessage(
+                        context,
+                        '오류',
+                        '이름은 2글자 이상 6글자 이하로 입력해주세요',
+                      );
+                    } else if (!_isChecked) {
+                      UtilService.showDialogWithMessage(
+                        context,
+                        '오류',
+                        '먼저 닉네임 중복 검사를 해주세요',
+                      );
+                    } else if (!_isUnique) {
+                      UtilService.showDialogWithMessage(
+                        context,
+                        '오류',
+                        '중복된 닉네임은 이용하실 수 없습니다',
+                      );
+                    }
+                    else {
+                      context.pushNamed(
+                        'sign4',
+                        queryParameters: {
+                          'email': serializeParam(widget.email, ParamType.String),
+                          'pw': serializeParam(widget.pw, ParamType.String),
+                          'name': serializeParam(_model.sign3Tf01TextController.text, ParamType.String),
+                          'subname': serializeParam(_model.sign3Tf02TextController.text, ParamType.String),
+                          'birth': serializeParam(_model.datePicked, ParamType.DateTime),
+                          'gender': serializeParam(_model.sign3Rad01Value, ParamType.String),
+                        }.withoutNulls,
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: const TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.rightToLeft,
+                          ),
                         },
                       );
                     }

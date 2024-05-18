@@ -9,6 +9,7 @@ export 'package:danmoa/auth/firebase_auth/auth_util.dart';
 export 'package:url_launcher/url_launcher.dart';
 
 
+
 var logger = Logger(
   printer: PrettyPrinter(), // Use the PrettyPrinter to format and print log
 );
@@ -27,6 +28,16 @@ class FirebaseService {
     return !studyDoc.exists;
   }
 
+  // display_name이 고유한지 확인
+  Future<bool> isDisplayNameUnique(String displayName) async {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('display_name', isEqualTo: displayName)
+        .get();
+    return querySnapshot.docs.isEmpty;
+  }
+
+
   // 사용자가 스터디에 가입한 정보를 사용자 컬렉션에 저장 (studies: 서브 컬렉션)
   Future<void> addUserStudy(String stdName, String uid, DateTime stdUpdatedTime) async {
     final hash = UtilService.generateHash(stdName.toLowerCase());
@@ -41,7 +52,6 @@ class FirebaseService {
     });
   }
 
-  // 가입된 유저 한해서 시간 업데이트
   // 가입된 유저 한해서 시간 업데이트
   Future<void> updateUserStudyIfJoined(String stdName, String uid) async {
     final hash = UtilService.generateHash(stdName.toLowerCase());
