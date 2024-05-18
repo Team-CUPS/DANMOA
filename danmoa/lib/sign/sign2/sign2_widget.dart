@@ -1,3 +1,5 @@
+import '/flutter_flow/flutter_flow_checkbox_group.dart';
+import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -458,11 +460,71 @@ class _Sign2WidgetState extends State<Sign2Widget> {
                     ),
                   ),
                 ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                        child: FlutterFlowCheckboxGroup(
+                          options: ['(필수) 서비스 이용약관 동의 '],
+                          onChanged: (val) =>
+                              setState(() => _model.sign2Chk01Values = val),
+                          controller: _model.sign2Chk01ValueController ??=
+                              FormFieldController<List<String>>(
+                            [],
+                          ),
+                          activeColor: FlutterFlowTheme.of(context).primary,
+                          checkColor: FlutterFlowTheme.of(context).info,
+                          checkboxBorderColor:
+                              FlutterFlowTheme.of(context).secondaryText,
+                          textStyle: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: 'pretendard',
+                                letterSpacing: 0,
+                                fontWeight: FontWeight.w600,
+                                useGoogleFonts: false,
+                              ),
+                          checkboxBorderRadius: BorderRadius.circular(4),
+                          initialized: _model.sign2Chk01Values != null,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 25, 0),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          await launchURL('https://plip.kr/pcc/5c3fb0c5-fe09-4f18-855f-a5a96bb87202/consent/2.html');
+                        },
+                        child: Text(
+                          '약관 보기',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: 'pretendard',
+                                color: Color(0xFFBCBCBC),
+                                fontSize: 13,
+                                letterSpacing: 0,
+                                fontWeight: FontWeight.w600,
+                                decoration: TextDecoration.underline,
+                                useGoogleFonts: false,
+                              ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 Align(
                   alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(
-                        20.0, 16.0, 20.0, 16.0),
+                        20.0, 48.0, 20.0, 16.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         if (_model.sign2Tf01TextController.text != '') {
@@ -476,26 +538,45 @@ class _Sign2WidgetState extends State<Sign2Widget> {
                             }(_model.sign2Tf02TextController.text)) {
                               if (_model.sign2Tf02TextController.text ==
                                   _model.sign2Tf03TextController.text) {
-                                context.pushNamed(
-                                  'sign3',
-                                  queryParameters: {
-                                    'email': serializeParam(
-                                      _model.sign2Tf01TextController.text,
-                                      ParamType.String,
-                                    ),
-                                    'pw': serializeParam(
-                                      _model.sign2Tf02TextController.text,
-                                      ParamType.String,
-                                    ),
-                                  }.withoutNulls,
-                                  extra: <String, dynamic>{
-                                    kTransitionInfoKey: const TransitionInfo(
-                                      hasTransition: true,
-                                      transitionType:
-                                          PageTransitionType.rightToLeft,
-                                    ),
-                                  },
-                                );
+                                if (_model.sign2Chk01Values != null &&
+                                    (_model.sign2Chk01Values)!.isNotEmpty){
+                                       context.pushNamed(
+                                      'sign3',
+                                      queryParameters: {
+                                        'email': serializeParam(
+                                          _model.sign2Tf01TextController.text,
+                                          ParamType.String,
+                                        ),
+                                        'pw': serializeParam(
+                                          _model.sign2Tf02TextController.text,
+                                          ParamType.String,
+                                        ),
+                                      }.withoutNulls,
+                                      extra: <String, dynamic>{
+                                        kTransitionInfoKey: const TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.rightToLeft,
+                                        ),
+                                      },
+                                    );
+                                  } else {
+                                    await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        content: Text('약관 동의 후 가입이 가능합니다.'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(alertDialogContext),
+                                            child: Text('확인'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
                               } else {
                                 await showDialog(
                                   context: context,

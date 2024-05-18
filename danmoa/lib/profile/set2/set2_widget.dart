@@ -491,7 +491,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                   child: Padding(
                                                     padding: MediaQuery.viewInsetsOf(context),
                                                     child: const SizedBox(
-                                                      height: 400,
+                                                      height: 550.0,
                                                       child: Sign4Sht01Widget(),
                                                     ),
                                                   ),

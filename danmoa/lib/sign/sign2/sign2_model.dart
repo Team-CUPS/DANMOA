@@ -1,3 +1,4 @@
+import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'sign2_widget.dart' show Sign2Widget;
 import 'package:flutter/material.dart';
@@ -20,6 +21,9 @@ class Sign2Model extends FlutterFlowModel<Sign2Widget> {
   TextEditingController? sign2Tf03TextController;
   late bool sign2Tf03Visibility;
   String? Function(BuildContext, String?)? sign2Tf03TextControllerValidator;
+  // State field(s) for sign2_chk_01 widget.
+  List<String>? sign2Chk01Values;
+  FormFieldController<List<String>>? sign2Chk01ValueController;
 
   @override
   void initState(BuildContext context) {
