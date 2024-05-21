@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:danmoa/backend/service/local_push_notification_service.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'auth/firebase_auth/firebase_user_provider.dart';
@@ -9,9 +10,13 @@ import 'backend/firebase/firebase_config.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:danmoa/backend/service/firebase_service.dart';
 import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 
+
+final navigatorKey = GlobalKey<NavigatorState>(); // 전역에서 네비게이션 제어를 위한 글로벌 키 생성
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin(); // 로컬 알림을 처리하기 위한 객체 생성
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   GoRouter.optionURLReflectsImperativeAPIs = true;
@@ -19,6 +24,18 @@ void main() async {
   await initFirebase();
 
   await FlutterFlowTheme.initialize();
+  await LocalPushNotifications.init(); // service/local_push_notification_service.dart에 작성한 알림 권한 설정 초기화
+
+  //String initialRoute = '/';
+  final NotificationAppLaunchDetails? notificationAppLaunchDetails =
+      await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+  bool didNotificationLaunchApp =
+      notificationAppLaunchDetails?.didNotificationLaunchApp ?? false;
+
+  if (didNotificationLaunchApp) {
+    //initialRoute = '/QA2';
+  }
+
 
   runApp(const MyApp());
 }
@@ -55,8 +72,11 @@ class _MyAppState extends State<MyApp> {
     jwtTokenStream.listen((_) {});
     Future.delayed(
       const Duration(milliseconds: 1000),
-      () => _appStateNotifier.stopShowingSplashImage(),
-    );
+        () => _appStateNotifier.stopShowingSplashImage(),
+      );
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+      FirebaseService.updateUnansweredQAs(currentUserUid); 
+    });
   }
 
   @override

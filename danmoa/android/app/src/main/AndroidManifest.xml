@@ -6,6 +6,13 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:ignore="QueryAllPackagesPermission"/>
+    
+    <!--for flutter_local_notification-->
+    <!--https://developer.android.com/reference/android/Manifest.permission : 권한 목록 url-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/> <!--장치가 재부팅될 때 플러그인이 다시 알림을 예약 가능하게 함-->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" /> <!--사용자가 앱을 통해 권한을 부여할 수 있게 함-->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" /> <!--캘린더나 알람 시계 앱과 같이 정확한 시간을 요구할 때 필요 (정확한 알람은 기본적으로 거부)-->
 
     <queries>
         <intent>
@@ -36,7 +43,9 @@
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true">  <!--(showWhenLocked - 잠금화면에서 알림 뜨도록 허용,turnScreenOn)for flutter_local_notification-->
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
@@ -68,6 +77,8 @@
             </intent-filter>
 
         </activity>
+        
+
 
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

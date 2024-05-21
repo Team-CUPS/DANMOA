@@ -5,17 +5,21 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'qa4_model.dart';
 export 'qa4_model.dart';
-import 'package:danmoa/backend/backend.dart';
+import 'package:danmoa/backend/service/firebase_service.dart';
 
 class Qa4Widget extends StatefulWidget {
   const Qa4Widget({
     super.key,
     required this.usrInputTxt,
     required this.aiOutput,
+    required this.docId,
+    required this.createdTime,
     });
 
   final String usrInputTxt;
   final String aiOutput;
+  final String docId;
+  final String createdTime;
 
   @override
   State<Qa4Widget> createState() => _Qa4WidgetState();
@@ -23,8 +27,9 @@ class Qa4Widget extends StatefulWidget {
 
 class _Qa4WidgetState extends State<Qa4Widget> {
   late Qa4Model _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final FirebaseService _firebaseService = FirebaseService.instance;
 
   @override
   void initState() {
@@ -86,7 +91,7 @@ class _Qa4WidgetState extends State<Qa4Widget> {
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
                     child: Text(
-                      '2024.05.01',
+                      widget.createdTime,
                       style: FlutterFlowTheme.of(context).labelLarge.override(
                             fontFamily: 'pretendard',
                             letterSpacing: 0.0,
@@ -142,7 +147,8 @@ class _Qa4WidgetState extends State<Qa4Widget> {
                         const EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 12.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        context.pushNamed('QA3');
+                        await _firebaseService.deleteQAData(widget.docId);
+                        context.pop();
                       },
                       text: '삭제하기',
                       options: FFButtonOptions(

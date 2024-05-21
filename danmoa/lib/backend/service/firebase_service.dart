@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'util_service.dart'; // UtilService를 불러오기
 import 'package:logger/logger.dart';
-import 'package:flutter/foundation.dart';
 export 'package:image_picker/image_picker.dart';
 export 'util_service.dart';
 export 'package:danmoa/auth/firebase_auth/auth_util.dart';
 export 'package:url_launcher/url_launcher.dart';
+import 'package:danmoa/backend/service/local_push_notification_service.dart';
+import 'dart:async';
 
 
 
@@ -20,6 +21,10 @@ class FirebaseService {
 
   // 싱글 인스턴스
   static final FirebaseService instance = FirebaseService._privateConstructor();
+
+  // StreamSubscription<DocumentSnapshot>? _subscription;
+  StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? _subscription; // 전체 QA 조건
+  
 
   // 스터디 이름이 고유한지 확인
   Future<bool> isStudyNameUnique(String stdName) async {
@@ -397,7 +402,6 @@ class FirebaseService {
         if (studySnapshot.exists) {
           logger.i('Fetched study document: ${studySnapshot.data()}');
           await studyDoc.update(updates);
-          logger.i('Updated study document: ${studySnapshot.data()}');
           logger.i('Study details updated successfully.');
 
           // 가입된 유저들의 studies 서브 컬렉션 업데이트
@@ -551,5 +555,128 @@ class FirebaseService {
     final hash = UtilService.generateHash(stdName.toLowerCase());
     final studyDoc = await FirebaseFirestore.instance.collection('study').doc(hash).get();
     return studyDoc.exists;
+  }
+
+  // QA
+  Future<void> storeQAData(Map<String, dynamic> data) async {
+    // 데이터를 'qa' 컬렉션에 추가하고 DocumentReference를 받는다.
+    DocumentReference documentReference = await FirebaseFirestore.instance.collection('qa').add(data);
+
+    await documentReference.update({
+      'doc_id': documentReference.id  // 문서 ID를 필드로 설정
+    });
+
+  }
+
+
+  Future<void> deleteQAData(String docId) async {
+    await FirebaseFirestore.instance.collection('qa').doc(docId).delete();
+  }
+
+
+  Future<List<Map<String, dynamic>>> loadQAData() async {
+    var snapshot = await FirebaseFirestore.instance.collection('qa').get();
+    return snapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data();
+
+      return {
+        'signal': data['signal'],
+        'ai_score': data['ai_score'],
+        'usr_score': data['usr_score'],
+        'usr_input_txt': data['usr_input_txt'],
+        'ai_output': data['ai_output'],
+        'user_uid': data['user_uid'],
+        'created_time': data['created_time'],
+        'doc_id': data['doc_id'],
+      };
+    }).toList();
+  }
+
+
+  Future<List<Map<String, dynamic>>> loadUserAnsweredQAData(String uid) async {
+    try {
+      List<Map<String, dynamic>> loadedQAs = await loadQAData();
+      List<Map<String, dynamic>> filteredQAList = loadedQAs.where((qa) {
+        return qa['signal'] == 3 && qa['user_uid'] == uid;
+      }).toList();
+      return filteredQAList;
+    } catch (error) {
+      logger.i("Error loading study data: $error");
+      rethrow; // 에러가 발생하면 Future의 에러로 전달
+    }
+  }
+
+  Future<void> setEndWaitingForAnswer(String docId) async {
+    DocumentReference doc = FirebaseFirestore.instance.collection('qa').doc(docId);
+    await doc.update({'signal': 3});
+  }
+
+  Future<bool> isWaitingForAnswer(String userId) async {
+    DocumentSnapshot docSnapshot = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    final data = docSnapshot.data();
+    if (data != null && data is Map<String, dynamic>) {
+      if (data['signal'] == 0 || data['signal'] == 2) { // 2 -> 3되는 시간도 고려
+        return true;
+      }
+      else {
+        return false;
+      }
+    } 
+    logger.e('data is null or type error in isWaitingForAnswer');
+    return false;
+  }
+
+
+  void listenToDocumentChange(String uid) {
+  _subscription?.cancel(); // 기존 구독 취소
+  _subscription = FirebaseFirestore.instance.collection('qa')
+    .where('user_uid', isEqualTo: uid)
+    .where('signal', isEqualTo: 2)
+    .snapshots()
+    .listen((querySnapshot) {
+      for (var documentSnapshot in querySnapshot.docs) {
+        if (documentSnapshot.exists) {
+          final data = documentSnapshot.data();
+          logger.i('Signal 2 detected');
+          if (data['signal'] == 2) {
+            LocalPushNotifications.showSimpleNotification(
+              title: "QA 답변완료",
+              body: "단모아가 QA답변을 완료했어요!\n질문리스트로 이동해보세요!",
+              payload: 'QA2'
+            );
+            setEndWaitingForAnswer(documentSnapshot.id);
+            cancelSubscription(); // 작업 완료 후 구독 취소
+          }
+        }
+      }
+    });
+  }
+  
+  
+
+  void cancelSubscription() {
+    _subscription?.cancel();
+    _subscription = null;
+  }
+  
+
+  static Future<bool> updateUnansweredQAs(String uid) async {
+    bool hasQA = false;
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    // uid와 signal 조건에 맞는 문서 검색
+    QuerySnapshot querySnapshot = await db.collection('qa')
+        .where('user_uid', isEqualTo: uid)
+        .where('signal', isEqualTo: 2)
+        .get();
+
+    // 검색된 문서가 하나라도 있으면 모두 signal을 3으로 업데이트
+    if (querySnapshot.docs.isNotEmpty) {
+      hasQA = true;
+      for (var doc in querySnapshot.docs) {
+        await doc.reference.update({'signal': 3});
+      }
+      return hasQA;
+    }
+    return false;
   }
 }

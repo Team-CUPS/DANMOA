@@ -196,11 +196,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const StdList3Widget(),
         ),
         FFRoute(
-          name: 'notice1',
-          path: '/notice1',
-          builder: (context, params) => const Notice1Widget(),
-        ),
-        FFRoute(
           name: 'prf1',
           path: '/prf1',
           builder: (context, params) =>
@@ -282,6 +277,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             aiOutput: params.getParam(
               'ai_output',
+              ParamType.String,
+            ),
+            docId: params.getParam(
+              'doc_id',
+              ParamType.String,
+            ),
+            createdTime: params.getParam(
+              'created_time',
               ParamType.String,
             ),
           ),

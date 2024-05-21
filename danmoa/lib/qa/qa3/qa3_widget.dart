@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'qa3_model.dart';
 export 'qa3_model.dart';
-import 'package:danmoa/backend/backend.dart';
+import 'package:danmoa/backend/service/firebase_service.dart';
 
 
 class Qa3Widget extends StatefulWidget {
@@ -19,6 +19,7 @@ class Qa3Widget extends StatefulWidget {
 
 class _Qa3WidgetState extends State<Qa3Widget> with TickerProviderStateMixin {
   late Qa3Model _model;
+  final FirebaseService _firebaseService = FirebaseService.instance;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -126,7 +127,7 @@ class _Qa3WidgetState extends State<Qa3Widget> with TickerProviderStateMixin {
                           ),
                         ),
                         FutureBuilder<List<Map<String, dynamic>>>(
-                          future: loadFilteredQAData(currentUserUid),
+                          future: _firebaseService.loadUserAnsweredQAData(currentUserUid),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
                               return const Center(child: CircularProgressIndicator());
@@ -140,8 +141,7 @@ class _Qa3WidgetState extends State<Qa3Widget> with TickerProviderStateMixin {
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (BuildContext context, int index) {
                                   final qa = snapshot.data![index];
-                                  logger.i(qa);
-
+                                  String createdTime = DateFormat('yyyy.MM.dd').format(qa['created_time'].toDate());
                                   return Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                                     child: InkWell(
@@ -150,13 +150,15 @@ class _Qa3WidgetState extends State<Qa3Widget> with TickerProviderStateMixin {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        var result = await context.pushNamed(
+                                        logger.w(qa);
+                                        await context.pushNamed(
                                           'QA4',
                                           queryParameters: {
                                             'usr_input_txt': serializeParam(qa['usr_input_txt'], ParamType.String),
                                             'ai_output': serializeParam(qa['ai_output'], ParamType.String),
+                                            'doc_id' : serializeParam(qa['doc_id'], ParamType.String),
+                                            'created_time' : serializeParam(createdTime, ParamType.String),
                                           }.withoutNulls,
-                                          
                                           );
                                       },
                                       child: Container(

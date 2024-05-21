@@ -32,7 +32,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 34 // 사용 최소 sdk 버전 (for flutter_local_notification)
     
 
     sourceSets {
@@ -51,6 +51,15 @@ android {
         targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true // 사용 메서드가 64K보다 많아지면 dex파일을 쪼개어 불러옴 (minSdkVersion 20이하에서 필요, 현재 minSdkVersion 21이기 때문에 필수 X)
+    }
+
+    compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled true
+        // Sets Java compatibility to Java 8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
    signingConfigs {
@@ -77,4 +86,9 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"
+    
+    // for flutter_local_notification
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2' // 플러그인의 버전 10+는 이제 디슈가링을 사용하여 이전 버전의 Android에서 이전 버전과 호환되는 예약된 알림을 지원
+    implementation 'androidx.window:window:1.0.0' // 플러그인 비활성화를 true로 할 경우 안드로이드 12L이상 충돌이 일어날 수 있어서 WindowManager라이브러리를 종속성으로 추가
+    implementation 'androidx.window:window-java:1.0.0'
 }

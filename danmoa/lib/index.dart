@@ -5,7 +5,6 @@ export '/sign/sign3/sign3_widget.dart' show Sign3Widget;
 export '/sign/sign4/sign4_widget.dart' show Sign4Widget;
 export '/sign/sign5/sign5_widget.dart' show Sign5Widget;
 export '/home/home1/home1_widget.dart' show Home1Widget;
-export '/home/notice1/notice1_widget.dart' show Notice1Widget;
 export '/std_make/std_make1/std_make1_widget.dart' show StdMake1Widget;
 export '/std_make/std_make2/std_make2_widget.dart' show StdMake2Widget;
 export '/std_make/std_make3/std_make3_widget.dart' show StdMake3Widget;

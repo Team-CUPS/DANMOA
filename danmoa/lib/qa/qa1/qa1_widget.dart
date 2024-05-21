@@ -5,7 +5,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'qa1_model.dart';
 export 'qa1_model.dart';
-import 'package:danmoa/backend/backend.dart';
+import 'package:danmoa/backend/service/local_push_notification_service.dart';
+import 'package:danmoa/backend/service/firebase_service.dart';
 
 class Qa1Widget extends StatefulWidget {
   const Qa1Widget({super.key});
@@ -16,6 +17,7 @@ class Qa1Widget extends StatefulWidget {
 
 class _Qa1WidgetState extends State<Qa1Widget> {
   late Qa1Model _model;
+  final FirebaseService _firebaseService = FirebaseService.instance;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -31,7 +33,7 @@ class _Qa1WidgetState extends State<Qa1Widget> {
   @override
   void dispose() {
     _model.dispose();
-
+    _firebaseService.cancelSubscription(); // 리소스 정리
     super.dispose();
   }
 
@@ -164,8 +166,29 @@ class _Qa1WidgetState extends State<Qa1Widget> {
                         const EdgeInsetsDirectional.fromSTEB(0.0, 130.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
+                        // bool isWaiting = await _firebaseService.isWaitingForAnswer(currentUserUid);
+                        // if (isWaiting) {
+                        //   showDialog(
+                        //     context: context,
+                        //     builder: (BuildContext context) {
+                        //       return AlertDialog(
+                        //         title: const Text('주의'),
+                        //         content: const Text('이전 질문의 응답을 기다려주세요.'),
+                        //         actions: <Widget>[
+                        //           TextButton(
+                        //             onPressed: () {
+                        //               Navigator.of(context).pop(); // 대화상자를 닫습니다.
+                        //             },
+                        //             child: const Text('확인'),
+                        //           ),
+                        //         ],
+                        //       );
+                        //     },
+                        //   );
+                        //   return; // isWaiting이 true이면 함수 종료
+                        // }
+
                         if (_model.textController.text.isEmpty) {
-                          // AlertDialog를 표시
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -183,20 +206,38 @@ class _Qa1WidgetState extends State<Qa1Widget> {
                               );
                             },
                           );
-                        }
-                        else {
+                        } else {
+                          await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('알림'),
+                                content: const Text('답변이 완료되기 전에 앱을 종료하면\n알림이 오지 않습니다.'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); // 대화상자를 닫습니다.
+                                    },
+                                    child: const Text('확인'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                           Map<String, dynamic> QAData = {
-                            'signal': 0, // 0: 매칭 해야하는 상태, 1: 매칭 중인 상태, 2: 매칭 완료 상태
                             'usr_input_txt': _model.textController.text,
-                            'ai_output': null,
+                            'ai_output': '',
                             'user_uid': currentUserUid,
                             'ai_score': null,
                             'usr_score': null,
                             'created_time': DateTime.now(),
+                            'signal': 0,
                           };
-                          storeQAData(QAData);
-
-                          context.pushNamed('QA2');
+                          
+                          await _firebaseService.storeQAData(QAData);
+                          _firebaseService.listenToDocumentChange(currentUserUid);
+                          
+                          context.pushNamed('home1');
                         }
                       },
                       text: '질문하기',

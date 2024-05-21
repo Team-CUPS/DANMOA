@@ -51,27 +51,27 @@ class _Home1WidgetState extends State<Home1Widget> {
     });
 
     try {
-      final week_response = await http.post(
+      final weekResponse = await http.post(
         Uri.parse('https://port-0-danmoa-crawserver-rccln2llw1oo1v6.sel5.cloudtype.app/week'),
       );
-      final menu1_response = await http.post(
+      final menu1Response = await http.post(
         Uri.parse('https://port-0-danmoa-crawserver-rccln2llw1oo1v6.sel5.cloudtype.app/menu1'),
       );
-      final menu2_response = await http.post(
+      final menu2Response = await http.post(
         Uri.parse('https://port-0-danmoa-crawserver-rccln2llw1oo1v6.sel5.cloudtype.app/menu2'),
       );
 
-      if (week_response.statusCode == 200 && menu1_response.statusCode == 200 && menu2_response.statusCode == 200) {
+      if (weekResponse.statusCode == 200 && menu1Response.statusCode == 200 && menu2Response.statusCode == 200) {
         setState(() {
-          var week_data = json.decode(utf8.decode(week_response.bodyBytes)) as Map<String, dynamic>;
-          var menu1_data = json.decode(utf8.decode(menu1_response.bodyBytes)) as Map<String, dynamic>;
-          var menu2_data = json.decode(utf8.decode(menu2_response.bodyBytes)) as Map<String, dynamic>;
-          week = (week_data['contents'] as List<dynamic>?) ?? [];
-          menu1 = (menu1_data['contents'] as List<dynamic>?) ?? [];
-          menu2 = (menu2_data['contents'] as List<dynamic>?) ?? [];
-          week_status = week_data['status'];
-          menu1_status = menu1_data['status'];
-          menu2_status = menu2_data['status'];
+          var weekData = json.decode(utf8.decode(weekResponse.bodyBytes)) as Map<String, dynamic>;
+          var menu1Data = json.decode(utf8.decode(menu1Response.bodyBytes)) as Map<String, dynamic>;
+          var menu2Data = json.decode(utf8.decode(menu2Response.bodyBytes)) as Map<String, dynamic>;
+          week = (weekData['contents'] as List<dynamic>?) ?? [];
+          menu1 = (menu1Data['contents'] as List<dynamic>?) ?? [];
+          menu2 = (menu2Data['contents'] as List<dynamic>?) ?? [];
+          week_status = weekData['status'];
+          menu1_status = menu1Data['status'];
+          menu2_status = menu2Data['status'];
 
           dataFetched = true;
           isLoading = false; // 데이터 로딩 완료
@@ -85,10 +85,12 @@ class _Home1WidgetState extends State<Home1Widget> {
       }
     } catch (e) {
       // Handle exception
-      print('Error: $e');
-      setState(() {
-        isLoading = false; // 데이터 로딩 실패
-      });
+        print('Error: $e');
+        if (mounted) {
+          setState(() {
+          isLoading = false; // 데이터 로딩 실패
+        });
+      }
     }
   }
 
@@ -150,27 +152,6 @@ class _Home1WidgetState extends State<Home1Widget> {
               ),
             ),
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 5.0, 8.0),
-              child: FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 14.0,
-                borderWidth: 1.0,
-                buttonSize: 40.0,
-                icon: Icon(
-                  Icons.notifications_outlined,
-                  color: FlutterFlowTheme.of(context).secondaryText,
-                  size: 29.0,
-                ),
-                onPressed: () async {
-                  context.pushNamed('notice1');
-                },
-              ),
-            ),
-          ],
-          centerTitle: false,
-          elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
@@ -181,7 +162,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                 Material(
                   color: Colors.transparent,
                   elevation: 1,
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(10),
                       bottomRight: Radius.circular(10),
@@ -195,20 +176,20 @@ class _Home1WidgetState extends State<Home1Widget> {
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context)
                           .secondaryBackground,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10),
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10),
                       ),
                     ),
-                    child: Container(
+                    child: SizedBox(
                       width: double.infinity,
                       height: 500,
                       child: Stack(
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0, 0, 0, 20),
                             child: PageView(
                               controller: _model
@@ -217,7 +198,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                               scrollDirection: Axis.horizontal,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional
+                                  padding: const EdgeInsetsDirectional
                                       .fromSTEB(10, 0, 10, 0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -230,7 +211,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional
+                                                const EdgeInsetsDirectional
                                                     .fromSTEB(0, 10,
                                                         0, 0),
                                             child: FaIcon(
@@ -243,7 +224,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional
+                                                const EdgeInsetsDirectional
                                                     .fromSTEB(5, 10,
                                                         0, 0),
                                             child: Text(
@@ -277,7 +258,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                             .alternate,
                                       ),
                                       isLoading
-                                      ? Padding(
+                                      ? const Padding(
                                           padding: EdgeInsetsDirectional.fromSTEB(0, 90, 0, 0),
                                           child: Center(
                                             child: CircularProgressIndicator(),
@@ -287,7 +268,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                         ? Column(
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                                padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                                                 child: Center(
                                                   child: Text(
                                                     '이번주는 쉬어가는 한주입니다!',
@@ -304,7 +285,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                 )
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                                                padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                                                 child: Center(
                                                   child: Image.asset(
                                                     'assets/images/danmoa_rest.png',
@@ -318,11 +299,11 @@ class _Home1WidgetState extends State<Home1Widget> {
                                           )
                                         : ListView.builder(
                                           shrinkWrap: true,
-                                          physics: NeverScrollableScrollPhysics(),
+                                          physics: const NeverScrollableScrollPhysics(),
                                           itemCount: week != null ? (week!.length > 4 ? 4 : week!.length) : 0,
                                           itemBuilder: (context, index) {
                                             return Padding(
-                                              padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 4),
+                                              padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 4),
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
@@ -357,7 +338,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional
+                                  padding: const EdgeInsetsDirectional
                                       .fromSTEB(10, 0, 10, 0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -368,7 +349,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional
+                                                const EdgeInsetsDirectional
                                                     .fromSTEB(0, 10,
                                                         0, 0),
                                             child: Icon(
@@ -381,7 +362,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional
+                                                const EdgeInsetsDirectional
                                                     .fromSTEB(5, 10,
                                                         0, 0),
                                             child: Text(
@@ -415,7 +396,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                             .alternate,
                                       ),
                                       isLoading
-                                      ? Padding(
+                                      ? const Padding(
                                           padding: EdgeInsetsDirectional.fromSTEB(0, 90, 0, 0),
                                           child: Center(
                                             child: CircularProgressIndicator(),
@@ -425,7 +406,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                         ? Column(
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                                padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                                                 child: Center(
                                                   child: Text(
                                                     '오늘은 식당이 쉬는날입니다.',
@@ -442,7 +423,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                 )
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                                                padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                                                 child: Center(
                                                   child: Image.asset(
                                                     'assets/images/danmoa_play.png',
@@ -455,7 +436,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                             ]
                                           )
                                         : Padding(
-                                          padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 4),
+                                          padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 4),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -466,11 +447,11 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                 child:
                                                   ListView.builder(
                                                   shrinkWrap: true,
-                                                  physics: NeverScrollableScrollPhysics(),
+                                                  physics: const NeverScrollableScrollPhysics(),
                                                   itemCount: menu1?[0].length ?? 0,
                                                   itemBuilder: (context, index) {
                                                     return Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(16, 4, 4, 4),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 4, 4),
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -495,11 +476,11 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                 child: 
                                                   ListView.builder(
                                                   shrinkWrap: true,
-                                                  physics: NeverScrollableScrollPhysics(),
+                                                  physics: const NeverScrollableScrollPhysics(),
                                                   itemCount: menu1?[1].length ?? 0,
                                                   itemBuilder: (context, index) {
                                                     return Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(16, 4, 4, 4),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 4, 4),
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -524,11 +505,11 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                 child:
                                                   ListView.builder(
                                                   shrinkWrap: true,
-                                                  physics: NeverScrollableScrollPhysics(),
+                                                  physics: const NeverScrollableScrollPhysics(),
                                                   itemCount: menu1?[2].length ?? 0,
                                                   itemBuilder: (context, index) {
                                                     return Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(16, 4, 4, 4),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 4, 4),
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -555,7 +536,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional
+                                  padding: const EdgeInsetsDirectional
                                       .fromSTEB(10, 0, 10, 0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -566,7 +547,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional
+                                                const EdgeInsetsDirectional
                                                     .fromSTEB(0, 10,
                                                         0, 0),
                                             child: Icon(
@@ -579,7 +560,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional
+                                                const EdgeInsetsDirectional
                                                     .fromSTEB(5, 10,
                                                         0, 0),
                                             child: Text(
@@ -613,7 +594,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                             .alternate,
                                       ),
                                       isLoading
-                                      ? Padding(
+                                      ? const Padding(
                                           padding: EdgeInsetsDirectional.fromSTEB(0, 90, 0, 0),
                                           child: Center(
                                             child: CircularProgressIndicator(),
@@ -623,7 +604,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                         ? Column(
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                                padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                                                 child: Center(
                                                   child: Text(
                                                     '오늘은 식당이 쉬는날입니다.',
@@ -640,7 +621,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                 )
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                                                padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                                                 child: Center(
                                                   child: Image.asset(
                                                     'assets/images/danmoa_play.png',
@@ -653,7 +634,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                             ]
                                           )
                                         : Padding(
-                                          padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 4),
+                                          padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 4),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -664,11 +645,11 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                 child:
                                                   ListView.builder(
                                                   shrinkWrap: true,
-                                                  physics: NeverScrollableScrollPhysics(),
+                                                  physics: const NeverScrollableScrollPhysics(),
                                                   itemCount: menu2?[0].length ?? 0,
                                                   itemBuilder: (context, index) {
                                                     return Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(16, 2, 4, 2),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(16, 2, 4, 2),
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -693,11 +674,11 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                 child: 
                                                   ListView.builder(
                                                   shrinkWrap: true,
-                                                  physics: NeverScrollableScrollPhysics(),
+                                                  physics: const NeverScrollableScrollPhysics(),
                                                   itemCount: menu2?[1].length ?? 0,
                                                   itemBuilder: (context, index) {
                                                     return Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(16, 2, 4, 2),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(16, 2, 4, 2),
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -727,10 +708,10 @@ class _Home1WidgetState extends State<Home1Widget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(-1, 1),
+                            alignment: const AlignmentDirectional(-1, 1),
                             child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(
+                                  const EdgeInsetsDirectional.fromSTEB(
                                       16, 0, 0, 16),
                               child: smooth_page_indicator
                                   .SmoothPageIndicator(
@@ -744,7 +725,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                       .animateToPage(
                                     i,
                                     duration:
-                                        Duration(milliseconds: 500),
+                                        const Duration(milliseconds: 500),
                                     curve: Curves.ease,
                                   );
                                   setState(() {});
@@ -1070,7 +1051,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 32, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 32, 0),
                               child: Icon(
                                 Icons.add,
                                 color: FlutterFlowTheme.of(context).primaryText,
@@ -1084,7 +1065,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                   )
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1093,9 +1074,9 @@ class _Home1WidgetState extends State<Home1Widget> {
                       Flexible(
                         flex: 1,
                         child: Align(
-                          alignment: AlignmentDirectional(-1, 0),
+                          alignment: const AlignmentDirectional(-1, 0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -1108,7 +1089,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                               child: Material(
                                 color: Colors.transparent,
                                 elevation: 1,
-                                shape: RoundedRectangleBorder(
+                                shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(10),
                                     bottomRight: Radius.circular(10),
@@ -1122,7 +1103,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(10),
                                       bottomRight: Radius.circular(10),
                                       topLeft: Radius.circular(10),
@@ -1139,7 +1120,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                         size: 24,
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             10, 0, 0, 0),
                                         child: Text(
                                           '스터디룸 예약 ',
@@ -1165,9 +1146,9 @@ class _Home1WidgetState extends State<Home1Widget> {
                       Flexible(
                         flex: 1,
                         child: Align(
-                          alignment: AlignmentDirectional(-1, 0),
+                          alignment: const AlignmentDirectional(-1, 0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(8, 0, 5, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 5, 0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -1180,7 +1161,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                               child: Material(
                                 color: Colors.transparent,
                                 elevation: 1,
-                                shape: RoundedRectangleBorder(
+                                shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(10),
                                     bottomRight: Radius.circular(10),
@@ -1194,7 +1175,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(10),
                                       bottomRight: Radius.circular(10),
                                       topLeft: Radius.circular(10),
@@ -1211,7 +1192,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                         size: 24,
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             10, 0, 0, 0),
                                         child: Text(
                                           '도산라운지 예약 ',
