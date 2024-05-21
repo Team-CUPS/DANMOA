@@ -265,12 +265,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'QA3',
           path: '/qa3',
-          builder: (context, params) => const Qa3Widget(),
-        ),
-        FFRoute(
-          name: 'QA4',
-          path: '/qa4',
-          builder: (context, params) => Qa4Widget(
+          builder: (context, params) => Qa3Widget(
             usrInputTxt: params.getParam(
               'usr_input_txt',
               ParamType.String,

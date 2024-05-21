@@ -185,8 +185,8 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                                               ChipData('4학년'),
                                               ChipData('휴학'),
                                               ChipData('졸업'),
-                                              ChipData('석사생'),
-                                              ChipData('박사생'),
+                                              ChipData('석사'),
+                                              ChipData('박사'),
                                               ChipData('강사/교수'),
                                               ChipData('기타')
                                             ],

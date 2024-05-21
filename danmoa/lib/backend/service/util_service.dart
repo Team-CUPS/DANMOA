@@ -43,9 +43,9 @@ class UtilService {
 
   // 닉네임 유효성 검사
   static Map<String, dynamic> validateDisplayName(String value) {
-    if (value.length > 10 || value.length < 3) {
+    if (value.length > 10 || value.length < 2) {
       return {
-        'helperText': '닉네임은 3글자 이상 10글자 이하입니다.',
+        'helperText': '닉네임은 2글자 이상 10글자 이하입니다.',
         'isCheckButtonEnabled': false,
         'helperTextColor': Colors.red
       };

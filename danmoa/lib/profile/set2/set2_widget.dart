@@ -118,113 +118,227 @@ class _Set2WidgetState extends State<Set2Widget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Form(
-                          key: _model.formKey,
-                          autovalidateMode: AutovalidateMode.disabled,
-                          child: Padding(
-                            padding: const EdgeInsets.all(24),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Align(
-                                  alignment: const AlignmentDirectional(0, 0),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                                    child: Container(
-                                      width: 100,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                          color: const Color(0xFFBDBDBD),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Form(
+                            key: _model.formKey,
+                            autovalidateMode: AutovalidateMode.disabled,
+                            child: Padding(
+                              padding: const EdgeInsets.all(24),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Align(
+                                    alignment: const AlignmentDirectional(0, 0),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: const Color(0xFFBDBDBD),
+                                          ),
+                                          image: isPickedImg == false
+                                              ? DecorationImage(
+                                                  image: NetworkImage(_firebaseService.getUserPhotoUrl(returnedStringImg)),
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : DecorationImage(
+                                                  image: FileImage(File(returnedXfileImg!.path)),
+                                                  fit: BoxFit.cover,
+                                                ),
                                         ),
-                                        image: isPickedImg == false
-                                            ? DecorationImage(
-                                                image: NetworkImage(_firebaseService.getUserPhotoUrl(returnedStringImg)),
-                                                fit: BoxFit.cover,
-                                              )
-                                            : DecorationImage(
-                                                image: FileImage(File(returnedXfileImg!.path)),
-                                                fit: BoxFit.cover,
-                                              ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Align(
-                                  alignment: const AlignmentDirectional(0, -1),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 32),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        await showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          enableDrag: false,
-                                          context: context,
-                                          builder: (context) {
-                                            return GestureDetector(
-                                              onTap: () => _model
-                                                      .unfocusNode.canRequestFocus
-                                                  ? FocusScope.of(context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode)
-                                                  : FocusScope.of(context)
-                                                      .unfocus(),
-                                              child: Padding(
-                                                padding: MediaQuery.viewInsetsOf(
-                                                    context),
-                                                child: PhotoShtPrfWidget(
-                                                  isPickedImgSht: isPickedImg,
-                                                  shtXfileImg: returnedXfileImg,
-                                                  shtStringImg: returnedStringImg,
+                                  Align(
+                                    alignment: const AlignmentDirectional(0, -1),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 32),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            enableDrag: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return GestureDetector(
+                                                onTap: () => _model
+                                                        .unfocusNode.canRequestFocus
+                                                    ? FocusScope.of(context)
+                                                        .requestFocus(
+                                                            _model.unfocusNode)
+                                                    : FocusScope.of(context)
+                                                        .unfocus(),
+                                                child: Padding(
+                                                  padding: MediaQuery.viewInsetsOf(
+                                                      context),
+                                                  child: PhotoShtPrfWidget(
+                                                    isPickedImgSht: isPickedImg,
+                                                    shtXfileImg: returnedXfileImg,
+                                                    shtStringImg: returnedStringImg,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ).then((result) {
+                                            isPickedImg = result['isPickedImgSht'];
+                                            returnedXfileImg = result['shtXfileImg'];
+                                            returnedStringImg = result['shtStringImg'];
+
+                                            setState(() {});
+                                          });
+                                        },
+                                        text: '프로필 사진 편집',
+                                        options: FFButtonOptions(
+                                          width: 130,
+                                          height: 40,
+                                          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                          iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                          textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                fontFamily: 'pretendard',
+                                                letterSpacing: 0,
+                                                useGoogleFonts: false,
+                                              ),
+                                          elevation: 0,
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context).secondaryText,
+                                            width: 1,
+                                          ),
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '닉네임',
+                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                fontFamily: 'pretendard',
+                                                letterSpacing: 0,
+                                                useGoogleFonts: false,
+                                              ),
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsetsDirectional.fromSTEB(10, 8, 8, 16),
+                                            child: Container(
+                                              width: 120,
+                                              height: 42,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(12),
+                                                border: Border.all(
+                                                  color: FlutterFlowTheme.of(context).alternate,
                                                 ),
                                               ),
-                                            );
-                                          },
-                                        ).then((result) {
-                                          isPickedImg = result['isPickedImgSht'];
-                                          returnedXfileImg = result['shtXfileImg'];
-                                          returnedStringImg = result['shtStringImg'];
-
-                                          setState(() {});
-                                        });
-                                      },
-                                      text: '프로필 사진 편집',
-                                      options: FFButtonOptions(
-                                        width: 130,
-                                        height: 40,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                        iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                                        textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                                              fontFamily: 'pretendard',
-                                              letterSpacing: 0,
-                                              useGoogleFonts: false,
+                                              child: Padding(
+                                                padding: const EdgeInsetsDirectional.fromSTEB(8, 10, 8, 10),
+                                                child: Text(
+                                                  displayName,
+                                                  textAlign: TextAlign.start,
+                                                  style: FlutterFlowTheme.of(context).labelLarge.override(
+                                                        fontFamily: 'pretendard',
+                                                        color: FlutterFlowTheme.of(context).black,
+                                                        fontSize: 14,
+                                                        letterSpacing: 0,
+                                                        useGoogleFonts: false,
+                                                      ),
+                                                ),
+                                              ),
                                             ),
-                                        elevation: 0,
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                          width: 1,
+                                          ),
                                         ),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
+                                        Align(
+                                          alignment: const AlignmentDirectional(0, 0),
+                                          child: Padding(
+                                            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 11),
+                                            child: FFButtonWidget(
+                                              onPressed: () async {
+                                                await showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  backgroundColor: Colors.transparent,
+                                                  enableDrag: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return GestureDetector(
+                                                      onTap: () => _model.unfocusNode.canRequestFocus
+                                                          ? FocusScope.of(context)
+                                                              .requestFocus(_model.unfocusNode)
+                                                          : FocusScope.of(context).unfocus(),
+                                                      child: DraggableScrollableSheet(
+                                                        initialChildSize: 0.8,
+                                                        minChildSize: 0.5,
+                                                        maxChildSize: 0.9,
+                                                        builder: (context, scrollController) {
+                                                          return Container(
+                                                            child: SingleChildScrollView(
+                                                              controller: scrollController,
+                                                              child: Padding(
+                                                                padding: MediaQuery.viewInsetsOf(context),
+                                                                child: DupShtPrfWidget(),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    );
+                                                  },
+                                                ).then((value) => safeSetState(() {
+                                                  if (value != null && value is String) {
+                                                    setState(() {
+                                                      displayName = value;
+                                                    });
+                                                  }
+                                                }));
+                                              },
+                                              text: '변경',
+                                              options: FFButtonOptions(
+                                                height: 40,
+                                                padding: const EdgeInsetsDirectional.fromSTEB(18, 0, 18, 0),
+                                                iconPadding: const EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
+                                                color: const Color(0xFF375AC1),
+                                                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                                      fontFamily: 'pretendard',
+                                                      color: Colors.white,
+                                                      letterSpacing: 0,
+                                                      useGoogleFonts: false,
+                                                    ),
+                                                elevation: 0,
+                                                borderSide: const BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 1,
+                                                ),
+                                                borderRadius: const BorderRadius.only(
+                                                  bottomLeft: Radius.circular(50),
+                                                  bottomRight: Radius.circular(50),
+                                                  topLeft: Radius.circular(50),
+                                                  topRight: Radius.circular(50),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                                  child: Row(
+                                  Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '닉네임',
+                                        '소개 ',
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                               fontFamily: 'pretendard',
                                               letterSpacing: 0,
@@ -233,79 +347,197 @@ class _Set2WidgetState extends State<Set2Widget> {
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding: const EdgeInsetsDirectional.fromSTEB(10, 8, 8, 16),
-                                          child: Container(
-                                            width: 120,
-                                            height: 42,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(12),
-                                              border: Border.all(
-                                                color: FlutterFlowTheme.of(context).alternate,
+                                          padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 12),
+                                          child: TextFormField(
+                                            controller: _model.introTextController,
+                                            focusNode: _model.introFocusNode,
+                                            textCapitalization: TextCapitalization.sentences,
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                              hintText: '자기소개',
+                                              hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                                                    fontFamily: 'pretendard',
+                                                    color: const Color(0x7057636C),
+                                                    fontSize: 14,
+                                                    letterSpacing: 0,
+                                                    useGoogleFonts: false,
+                                                  ),
+                                              errorStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                    fontFamily: 'pretendard',
+                                                    color: FlutterFlowTheme.of(context).error,
+                                                    letterSpacing: 0,
+                                                    useGoogleFonts: false,
+                                                  ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(context).alternate,
+                                                  width: 1,
+                                                ),
+                                                borderRadius: const BorderRadius.only(
+                                                  bottomLeft: Radius.circular(12),
+                                                  bottomRight: Radius.circular(12),
+                                                  topLeft: Radius.circular(12),
+                                                  topRight: Radius.circular(12),
+                                                ),
                                               ),
+                                              focusedBorder: const OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Color(0xFF375AC1),
+                                                  width: 1,
+                                                ),
+                                                borderRadius: BorderRadius.only(
+                                                  bottomLeft: Radius.circular(12),
+                                                  bottomRight: Radius.circular(12),
+                                                  topLeft: Radius.circular(12),
+                                                  topRight: Radius.circular(12),
+                                                ),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(context).error,
+                                                  width: 1,
+                                                ),
+                                                borderRadius: const BorderRadius.only(
+                                                  bottomLeft: Radius.circular(12),
+                                                  bottomRight: Radius.circular(12),
+                                                  topLeft: Radius.circular(12),
+                                                  topRight: Radius.circular(12),
+                                                ),
+                                              ),
+                                              focusedErrorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(context).error,
+                                                  width: 1,
+                                                ),
+                                                borderRadius: const BorderRadius.only(
+                                                  bottomLeft: Radius.circular(12),
+                                                  bottomRight: Radius.circular(12),
+                                                  topLeft: Radius.circular(12),
+                                                  topRight: Radius.circular(12),
+                                                ),
+                                              ),
+                                              filled: true,
+                                              fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                                              contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 24, 0, 24),
                                             ),
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional.fromSTEB(8, 10, 8, 10),
-                                              child: Text(
-                                                displayName,
-                                                textAlign: TextAlign.start,
-                                                style: FlutterFlowTheme.of(context).labelLarge.override(
-                                                      fontFamily: 'pretendard',
-                                                      color: FlutterFlowTheme.of(context).black,
-                                                      fontSize: 14,
-                                                      letterSpacing: 0,
-                                                      useGoogleFonts: false,
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                  fontFamily: 'pretendard',
+                                                  letterSpacing: 0,
+                                                  useGoogleFonts: false,
+                                                ),
+                                            textAlign: TextAlign.start,
+                                            maxLines: 3,
+                                            cursorColor: FlutterFlowTheme.of(context).primary,
+                                            validator: _model.introTextControllerValidator.asValidator(context),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Align(
+                                          alignment: const AlignmentDirectional(-1, 0),
+                                          child: Text(
+                                            '학과',
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                  fontFamily: 'pretendard',
+                                                  fontSize: 16,
+                                                  letterSpacing: 0,
+                                                  fontWeight: FontWeight.normal,
+                                                  useGoogleFonts: false,
+                                                ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 8, 0),
+                                            child: Container(
+                                              width: 150,
+                                              height: 48,
+                                              decoration: BoxDecoration(
+                                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                borderRadius: const BorderRadius.only(
+                                                  bottomLeft: Radius.circular(12),
+                                                  bottomRight: Radius.circular(12),
+                                                  topLeft: Radius.circular(12),
+                                                  topRight: Radius.circular(12),
+                                                ),
+                                                border: Border.all(
+                                                  color: FlutterFlowTheme.of(context).alternate,
+                                                  width: 2,
+                                                ),
+                                              ),
+                                              child: Align(
+                                                alignment: const AlignmentDirectional(-1, 0),
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                                                  child: Text(
+                                                    valueOrDefault<String>(
+                                                      _model.dept,
+                                                      userData['prf_major'],
                                                     ),
+                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                          fontFamily: 'pretendard',
+                                                          letterSpacing: 0,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Align(
-                                        alignment: const AlignmentDirectional(0, 0),
-                                        child: Padding(
-                                          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 11),
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
-                                              await showModalBottomSheet(
+                                              var result = await showModalBottomSheet(
                                                 isScrollControlled: true,
                                                 backgroundColor: Colors.transparent,
-                                                enableDrag: false,
                                                 context: context,
                                                 builder: (context) {
                                                   return GestureDetector(
                                                     onTap: () => _model.unfocusNode.canRequestFocus
-                                                        ? FocusScope.of(context)
-                                                            .requestFocus(_model.unfocusNode)
+                                                        ? FocusScope.of(context).requestFocus(_model.unfocusNode)
                                                         : FocusScope.of(context).unfocus(),
                                                     child: Padding(
                                                       padding: MediaQuery.viewInsetsOf(context),
-                                                      child: const DupShtPrfWidget(),
+                                                      child: const SizedBox(
+                                                        height: 550.0,
+                                                        child: Sign4Sht01Widget(),
+                                                      ),
                                                     ),
                                                   );
                                                 },
-                                              ).then((value) => safeSetState(() {
-                                                if (value != null && value is String) {
-                                                  setState(() {
-                                                    displayName = value;
-                                                  });
+                                              );
+
+                                              // Check if the result is null and if so, retain the existing value
+                                              safeSetState(() {
+                                                if (result != null) {
+                                                  _model.dept = result;
                                                 }
-                                              }));
+                                              });
                                             },
-                                            text: '변경',
+                                            text: '학과찾기',
                                             options: FFButtonOptions(
                                               height: 40,
-                                              padding: const EdgeInsetsDirectional.fromSTEB(18, 0, 18, 0),
-                                              iconPadding: const EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
-                                              color: const Color(0xFF375AC1),
+                                              padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+                                              iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                              color: FlutterFlowTheme.of(context).secondaryBackground,
                                               textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                                     fontFamily: 'pretendard',
-                                                    color: Colors.white,
+                                                    color: const Color(0xFF375AC1),
+                                                    fontSize: 16,
                                                     letterSpacing: 0,
                                                     useGoogleFonts: false,
                                                   ),
                                               elevation: 0,
                                               borderSide: const BorderSide(
-                                                color: Colors.transparent,
+                                                color: Color(0xFF375AC1),
                                                 width: 1,
                                               ),
                                               borderRadius: const BorderRadius.only(
@@ -317,310 +549,97 @@ class _Set2WidgetState extends State<Set2Widget> {
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      '소개 ',
-                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                            fontFamily: 'pretendard',
-                                            letterSpacing: 0,
-                                            useGoogleFonts: false,
-                                          ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 12),
-                                        child: TextFormField(
-                                          controller: _model.introTextController,
-                                          focusNode: _model.introFocusNode,
-                                          textCapitalization: TextCapitalization.sentences,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            hintText: '자기소개',
-                                            hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Align(
+                                          alignment: const AlignmentDirectional(-1, 0),
+                                          child: Text(
+                                            '학력',
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                   fontFamily: 'pretendard',
-                                                  color: const Color(0x7057636C),
-                                                  fontSize: 14,
-                                                  letterSpacing: 0,
-                                                  useGoogleFonts: false,
-                                                ),
-                                            errorStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                  fontFamily: 'pretendard',
-                                                  color: FlutterFlowTheme.of(context).error,
-                                                  letterSpacing: 0,
-                                                  useGoogleFonts: false,
-                                                ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: FlutterFlowTheme.of(context).alternate,
-                                                width: 1,
-                                              ),
-                                              borderRadius: const BorderRadius.only(
-                                                bottomLeft: Radius.circular(12),
-                                                bottomRight: Radius.circular(12),
-                                                topLeft: Radius.circular(12),
-                                                topRight: Radius.circular(12),
-                                              ),
-                                            ),
-                                            focusedBorder: const OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFF375AC1),
-                                                width: 1,
-                                              ),
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(12),
-                                                bottomRight: Radius.circular(12),
-                                                topLeft: Radius.circular(12),
-                                                topRight: Radius.circular(12),
-                                              ),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: FlutterFlowTheme.of(context).error,
-                                                width: 1,
-                                              ),
-                                              borderRadius: const BorderRadius.only(
-                                                bottomLeft: Radius.circular(12),
-                                                bottomRight: Radius.circular(12),
-                                                topLeft: Radius.circular(12),
-                                                topRight: Radius.circular(12),
-                                              ),
-                                            ),
-                                            focusedErrorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: FlutterFlowTheme.of(context).error,
-                                                width: 1,
-                                              ),
-                                              borderRadius: const BorderRadius.only(
-                                                bottomLeft: Radius.circular(12),
-                                                bottomRight: Radius.circular(12),
-                                                topLeft: Radius.circular(12),
-                                                topRight: Radius.circular(12),
-                                              ),
-                                            ),
-                                            filled: true,
-                                            fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                            contentPadding: const EdgeInsetsDirectional.fromSTEB(10, 24, 0, 24),
-                                          ),
-                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                fontFamily: 'pretendard',
-                                                letterSpacing: 0,
-                                                useGoogleFonts: false,
-                                              ),
-                                          textAlign: TextAlign.start,
-                                          maxLines: 3,
-                                          cursorColor: FlutterFlowTheme.of(context).primary,
-                                          validator: _model.introTextControllerValidator.asValidator(context),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Align(
-                                        alignment: const AlignmentDirectional(-1, 0),
-                                        child: Text(
-                                          '학과',
-                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                fontFamily: 'pretendard',
-                                                fontSize: 16,
-                                                letterSpacing: 0,
-                                                fontWeight: FontWeight.normal,
-                                                useGoogleFonts: false,
-                                              ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 8, 0),
-                                          child: Container(
-                                            width: 150,
-                                            height: 48,
-                                            decoration: BoxDecoration(
-                                              color: FlutterFlowTheme.of(context).secondaryBackground,
-                                              borderRadius: const BorderRadius.only(
-                                                bottomLeft: Radius.circular(12),
-                                                bottomRight: Radius.circular(12),
-                                                topLeft: Radius.circular(12),
-                                                topRight: Radius.circular(12),
-                                              ),
-                                              border: Border.all(
-                                                color: FlutterFlowTheme.of(context).alternate,
-                                                width: 2,
-                                              ),
-                                            ),
-                                            child: Align(
-                                              alignment: const AlignmentDirectional(-1, 0),
-                                              child: Padding(
-                                                padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                                                child: Text(
-                                                  valueOrDefault<String>(
-                                                    _model.dept,
-                                                    userData['prf_major'],
-                                                  ),
-                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                        fontFamily: 'pretendard',
-                                                        letterSpacing: 0,
-                                                        useGoogleFonts: false,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor: Colors.transparent,
-                                              context: context,
-                                              builder: (context) {
-                                                return GestureDetector(
-                                                  onTap: () => _model.unfocusNode.canRequestFocus
-                                                      ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                                                      : FocusScope.of(context).unfocus(),
-                                                  child: Padding(
-                                                    padding: MediaQuery.viewInsetsOf(context),
-                                                    child: const SizedBox(
-                                                      height: 550.0,
-                                                      child: Sign4Sht01Widget(),
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ).then((value) => safeSetState(() => _model.dept = value));
-
-                                            setState(() {});
-                                          },
-                                          text: '학과찾기',
-                                          options: FFButtonOptions(
-                                            height: 40,
-                                            padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-                                            iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                            color: FlutterFlowTheme.of(context).secondaryBackground,
-                                            textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                                  fontFamily: 'pretendard',
-                                                  color: const Color(0xFF375AC1),
                                                   fontSize: 16,
                                                   letterSpacing: 0,
+                                                  fontWeight: FontWeight.normal,
                                                   useGoogleFonts: false,
                                                 ),
-                                            elevation: 0,
-                                            borderSide: const BorderSide(
-                                              color: Color(0xFF375AC1),
-                                              width: 1,
-                                            ),
-                                            borderRadius: const BorderRadius.only(
-                                              bottomLeft: Radius.circular(50),
-                                              bottomRight: Radius.circular(50),
-                                              topLeft: Radius.circular(50),
-                                              topRight: Radius.circular(50),
-                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Align(
-                                        alignment: const AlignmentDirectional(-1, 0),
-                                        child: Text(
-                                          '학력',
-                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                fontFamily: 'pretendard',
-                                                fontSize: 16,
-                                                letterSpacing: 0,
-                                                fontWeight: FontWeight.normal,
-                                                useGoogleFonts: false,
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsetsDirectional.fromSTEB(19, 8, 0, 0),
+                                            child: FlutterFlowChoiceChips(
+                                              options: const [
+                                                ChipData('1학년'),
+                                                ChipData('2학년'),
+                                                ChipData('3학년'),
+                                                ChipData('4학년'),
+                                                ChipData('휴학'),
+                                                ChipData('졸업'),
+                                                ChipData('석사생'),
+                                                ChipData('박사생'),
+                                                ChipData('교수/강사'),
+                                                ChipData('기타')
+                                              ],
+                                              onChanged: (val) => setState(() => _model.positionValue = val?.firstOrNull),
+                                              selectedChipStyle: ChipStyle(
+                                                backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+                                                textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                      fontFamily: 'pretendard',
+                                                      color: FlutterFlowTheme.of(context).primary,
+                                                      letterSpacing: 0,
+                                                      fontWeight: FontWeight.normal,
+                                                      useGoogleFonts: false,
+                                                    ),
+                                                iconColor: FlutterFlowTheme.of(context).primaryText,
+                                                iconSize: 18,
+                                                labelPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                                                elevation: 0,
+                                                borderColor: FlutterFlowTheme.of(context).primary,
+                                                borderWidth: 1,
+                                                borderRadius: BorderRadius.circular(16),
                                               ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsetsDirectional.fromSTEB(19, 8, 0, 0),
-                                          child: FlutterFlowChoiceChips(
-                                            options: const [
-                                              ChipData('1학년'),
-                                              ChipData('2학년'),
-                                              ChipData('3학년'),
-                                              ChipData('4학년'),
-                                              ChipData('휴학'),
-                                              ChipData('졸업'),
-                                              ChipData('석사생'),
-                                              ChipData('박사생'),
-                                              ChipData('교수/강사'),
-                                              ChipData('기타')
-                                            ],
-                                            onChanged: (val) => setState(() => _model.positionValue = val?.firstOrNull),
-                                            selectedChipStyle: ChipStyle(
-                                              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                              textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                    fontFamily: 'pretendard',
-                                                    color: FlutterFlowTheme.of(context).primary,
-                                                    letterSpacing: 0,
-                                                    fontWeight: FontWeight.normal,
-                                                    useGoogleFonts: false,
-                                                  ),
-                                              iconColor: FlutterFlowTheme.of(context).primaryText,
-                                              iconSize: 18,
-                                              labelPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                                              elevation: 0,
-                                              borderColor: FlutterFlowTheme.of(context).primary,
-                                              borderWidth: 1,
-                                              borderRadius: BorderRadius.circular(16),
+                                              unselectedChipStyle: ChipStyle(
+                                                backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+                                                textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                      fontFamily: 'pretendard',
+                                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                                      letterSpacing: 0,
+                                                      useGoogleFonts: false,
+                                                    ),
+                                                iconColor: const Color(0xFFB6B6B6),
+                                                iconSize: 18,
+                                                labelPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                                                elevation: 0,
+                                                borderColor: const Color(0xFFD9D9D9),
+                                                borderWidth: 1,
+                                                borderRadius: BorderRadius.circular(16),
+                                              ),
+                                              chipSpacing: 8,
+                                              rowSpacing: 8,
+                                              multiselect: false,
+                                              alignment: WrapAlignment.start,
+                                              controller: _model.positionValueController ??= FormFieldController<List<String>>(
+                                                [userData['prf_position']],
+                                              ),
+                                              wrapped: true,
                                             ),
-                                            unselectedChipStyle: ChipStyle(
-                                              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                              textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                    fontFamily: 'pretendard',
-                                                    color: FlutterFlowTheme.of(context).secondaryText,
-                                                    letterSpacing: 0,
-                                                    useGoogleFonts: false,
-                                                  ),
-                                              iconColor: const Color(0xFFB6B6B6),
-                                              iconSize: 18,
-                                              labelPadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                                              elevation: 0,
-                                              borderColor: const Color(0xFFD9D9D9),
-                                              borderWidth: 1,
-                                              borderRadius: BorderRadius.circular(16),
-                                            ),
-                                            chipSpacing: 8,
-                                            rowSpacing: 8,
-                                            multiselect: false,
-                                            alignment: WrapAlignment.start,
-                                            controller: _model.positionValueController ??= FormFieldController<List<String>>(
-                                              [userData['prf_position']],
-                                            ),
-                                            wrapped: true,
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   Align(

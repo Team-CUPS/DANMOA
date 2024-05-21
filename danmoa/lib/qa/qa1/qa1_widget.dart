@@ -144,7 +144,7 @@ class _Qa1WidgetState extends State<Qa1Widget> {
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                             contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 24.0, 16.0, 80.0),
+                                16.0, 8.0, 16.0, 8.0),
                           ),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
@@ -206,6 +206,24 @@ class _Qa1WidgetState extends State<Qa1Widget> {
                               );
                             },
                           );
+                        } else if (_model.textController.text.length > 100) {
+                            await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('알림'),
+                                  content: const Text('질문은 100자 이하로 작성해주세요'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(); // 대화상자를 닫습니다.
+                                      },
+                                      child: const Text('확인'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                         } else {
                           await showDialog(
                             context: context,

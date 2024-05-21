@@ -436,12 +436,12 @@ class _Home1WidgetState extends State<Home1Widget> {
                                             ]
                                           )
                                         : Padding(
-                                          padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 4),
+                                          padding: const EdgeInsetsDirectional.fromSTEB(0, 6, 0, 4),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [ 
                                               Flexible(
                                                 flex: 1,
                                                 child:
@@ -451,7 +451,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                   itemCount: menu1?[0].length ?? 0,
                                                   itemBuilder: (context, index) {
                                                     return Padding(
-                                                      padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 4, 4),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(16, 2, 4, 2),
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -480,7 +480,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                   itemCount: menu1?[1].length ?? 0,
                                                   itemBuilder: (context, index) {
                                                     return Padding(
-                                                      padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 4, 4),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(16, 2, 4, 2),
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -509,7 +509,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                   itemCount: menu1?[2].length ?? 0,
                                                   itemBuilder: (context, index) {
                                                     return Padding(
-                                                      padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 4, 4),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(16, 2, 4, 2),
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -634,11 +634,11 @@ class _Home1WidgetState extends State<Home1Widget> {
                                             ]
                                           )
                                         : Padding(
-                                          padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 4),
+                                          padding: const EdgeInsetsDirectional.fromSTEB(0, 6, 0, 4),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Flexible(
                                                 flex: 1,
@@ -649,7 +649,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                   itemCount: menu2?[0].length ?? 0,
                                                   itemBuilder: (context, index) {
                                                     return Padding(
-                                                      padding: const EdgeInsetsDirectional.fromSTEB(16, 2, 4, 2),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(20, 2, 4, 2),
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -678,7 +678,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                   itemCount: menu2?[1].length ?? 0,
                                                   itemBuilder: (context, index) {
                                                     return Padding(
-                                                      padding: const EdgeInsetsDirectional.fromSTEB(16, 2, 4, 2),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(20, 2, 4, 2),
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [

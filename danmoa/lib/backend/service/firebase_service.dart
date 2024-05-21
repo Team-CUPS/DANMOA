@@ -551,6 +551,61 @@ class FirebaseService {
     }
   }
 
+
+  // 회원 탈퇴
+  Future<void> deleteUserAccount(String currentUserUid) async {
+    // 유저의 스터디 목록 가져오기
+    var userStudies = FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUserUid)
+        .collection('studies');
+
+    // 각 스터디에 대해 처리
+    final userStudiesSnapshot = await userStudies.get();
+    for (var studyDoc in userStudiesSnapshot.docs) {
+      var hash = studyDoc.id; // 스터디 ID (해시)
+
+      // 스터디 문서 가져오기
+      var studyRef = FirebaseFirestore.instance.collection('study').doc(hash);
+
+      // 스터디 문서에서 리더와 멤버 정보 업데이트
+      var studySnapshot = await studyRef.get();
+      if (studySnapshot.exists) {
+        Map<String, dynamic> studyData = studySnapshot.data() as Map<String, dynamic>;
+        // 스터디 리더가 현재 유저인 경우, 스터디 문서 삭제
+        if (studyData['std_leader']['uid'] == currentUserUid) {
+          logger.w('팀장 윤호 발견: ${studyData['std_leader']['uid']}');
+          await studyRef.delete();
+        } else {
+          // 멤버 리스트에서 현재 유저 제거
+          logger.w('팀원 윤호 발견');
+          List<dynamic> members = studyData['std_members'];
+          members.removeWhere((member) => member['uid'] == currentUserUid);
+          await studyRef.update({'std_members': members});
+        }
+      }
+
+      // 유저의 스터디 목록에서 해당 스터디 제거 (하지않으면 users에 해당 uid의 문서가 삭제되지 않는다)
+      await userStudies.doc(hash).delete();
+    }
+
+    // qa 컬렉션에서 현재 유저의 문서 삭제
+    var userQADocs = FirebaseFirestore.instance
+        .collection('qa')
+        .where('user_uid', isEqualTo: currentUserUid);
+    
+    final userQADocsSnapshot = await userQADocs.get();
+    for (var doc in userQADocsSnapshot.docs) {
+      await doc.reference.delete();
+    }
+
+    logger.i('user dataall deleted. now delete user document');
+    // 유저 문서 삭제
+    await FirebaseFirestore.instance.collection('users').doc(currentUserUid).delete();
+  }
+
+
+
   Future<bool> doesStudyExist(String stdName) async {
     final hash = UtilService.generateHash(stdName.toLowerCase());
     final studyDoc = await FirebaseFirestore.instance.collection('study').doc(hash).get();

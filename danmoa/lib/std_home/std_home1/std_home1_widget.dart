@@ -443,7 +443,9 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                     Text(
                                       studyData['std_intro'].trim(),
                                       textAlign: TextAlign.start,
+                                      softWrap: true,
                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                            
                                             fontFamily: 'pretendard',
                                             fontSize: 14,
                                             letterSpacing: 0,

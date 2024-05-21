@@ -1,30 +1,62 @@
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'qa2_model.dart';
 export 'qa2_model.dart';
+import 'package:danmoa/backend/service/firebase_service.dart';
+
 
 class Qa2Widget extends StatefulWidget {
-  const Qa2Widget({super.key});
+  const Qa2Widget({super.key,});
+
 
   @override
   State<Qa2Widget> createState() => _Qa2WidgetState();
 }
 
-class _Qa2WidgetState extends State<Qa2Widget> {
+class _Qa2WidgetState extends State<Qa2Widget> with TickerProviderStateMixin {
   late Qa2Model _model;
+  final FirebaseService _firebaseService = FirebaseService.instance;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => Qa2Model());
 
-    _model.textController ??= TextEditingController();
-    _model.textFieldFocusNode ??= FocusNode();
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: const Offset(0.0, 110.0),
+            end: const Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -66,149 +98,116 @@ class _Qa2WidgetState extends State<Qa2Widget> {
         ),
         body: SafeArea(
           top: true,
-          child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
-                    child: Text(
-                      '띵동!',
-                      style: FlutterFlowTheme.of(context).labelLarge.override(
-                            fontFamily: 'pretendard',
-                            letterSpacing: 0.0,
-                            useGoogleFonts: false,
-                          ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
-                    child: Text(
-                      '답장이 도착했어요',
-                      style:
-                          FlutterFlowTheme.of(context).headlineMedium.override(
-                                fontFamily: 'pretendard',
-                                fontSize: 22.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
-                                useGoogleFonts: false,
-                              ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 20.0, 16.0, 0.0),
+                  child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextFormField(
-                          controller: _model.textController,
-                          focusNode: _model.textFieldFocusNode,
-                          autofocus: true,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 4.0, 0.0, 0.0),
+                          child: Text(
+                            '답변 리스트',
+                            style: FlutterFlowTheme.of(context)
+                                .headlineMedium
                                 .override(
                                   fontFamily: 'pretendard',
+                                  fontSize: 22.0,
                                   letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
                                   useGoogleFonts: false,
                                 ),
-                            hintStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  fontFamily: 'pretendard',
-                                  letterSpacing: 0.0,
-                                  useGoogleFonts: false,
-                                ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).alternate,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).primary,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).error,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).error,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 24.0, 16.0, 150.0),
                           ),
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'pretendard',
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: false,
-                                  ),
-                          maxLines: 16,
-                          minLines: 6,
-                          cursorColor: FlutterFlowTheme.of(context).primary,
-                          validator: _model.textControllerValidator
-                              .asValidator(context),
                         ),
-                      ].divide(const SizedBox(height: 12.0)),
+                        FutureBuilder<List<Map<String, dynamic>>>(
+                          future: _firebaseService.loadUserAnsweredQAData(currentUserUid),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return const Center(child: CircularProgressIndicator());
+                            } else if (snapshot.hasError) {
+                              return Text('오류 발생: ${snapshot.error}');
+                            } else {
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount: snapshot.data!.length,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final qa = snapshot.data![index];
+                                  String createdTime = DateFormat('yyyy.MM.dd').format(qa['created_time'].toDate());
+                                  return Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        logger.w(qa);
+                                        await context.pushNamed(
+                                          'QA4',
+                                          queryParameters: {
+                                            'usr_input_txt': serializeParam(qa['usr_input_txt'], ParamType.String),
+                                            'ai_output': serializeParam(qa['ai_output'], ParamType.String),
+                                            'doc_id' : serializeParam(qa['doc_id'], ParamType.String),
+                                            'created_time' : serializeParam(createdTime, ParamType.String),
+                                          }.withoutNulls,
+                                          );
+                                      },
+                                      child: Container(
+                                        width: double.infinity,
+                                        constraints: const BoxConstraints(
+                                          maxWidth: 500.0,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                          borderRadius: BorderRadius.circular(12.0),
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context).alternate,
+                                            width: 2.0,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                qa['usr_input_txt'],
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                  fontFamily: 'Pretendard',
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.normal,
+                                                  useGoogleFonts: false,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation']!),
+                                  );
+                                },
+                              );
+                            }
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 12.0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        context.pushNamed('QA3');
-                      },
-                      text: '저장하기',
-                      icon: const Icon(
-                        Icons.receipt_long,
-                        size: 15.0,
-                      ),
-                      options: FFButtonOptions(
-                        width: double.infinity,
-                        height: 48.0,
-                        padding: const EdgeInsets.all(0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'pretendard',
-                                  color: Colors.white,
-                                  letterSpacing: 0.0,
-                                  useGoogleFonts: false,
-                                ),
-                        elevation: 0.0,
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),

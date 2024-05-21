@@ -351,8 +351,8 @@ class _Sign4WidgetState extends State<Sign4Widget> {
                                         ChipData('4학년'),
                                         ChipData('휴학'),
                                         ChipData('졸업'),
-                                        ChipData('석사생'),
-                                        ChipData('박사생'),
+                                        ChipData('석사'),
+                                        ChipData('박사'),
                                         ChipData('교수/강사'),
                                         ChipData('기타')
                                       ],

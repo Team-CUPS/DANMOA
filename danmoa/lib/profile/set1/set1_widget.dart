@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:danmoa/backend/service/firebase_service.dart';
 import 'set1_model.dart';
 export 'set1_model.dart';
 
@@ -16,7 +17,7 @@ class Set1Widget extends StatefulWidget {
 
 class _Set1WidgetState extends State<Set1Widget> {
   late Set1Model _model;
-
+  final FirebaseService _firebaseService = FirebaseService.instance;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -351,6 +352,7 @@ class _Set1WidgetState extends State<Set1Widget> {
                           ) ??
                           false;
                       if (confirmDialogResponse) {
+                        await _firebaseService.deleteUserAccount(currentUserUid);
                         await authManager.deleteUser(context);
 
                         context.goNamed('sign1');
