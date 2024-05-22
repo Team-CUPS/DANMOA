@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'qa3_widget.dart' show Qa3Widget;
+import 'qa2_widget.dart' show Qa2Widget;
 import 'package:flutter/material.dart';
 
-class Qa3Model extends FlutterFlowModel<Qa3Widget> {
+class Qa2Model extends FlutterFlowModel<Qa2Widget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

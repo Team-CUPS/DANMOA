@@ -112,7 +112,7 @@ class _Qa2WidgetState extends State<Qa2Widget> with TickerProviderStateMixin {
                       children: [
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 4.0, 0.0, 0.0),
+                              0.0, 4.0, 0.0, 12.0),
                           child: Text(
                             '답변 리스트',
                             style: FlutterFlowTheme.of(context)
@@ -143,7 +143,7 @@ class _Qa2WidgetState extends State<Qa2Widget> with TickerProviderStateMixin {
                                   final qa = snapshot.data![index];
                                   String createdTime = DateFormat('yyyy.MM.dd').format(qa['created_time'].toDate());
                                   return Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 6.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -152,7 +152,7 @@ class _Qa2WidgetState extends State<Qa2Widget> with TickerProviderStateMixin {
                                       onTap: () async {
                                         logger.w(qa);
                                         await context.pushNamed(
-                                          'QA4',
+                                          'QA3',
                                           queryParameters: {
                                             'usr_input_txt': serializeParam(qa['usr_input_txt'], ParamType.String),
                                             'ai_output': serializeParam(qa['ai_output'], ParamType.String),

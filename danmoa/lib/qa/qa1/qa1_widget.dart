@@ -144,7 +144,7 @@ class _Qa1WidgetState extends State<Qa1Widget> {
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                             contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 8.0, 16.0, 8.0),
+                                16.0, 20.0, 16.0, 8.0),
                           ),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
@@ -163,7 +163,7 @@ class _Qa1WidgetState extends State<Qa1Widget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 130.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 100.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         // bool isWaiting = await _firebaseService.isWaitingForAnswer(currentUserUid);
@@ -292,7 +292,7 @@ class _Qa1WidgetState extends State<Qa1Widget> {
                         const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () {
-                        context.pushNamed('QA3');
+                        context.pushNamed('QA2');
                       },
                       text: '질문한 리스트 보기 ',
                       icon: const Icon(

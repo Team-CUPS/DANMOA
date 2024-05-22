@@ -23,7 +23,7 @@ export '/std_home/std_home4/std_home4_widget.dart' show StdHome4Widget;
 export '/std_home/std_home5/std_home5_widget.dart' show StdHome5Widget;
 export '/qa/qa1/qa1_widget.dart' show Qa1Widget;
 export 'qa/qa2/qa2_widget.dart' show Qa2Widget;
-export '/qa/qa4/qa4_widget.dart' show Qa4Widget;
+export '/qa/qa3/qa3_widget.dart' show Qa3Widget;
 export '/contest/contest1/contest1_widget.dart' show Contest1Widget;
 export '/contest/contest2/contest2_widget.dart' show Contest2Widget;
 export '/contest/contest3/contest3_widget.dart' show Contest3Widget;
