@@ -254,7 +254,29 @@ class _StdHome3WidgetState extends State<StdHome3Widget> {
                                         size: 24,
                                       ),
                                       onPressed: () {
-                                        _removeMember(member['uid']);
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text("정말로 추방하시겠어요?"),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: const Text("네"),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop(); // 경고창 닫기
+                                                    _removeMember(member['uid']); // 멤버 삭제 함수 호출
+                                                  },
+                                                ),
+                                                TextButton(
+                                                  child: const Text("아니오"),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop(); // 경고창 닫기
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
                                       },
                                     ),
                                   ),

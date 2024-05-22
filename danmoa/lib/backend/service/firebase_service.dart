@@ -574,11 +574,11 @@ class FirebaseService {
         Map<String, dynamic> studyData = studySnapshot.data() as Map<String, dynamic>;
         // 스터디 리더가 현재 유저인 경우, 스터디 문서 삭제
         if (studyData['std_leader']['uid'] == currentUserUid) {
-          logger.w('팀장 윤호 발견: ${studyData['std_leader']['uid']}');
+          logger.w('팀장: ${studyData['std_leader']['uid']}');
           await studyRef.delete();
         } else {
           // 멤버 리스트에서 현재 유저 제거
-          logger.w('팀원 윤호 발견');
+          logger.w('팀원');
           List<dynamic> members = studyData['std_members'];
           members.removeWhere((member) => member['uid'] == currentUserUid);
           await studyRef.update({'std_members': members});

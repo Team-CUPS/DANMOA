@@ -279,7 +279,7 @@ class _Prf1WidgetState extends State<Prf1Widget> {
                                         final study = filteredPersonalStudyData[index];
                                         String stdName = study['std_name'];
                                         String stdCurrentUserStatus = study['std_leader']['uid'] == currentUserUid ? '팀장' : '팀원';
-                                        String stdPrfPicture = study['std_prf_picture'] ?? 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fdefault_white.png?alt=media&token=e78c656d-4dc3-4b91-b2ad-2bb69a913f64';
+                                        String stdPrfPicture = _firebaseService.getStudyPhotoUrl(study['std_prf_picture']);
 
                                         return Padding(
                                           padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
