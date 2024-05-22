@@ -1,0 +1,94 @@
+plugins {
+   id "com.android.application"
+   id "kotlin-android"
+   id "dev.flutter.flutter-gradle-plugin"
+   id "com.google.gms.google-services"  // Google Services plugin
+
+   
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+android {
+    compileSdkVersion 34 // 사용 최소 sdk 버전 (for flutter_local_notification)
+    
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+        checkReleaseBuilds false
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.cups.danmoa"
+        minSdkVersion 21
+        targetSdkVersion 34
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true // 사용 메서드가 64K보다 많아지면 dex파일을 쪼개어 불러옴 (minSdkVersion 20이하에서 필요, 현재 minSdkVersion 21이기 때문에 필수 X)
+    }
+
+    compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled true
+        // Sets Java compatibility to Java 8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+   signingConfigs {
+       release {
+           keyAlias keystoreProperties['keyAlias']
+           keyPassword keystoreProperties['keyPassword']
+           storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+           storePassword keystoreProperties['storePassword']
+       }
+   }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"
+    
+    // for flutter_local_notification
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2' // 플러그인의 버전 10+는 이제 디슈가링을 사용하여 이전 버전의 Android에서 이전 버전과 호환되는 예약된 알림을 지원
+    implementation 'androidx.window:window:1.0.0' // 플러그인 비활성화를 true로 할 경우 안드로이드 12L이상 충돌이 일어날 수 있어서 WindowManager라이브러리를 종속성으로 추가
+    implementation 'androidx.window:window-java:1.0.0'
+}
