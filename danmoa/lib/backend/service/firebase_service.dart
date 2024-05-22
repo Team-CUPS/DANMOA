@@ -184,27 +184,6 @@ class FirebaseService {
     }
   }
 
-  /*
-  // 전체 유저 데이터를 가져옴
-  Future<List<Map<String, dynamic>>> getUserData() async {
-    if (_isCacheValid(_usersCacheTimestamp)) {
-      return _cachedUsers!;
-    }
-
-    var snapshot = await FirebaseFirestore.instance.collection('users').get();
-    final data = snapshot.docs.map((doc) {
-      final data = doc.data();
-      data['created_time'] = (data['created_time'] as Timestamp).toDate(); // Timestamp를 DateTime으로 변환
-      return data;
-    }).toList();
-
-    _cachedUsers = data;
-    _usersCacheTimestamp = DateTime.now();
-
-    return data;
-  }
-  */
-
   Future<Map<String, dynamic>> getStudyDataByName(String stdName) async {
     try {
       final hash = UtilService.generateHash(stdName.toLowerCase());
