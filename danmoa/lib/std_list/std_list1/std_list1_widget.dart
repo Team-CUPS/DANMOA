@@ -84,7 +84,37 @@ class _StdList1WidgetState extends State<StdList1Widget> {
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Center(child: Text('No data found'));
+                return Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 160.0, 0.0, 0.0),
+                      child: Text(
+                        '가입된 스터디가 없습니다.',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Roboto Condensed',
+                          color: const Color(0x8014181B),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20.0,
+                          letterSpacing: 0.0,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/images/danmoa_not.png',
+                          width: 150,
+                          height: 280,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    ),
+                  ],
+                );
               } else {
                 final userStudyData = snapshot.data!;
                 return Padding(

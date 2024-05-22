@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:video_player/video_player.dart';
 
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -254,25 +255,43 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                           borderRadius: BorderRadius.circular(8),
                                         ),
                                       )
-                                          : InkWell(
-                                        onTap: () async {
-                                          final Uri url = Uri.parse(studyData['std_url']);
-                                          if (await canLaunchUrl(url)) {
-                                            await launchUrl(url, mode: LaunchMode.externalApplication);
-                                          } else {
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(content: Text('Could not launch $url')),
-                                            );
-                                          }
-                                        },
-                                        child: const Text(
-                                          '오픈 카카오톡 링크로 이동',
-                                          style: TextStyle(
-                                            color: Colors.blue,
-                                            decoration: TextDecoration.underline,
-                                          ),
-                                        ),
-                                      ),
+                                          : FFButtonWidget(
+                                            onPressed: () async {
+                                              final Uri url = Uri.parse(studyData['std_url']);
+                                              if (await canLaunchUrl(url)) {
+                                                await launchUrl(url, mode: LaunchMode.externalApplication);
+                                              } else {
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  SnackBar(content: Text('Could not launch $url')),
+                                                );
+                                              }
+                                            },
+                                            text: '오픈채팅방 이동',
+                                            icon: const FaIcon(
+                                              FontAwesomeIcons.solidComment,
+                                              size: 18
+                                            ),
+                                            options: FFButtonOptions(
+                                              width: 170,
+                                              height: 35,
+                                              padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+                                              iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                              color: Color(0xFFF9E000),
+                                              textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                                fontFamily: 'pretendard',
+                                                color: FlutterFlowTheme.of(context).primaryText,
+                                                letterSpacing: 0,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts: false,
+                                              ),
+                                              elevation: 0,
+                                              borderSide: const BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius: BorderRadius.circular(8),
+                                            ),
+                                          )
                                     ),
                                   ],
                                 ),

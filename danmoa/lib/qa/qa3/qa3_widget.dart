@@ -81,7 +81,7 @@ class _Qa3WidgetState extends State<Qa3Widget> {
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 0.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -89,7 +89,7 @@ class _Qa3WidgetState extends State<Qa3Widget> {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(4.0, 50.0, 0.0, 0.0),
                     child: Text(
                       widget.createdTime,
                       style: FlutterFlowTheme.of(context).labelLarge.override(
@@ -100,7 +100,7 @@ class _Qa3WidgetState extends State<Qa3Widget> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(4.0, 4.0, 0.0, 10.0),
                     child: Text(
                       widget.usrInputTxt,
                       style:

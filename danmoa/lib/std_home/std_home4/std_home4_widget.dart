@@ -159,7 +159,7 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
+                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 25.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,7 +237,7 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
+                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 25.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -524,7 +524,7 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                   Align(
                     alignment: const AlignmentDirectional(0.0, 1.0),
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 48.0),
                       child: FFButtonWidget(
                         onPressed: () async {
                           if (_model.stdMake2Cc01Value == "" || listEquals(_model.stdList4Cc03Values, []) == true || _model.stdMake2Cc03Value == "" || _startTimeController.text.isEmpty || _endTimeController.text.isEmpty) {
@@ -599,7 +599,6 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                                 letterSpacing: 0.0,
                                 useGoogleFonts: false,
                               ),
-                          elevation: 3.0,
                           borderSide: const BorderSide(
                             color: Colors.transparent,
                             width: 1.0,

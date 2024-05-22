@@ -104,196 +104,206 @@ class _StdHome3WidgetState extends State<StdHome3Widget> {
         ),
         body: SafeArea(
           top: true,
-          child: FutureBuilder<List<Map<String, dynamic>>>(
-            future: _loadStudyData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text("Error: ${snapshot.error}"));
-              } else if (snapshot.hasData) {
-                var membersData = snapshot.data!;
-                var leaderData = membersData.removeLast();
-                logger.f(leaderData);
-                return Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Align(
-                      alignment: const AlignmentDirectional(-1, 0),
-                      child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(10, 30, 0, 0),
-                        child: Text(
-                          '팀장',
-                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                fontFamily: 'pretendard',
-                                fontSize: 15,
-                                letterSpacing: 0,
-                                fontWeight: FontWeight.w500,
-                                useGoogleFonts: false,
-                              ),
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
+            child: FutureBuilder<List<Map<String, dynamic>>>(
+              future: _loadStudyData(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text("Error: ${snapshot.error}"));
+                } else if (snapshot.hasData) {
+                  var membersData = snapshot.data!;
+                  var leaderData = membersData.removeLast();
+                  logger.f(leaderData);
+                  return Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Align(
+                        alignment: const AlignmentDirectional(-1, 0),
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(10, 30, 0, 0),
+                          child: Text(
+                            '팀장',
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  fontFamily: 'pretendard',
+                                  fontSize: 15,
+                                  letterSpacing: 0,
+                                  fontWeight: FontWeight.w600,
+                                  useGoogleFonts: false,
+                                ),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 70,
-                      decoration: const BoxDecoration(),
-                      child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
+                      Container(
+                        width: double.infinity,
+                        height: 70,
+                        decoration: const BoxDecoration(),
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                                child: Container(
+                                  width: 50,
+                                  height: 50,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: NetworkImage(_firebaseService.getUserPhotoUrl(leaderData['photo_url'])),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                                child: Text(
+                                  '${leaderData['prf_name']} (${leaderData['display_name']})',
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        fontFamily: 'pretendard',
+                                        fontSize: 16,
+                                        letterSpacing: 0,
+                                        useGoogleFonts: false,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Divider(
+                        thickness: 1,
+                        color: FlutterFlowTheme.of(context).alternate,
+                      ),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                              child: Container(
-                                width: 50,
-                                height: 50,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    image: NetworkImage(_firebaseService.getUserPhotoUrl(leaderData['photo_url'])),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: Text(
-                                '${leaderData['prf_name']} (${leaderData['display_name']})',
+                                '팀원 총 ${membersData.length}명',
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      fontFamily: 'pretendard',
-                                      fontSize: 16,
-                                      letterSpacing: 0,
-                                      useGoogleFonts: false,
-                                    ),
+                                  fontFamily: 'pretendard',
+                                  letterSpacing: 0,
+                                  fontWeight: FontWeight.w600,
+                                  useGoogleFonts: false,
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: FlutterFlowTheme.of(context).alternate,
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                            child: Text(
-                              '팀원 총 ${membersData.length}명',
-                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                fontFamily: 'pretendard',
-                                letterSpacing: 0,
-                                fontWeight: FontWeight.w500,
-                                useGoogleFonts: false,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: membersData.length,
-                        itemBuilder: (context, index) {
-                          var member = membersData[index];
-                          return Container(
-                            width: double.infinity,
-                            height: 70,
-                            decoration: const BoxDecoration(),
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                                    child: Container(
-                                      width: 50,
-                                      height: 50,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Image.network(
-                                        _firebaseService.getUserPhotoUrl(member['photo_url']),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                                    child: Text(
-                                      '${member['prf_name']} (${member['display_name']})',
-                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                            fontFamily: 'pretendard',
-                                            fontSize: 16,
-                                            letterSpacing: 0,
-                                            useGoogleFonts: false,
+                      Expanded(
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: membersData.length,
+                          itemBuilder: (context, index) {
+                            var member = membersData[index];
+                            return Container(
+                              width: double.infinity,
+                              height: 70,
+                              decoration: const BoxDecoration(),
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                                          child: Container(
+                                            width: 50,
+                                            height: 50,
+                                            clipBehavior: Clip.antiAlias,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Image.network(
+                                              _firebaseService.getUserPhotoUrl(member['photo_url']),
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                                          child: Text(
+                                            '${member['prf_name']} (${member['display_name']})',
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                  fontFamily: 'pretendard',
+                                                  fontSize: 16,
+                                                  letterSpacing: 0,
+                                                  useGoogleFonts: false,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(199, 0, 0, 0),
-                                    child: FlutterFlowIconButton(
-                                      borderRadius: 20,
-                                      borderWidth: 1,
-                                      buttonSize: 40,
-                                      icon: const Icon(
-                                        Icons.remove_circle_outline,
-                                        color: Color(0xFFF90909),
-                                        size: 24,
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                      child: FlutterFlowIconButton(
+                                        borderRadius: 20,
+                                        borderWidth: 1,
+                                        buttonSize: 40,
+                                        icon: const Icon(
+                                          Icons.remove_circle_outline,
+                                          color: Color(0xFFF90909),
+                                          size: 24,
+                                        ),
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text("정말로 추방하시겠어요?"),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    child: const Text("아니오"),
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop(); // 경고창 닫기
+                                                    },
+                                                  ),
+                                                  TextButton(
+                                                    child: const Text("예"),
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop(); // 경고창 닫기
+                                                      _removeMember(member['uid']); // 멤버 삭제 함수 호출
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
                                       ),
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title: const Text("정말로 추방하시겠어요?"),
-                                              actions: <Widget>[
-                                                TextButton(
-                                                  child: const Text("네"),
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop(); // 경고창 닫기
-                                                    _removeMember(member['uid']); // 멤버 삭제 함수 호출
-                                                  },
-                                                ),
-                                                TextButton(
-                                                  child: const Text("아니오"),
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop(); // 경고창 닫기
-                                                  },
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ],
-                );
-              } else {
-                return const Center(child: Text("No data available"));
-              }
-            },
-          ),
+                    ],
+                  );
+                } else {
+                  return const Center(child: Text("No data available"));
+                }
+              },
+            ),
+          )
         ),
       ),
     );

@@ -468,7 +468,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                 ),
                                                 border: Border.all(
                                                   color: FlutterFlowTheme.of(context).alternate,
-                                                  width: 2,
+                                                  width: 1,
                                                 ),
                                               ),
                                               child: Align(
@@ -581,8 +581,8 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                 ChipData('4학년'),
                                                 ChipData('휴학'),
                                                 ChipData('졸업'),
-                                                ChipData('석사생'),
-                                                ChipData('박사생'),
+                                                ChipData('석사'),
+                                                ChipData('박사'),
                                                 ChipData('교수/강사'),
                                                 ChipData('기타')
                                               ],
@@ -645,7 +645,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                   Align(
                     alignment: const AlignmentDirectional(0, 0),
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(20, 16, 20, 16),
+                      padding: const EdgeInsetsDirectional.fromSTEB(20, 16, 20, 32),
                       child: ElevatedButton(
                         onPressed: () async {
                           //***저장할 때 isPickedImg가 false인 경우***//

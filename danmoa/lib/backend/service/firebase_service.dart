@@ -42,7 +42,6 @@ class FirebaseService {
     return querySnapshot.docs.isEmpty;
   }
 
-
   // 사용자가 스터디에 가입한 정보를 사용자 컬렉션에 저장 (studies: 서브 컬렉션)
   Future<void> addUserStudy(String stdName, String uid, DateTime stdUpdatedTime) async {
     final hash = UtilService.generateHash(stdName.toLowerCase());

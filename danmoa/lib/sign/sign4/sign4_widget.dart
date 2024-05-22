@@ -528,7 +528,7 @@ class _Sign4WidgetState extends State<Sign4Widget> {
                     },
                     text: '다음',
                     options: FFButtonOptions(
-                      width: double.infinity,
+                      width: 320.0,
                       height: 45.0,
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),

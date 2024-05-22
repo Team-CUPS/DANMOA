@@ -337,7 +337,7 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 12.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
                         child: SizedBox(
                           height: 100.0, // Set the desired height
                           child: TextFormField(
@@ -480,7 +480,7 @@ class _StdMake1WidgetState extends State<StdMake1Widget> {
                 Align(
                   alignment: const AlignmentDirectional(0.0, 1.0),
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(20.0, 56.0, 20.0, 16.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         bool isUnique = await _firebaseService.isStudyNameUnique(_model.stdNameTextController.text);

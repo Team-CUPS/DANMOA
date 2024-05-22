@@ -163,7 +163,7 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
+                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 25.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,7 +238,7 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
+                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 25.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -525,7 +525,7 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                   Align(
                     alignment: const AlignmentDirectional(0.0, 1.0),
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 48.0),
                       child: FFButtonWidget(
                         onPressed: () async {
                           if (_model.stdMake2Cc01Value == "" || _model.stdMake2Cc03Value == "" || listEquals(_model.stdList4Cc03Values, []) == true || _startTimeController.text == "" || _endTimeController.text == "") {

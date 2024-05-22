@@ -219,9 +219,10 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 32.0, 0.0, 16.0),
+                                    0.0, 20.0, 0.0, 20.0),
                                 child: SizedBox(
                                   width: double.infinity,
+                                  height: 50,
                                   child: TextFormField(
                                     controller: _model.sign3Tf01TextController,
                                     focusNode: _model.sign3Tf01FocusNode,
@@ -464,7 +465,7 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                       alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 36.0),
+                                            0.0, 4.0, 0.0, 36.0),
                                         child: FFButtonWidget(
                                           // 닉네임 필드에 타자를 칠 때 마다 _isCheckButtonEnabled 가 참인지 검사
                                           // 해당 조건이 참인 경우는 위에서 서술했 듯 닉네임 3-10자, 한글,영문,숫자일 때이다. 
@@ -511,7 +512,7 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                 alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 10.0, 0.0, 25.0),
+                                      0.0, 0.0, 0.0, 25.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -662,7 +663,7 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                         child: Padding(
                                           padding:
                                               const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 8.0),
+                                                  0.0, 4.0, 0.0, 8.0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
                                               final datePickedDate =
@@ -784,7 +785,7 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                                 alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 50.0),
+                                      0.0, 0.0, 0.0, 30.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -858,7 +859,7 @@ class _Sign3WidgetState extends State<Sign3Widget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 48.0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     if (_model.sign3Tf01TextController.text == '') {
