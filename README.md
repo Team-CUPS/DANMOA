@@ -204,7 +204,7 @@
 
 | 공모전 찾기 | 공모전 목록 |
 |----------|----------|
-|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_contest1.jpg?raw=true" alt="splash" width="300" height="600">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_contest2.jpg?raw=true" alt="splash" width="250" height="500">|
+|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_contest1.jpg?raw=true" alt="splash" width="250" height="500">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_contest2.jpg?raw=true" alt="splash" width="250" height="500">|
 
 <br>
 
