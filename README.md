@@ -134,7 +134,7 @@
 
 | 로그인 화면 | 홈 화면 - 일정 | 홈 화면 - 메뉴 |
 |----------|----------|----------|
-|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_login.jpg?raw=true" alt="splash" width="300" height="600">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_main1.jpg?raw=true" alt="splash" width="300" height="600">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_main2.jpg?raw=true" alt="splash" width="300" height="600">|
+|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_login.jpg?raw=true" alt="splash" width="250" height="500">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_main1.jpg?raw=true" alt="splash" width="250" height="500">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_main2.jpg?raw=true" alt="splash" width="250" height="500">|
 
 <br>
 
@@ -147,7 +147,7 @@
 
 | 계정정보 입력 | 프로필 작성 | 학적 입력 |
 |----------|----------|----------|
-|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_sign1.jpg?raw=true" alt="splash" width="300" height="600">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_sign2.jpg?raw=true" alt="splash" width="300" height="600">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_sign3.jpg?raw=true" alt="splash" width="300" height="600">|
+|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_sign1.jpg?raw=true" alt="splash" width="250" height="500">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_sign2.jpg?raw=true" alt="splash" width="250" height="500">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_sign3.jpg?raw=true" alt="splash" width="250" height="500">|
 
 <br>
 
@@ -159,7 +159,7 @@
 
 | 스터디 기본정보 입력 | 스터디 추가정보 입력 |
 |----------|----------|
-|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_stdmake1.jpg?raw=true" alt="splash" width="300" height="600">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_stdmake2.jpg?raw=true" alt="splash" width="300" height="600">|
+|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_stdmake1.jpg?raw=true" alt="splash" width="250" height="500">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_stdmake2.jpg?raw=true" alt="splash" width="250" height="500">|
 
 <br>
 
@@ -170,7 +170,7 @@
 
 | 스터디 피드 |
 |----------|
-|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_study1.jpg?raw=true" alt="splash" width="300" height="600">|
+|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_study1.jpg?raw=true" alt="splash" width="250" height="500">|
 
 <br>
 
@@ -181,7 +181,7 @@
 
 | 스터디 홈 |
 |----------|
-|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_study2.jpg?raw=true" alt="splash" width="300" height="600">|
+|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_study2.jpg?raw=true" alt="splash" width="250" height="500">|
 
 <br>
 
@@ -193,7 +193,7 @@
 
 | 질문하기 | 답변내역 |
 |----------|----------|
-|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_qa1.jpg?raw=true" alt="splash" width="300" height="600">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_qa2.jpg?raw=true" alt="splash" width="300" height="600">|
+|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_qa1.jpg?raw=true" alt="splash" width="250" height="500">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_qa2.jpg?raw=true" alt="splash" width="250" height="500">|
 
 <br>
 
@@ -204,7 +204,7 @@
 
 | 공모전 찾기 | 공모전 목록 |
 |----------|----------|
-|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_contest1.jpg?raw=true" alt="splash" width="300" height="600">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_contest2.jpg?raw=true" alt="splash" width="300" height="600">|
+|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_contest1.jpg?raw=true" alt="splash" width="300" height="600">|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_contest2.jpg?raw=true" alt="splash" width="250" height="500">|
 
 <br>
 
@@ -214,7 +214,7 @@
 
 | 프로필 |
 |----------|
-|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_prf.jpg?raw=true" alt="splash" width="300" height="600">|
+|<img src="https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/img_prf.jpg?raw=true" alt="splash" width="250" height="500">|
 
 <br>
 
