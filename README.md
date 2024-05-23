@@ -1,3 +1,5 @@
+<br>
+
 # 📖 단국대 구성원을 위한 스터디 앱 DANMOA
 
 ![danmoa_intro](https://github.com/Team-CUPS/DANMOA_materials/blob/main/images/intro.png?raw=true)
