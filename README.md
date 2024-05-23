@@ -114,7 +114,7 @@
 - GitHub을 이용한 버전관리 → 기능에 따라 전체/AI/크롤링 3가지 레파지토리로 나눠 관리
 - 각자 작업 진행도와 결과를 Notion 작업록에 공유
 - 주간회의를 진행하며 작업 순서와 방향성에 대한 고민을 나누고 Notion 회의록에 기록
-- [단모아 Notion 링크](https://github.com/likelion-project-README/README/wiki/README-6.%EC%8B%A0%EA%B2%BD-%EC%93%B4-%EB%B6%80%EB%B6%84_%EC%A0%91%EA%B7%BC%EC%A0%9C%ED%95%9C-%EC%84%A4%EC%A0%95)
+- [단모아 Notion 링크](https://yyseong.notion.site/Project-Danmoa-eba1ab2ad8fe414abf0f8716bb997327?pvs=4)
 
 <br>
 
