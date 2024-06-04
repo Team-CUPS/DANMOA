@@ -155,6 +155,23 @@ class _Qa3WidgetState extends State<Qa3Widget> {
                     child: FFButtonWidget(
                       onPressed: () async {
                         await _firebaseService.deleteQAData(widget.docId);
+                        await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('알림'),
+                              content: const Text('삭제되었습니다.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); // 대화상자를 닫습니다.
+                                  },
+                                  child: const Text('확인'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                         context.pop();
                       },
                       text: '삭제하기',

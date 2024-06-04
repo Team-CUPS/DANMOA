@@ -255,7 +255,10 @@ class _Qa1WidgetState extends State<Qa1Widget> {
                           await _firebaseService.storeQAData(QAData);
                           _firebaseService.listenToDocumentChange(currentUserUid);
                           
-                          context.pushNamed('home1');
+                          while(context.canPop()) {
+                            context.pop();
+                          }
+                          context.pushReplacementNamed('home1');
                         }
                       },
                       text: '질문하기',
