@@ -528,7 +528,7 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                       padding: const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 48.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          if (_model.stdMake2Cc01Value == "" || _model.stdMake2Cc03Value == "" || listEquals(_model.stdList4Cc03Values, []) == true || _startTimeController.text == "" || _endTimeController.text == "") {
+                          if (_model.stdMake2Cc01Value == null || _model.stdMake2Cc03Value == null || listEquals(_model.stdList4Cc03Values, []) == true || _startTimeController.text == "" || _endTimeController.text == "") {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {

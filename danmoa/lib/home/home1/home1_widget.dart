@@ -996,6 +996,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                     highlightColor: Colors.transparent,
                     onTap: () async {
                       context.pushNamed('stdMake1');
+                      setState(() {});
                     },
                     child: Material(
                       color: Colors.transparent,
