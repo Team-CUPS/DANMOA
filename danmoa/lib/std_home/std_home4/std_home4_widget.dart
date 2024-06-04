@@ -538,7 +538,7 @@ class _StdHome4WidgetState extends State<StdHome4Widget> {
                                     TextButton(
                                       child: const Text("확인"),
                                       onPressed: () {
-                                        Navigator.of(context).pop();  // 대화 상자 닫기
+                                        context.pop();
                                       },
                                     ),
                                   ],

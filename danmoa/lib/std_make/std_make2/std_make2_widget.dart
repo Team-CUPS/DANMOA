@@ -580,6 +580,10 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                             print('Error adding study data: $e');
                           }
 
+                          while(context.canPop()) {
+                            context.pop();
+                          }
+
                           if (context.mounted) {
                             context.pushNamed('stdMake3');
                           }

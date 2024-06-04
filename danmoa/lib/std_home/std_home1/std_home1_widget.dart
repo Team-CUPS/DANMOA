@@ -79,6 +79,7 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
             }
 
             final studyData = snapshot.data!['studyData'] as Map<String, dynamic>;
+            logger.w(studyData);
             final selectedMembersData = snapshot.data!['selectedMembersData'] as List<Map<String, dynamic>>;
             final memberStatus = snapshot.data!['memberStatus'] as bool;
             
@@ -276,7 +277,7 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                               height: 35,
                                               padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
                                               iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                              color: Color(0xFFF9E000),
+                                              color: const Color(0xFFF9E000),
                                               textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                                 fontFamily: 'pretendard',
                                                 color: FlutterFlowTheme.of(context).primaryText,
@@ -480,7 +481,7 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                         child: LayoutBuilder(
                                           builder: (context, constraints){
                                             return ConstrainedBox(
-                                              constraints: BoxConstraints(
+                                              constraints: const BoxConstraints(
                                                 minHeight: 0.0,
                                                 maxHeight: 200.0,
                                               ),

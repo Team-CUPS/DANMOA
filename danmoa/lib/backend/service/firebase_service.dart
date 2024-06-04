@@ -65,10 +65,6 @@ class FirebaseService {
         .collection('studies')
         .doc(hash);
 
-    final studyDocRef = FirebaseFirestore.instance
-        .collection('study')
-        .doc(hash);
-
     try {
       // 문서가 존재하는지 확인
       final userDocSnapshot = await userDocRef.get();
@@ -77,11 +73,6 @@ class FirebaseService {
         // 문서가 존재하면 업데이트
         await userDocRef.update({
           'std_updated_time': now, // 수동으로 시간 업데이트
-        });
-
-        // 스터디 문서도 업데이트
-        await studyDocRef.update({
-          'std_updated_time': now, // 스터디의 std_updated_time 업데이트
         });
 
       } else {
@@ -286,7 +277,9 @@ class FirebaseService {
       List<Map<String, dynamic>> loadedStudies = await getStudyData(2);
       List<Map<String, dynamic>> filteredStudyList = loadedStudies.where((study) {
         bool positionMatch = stdPosition == null || study['std_position'] == stdPosition;
-        bool timesMatch = stdTimes == null || stdTimes.isEmpty || listEquals(stdTimes, study['std_times'].sublist(0, study['std_times'].length - 1));
+        List<String>? studyTimes = (study['std_times'] as List<dynamic>?)?.cast<String>();
+        //bool timesMatch = stdTimes == null || stdTimes.isEmpty || (studyTimes != null && stdTimes.every((day) => studyTimes.contains(day)));
+        bool timesMatch = stdTimes == null || stdTimes.isEmpty || (studyTimes != null && listEquals(stdTimes, studyTimes.sublist(0, studyTimes.length - 2)));
         bool fieldMatch = stdField == null || study['std_field'] == stdField;
 
         return positionMatch && timesMatch && fieldMatch;
@@ -349,7 +342,7 @@ class FirebaseService {
 
 
   // 스터디 정보 수정(업데이트)
-  Future<void> updateStudyDetails(String stdName, {String stdPosition = "", List<String> stdTimes = const [], String stdField = "", String? stdPrfPicture = "", String stdIntro = "", String stdPrfUrl = ""}) async {
+  Future<void> updateStudyDetails(String stdName, {String stdPosition = "", List<String> stdTimes = const [], String stdField = "", String? stdPrfPicture = "", String stdIntro = "", String stdUrl = ""}) async {
     CollectionReference studyCollection = FirebaseFirestore.instance.collection('study');
     final String hash = UtilService.generateHash(stdName.toLowerCase());
     DocumentReference studyDoc = studyCollection.doc(hash);
@@ -364,8 +357,8 @@ class FirebaseService {
     if (stdField.isNotEmpty) {
       updates['std_field'] = stdField;
     }
-    if (stdPrfUrl.isNotEmpty) {
-      updates['std_prf_url'] = stdPrfUrl;
+    if (stdUrl.isNotEmpty) {
+      updates['std_url'] = stdUrl;
     }
     if (stdIntro.isNotEmpty) {
       updates['std_intro'] = stdIntro;

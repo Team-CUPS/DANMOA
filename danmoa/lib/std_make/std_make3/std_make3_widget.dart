@@ -122,7 +122,10 @@ class _StdMake4WidgetState extends State<StdMake3Widget> {
                       const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 48.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      context.pushNamed('home1');
+                      if (context.canPop()) {
+                        context.pop();
+                      }
+                      context.pushReplacementNamed('home1');
                     },
                     text: '확인',
                     options: FFButtonOptions(

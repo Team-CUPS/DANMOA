@@ -159,7 +159,8 @@ class _Qa2WidgetState extends State<Qa2Widget> with TickerProviderStateMixin {
                                             'doc_id' : serializeParam(qa['doc_id'], ParamType.String),
                                             'created_time' : serializeParam(createdTime, ParamType.String),
                                           }.withoutNulls,
-                                          );
+                                        );
+                                        setState(() {});
                                       },
                                       child: Container(
                                         width: double.infinity,

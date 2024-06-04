@@ -827,7 +827,8 @@ class _Home1WidgetState extends State<Home1Widget> {
                                 ),
                                 FFButtonWidget(
                                   onPressed: () async {
-                                    context.pushNamed('stdList1');
+                                    await context.pushNamed('stdList1');
+                                    setState(() {});
                                   },
                                   text: '',
                                   icon: const Icon(
@@ -889,7 +890,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                   ),
                                   child: ListView.builder(
                                     padding: EdgeInsets.zero,
-                                    itemCount: userStudyData.length > 3 ? 3 : userStudyData.length, // 최대 3개 요소만 표시
+                                    itemCount: userStudyData.length,
                                     shrinkWrap: true,
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (BuildContext context, int index) {

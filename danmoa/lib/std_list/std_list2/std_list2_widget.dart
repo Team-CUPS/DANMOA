@@ -22,7 +22,10 @@ class _StdList2WidgetState extends State<StdList2Widget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<dynamic> rst = [null, [], null];
+  List<dynamic>? selectedFilter;
+  String? rtnStdPosition;
+  List<String>? rtnStdTimes;
+  String? rtnStdField;
   final FirebaseService _firebaseService = FirebaseService.instance;
 
   @override
@@ -97,11 +100,13 @@ class _StdList2WidgetState extends State<StdList2Widget> {
                       alignment: const AlignmentDirectional(0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          var result = await context.pushNamed('stdList4') as List<dynamic>;
+                          selectedFilter = await context.pushNamed('stdList4');
                           setState(() {
-                            rst = result;
-                          },);
-                          print("필터링 요구 값: $rst");
+                            rtnStdPosition = selectedFilter?[0];
+                            rtnStdTimes = selectedFilter?[1];
+                            rtnStdField = selectedFilter?[2];
+                          });
+                          
                         },
                         text: '필터',
                         icon: const Icon(
@@ -137,7 +142,11 @@ class _StdList2WidgetState extends State<StdList2Widget> {
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                   child: FutureBuilder<List<Map<String, dynamic>>>(
-                    future: _firebaseService.getFilteredStudyData(stdPosition: rst[0], stdTimes: (rst[1] as List).cast<String>(), stdField: rst[2]),  // 1: updated time DESC / 2: created time DESC
+                    future: _firebaseService.getFilteredStudyData(
+                      stdPosition: rtnStdPosition,
+                      stdTimes: rtnStdTimes,
+                      stdField: rtnStdField,
+                    ),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());

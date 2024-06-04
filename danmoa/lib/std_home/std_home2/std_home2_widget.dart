@@ -268,7 +268,7 @@ class _StdHome2WidgetState extends State<StdHome2Widget> {
                             while(context.canPop()) {
                               context.pop();
                             }
-                            context.pushNamed('home1');
+                            context.pushReplacementNamed('home1');
                           }
                         },
                         child: Container(
