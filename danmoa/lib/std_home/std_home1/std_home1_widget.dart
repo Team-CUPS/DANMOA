@@ -361,6 +361,40 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                         width: 60,
                                         decoration: const BoxDecoration(),
                                         child: Text(
+                                          '분야',
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                fontFamily: 'pretendard',
+                                                color: FlutterFlowTheme.of(context).grey700,
+                                                fontSize: 14,
+                                                letterSpacing: 0,
+                                                fontWeight: FontWeight.w500,
+                                                useGoogleFonts: false,
+                                                lineHeight: 0,
+                                              ),
+                                        ),
+                                      ),
+                                      Text(
+                                        studyData['std_field'],
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                              fontFamily: 'pretendard',
+                                              fontSize: 14,
+                                              letterSpacing: 0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts: false,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: 60,
+                                        decoration: const BoxDecoration(),
+                                        child: Text(
                                           '요일대',
                                           textAlign: TextAlign.start,
                                           style: FlutterFlowTheme.of(context).bodyLarge.override(

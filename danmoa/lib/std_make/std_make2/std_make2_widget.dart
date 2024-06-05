@@ -461,13 +461,14 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                                         ),
                                         FlutterFlowChoiceChips(
                                           options: const [
-                                            ChipData('문학·문예'),
-                                            ChipData('네이밍·슬로건'),
-                                            ChipData('과학·공학·기술'),
-                                            ChipData('IT·소프트웨어·게임'),
-                                            ChipData('디자인·캐릭터·웹툰'),
-                                            ChipData('음악·가요·댄스·무용'),
-                                            ChipData('산업·사회·건축·관광·창업')
+                                            ChipData('어학'),
+                                            ChipData('전공'),
+                                            ChipData('취업준비'),
+                                            ChipData('고시·공무원'),
+                                            ChipData('자격증'),
+                                            ChipData('프로그래밍'),
+                                            ChipData('예체능'),
+                                            ChipData('기타')
                                           ],
                                           onChanged: (val) => setState(() => _model.stdMake2Cc03Value = val?.firstOrNull),
                                           selectedChipStyle: ChipStyle(
