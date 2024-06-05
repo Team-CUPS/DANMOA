@@ -23,7 +23,10 @@ class FirebaseService {
   static final FirebaseService instance = FirebaseService._privateConstructor();
 
   // StreamSubscription<DocumentSnapshot>? _subscription;
-  StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? _subscription; // 전체 QA 조건
+  StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? _subscription; // 단일 구독
+  // final StreamController<bool> _subscriptionController = StreamController<bool>.broadcast(); // 홈화면에 답변 대기중인 qa존재 체크
+
+  // Stream<bool> get subscriptionStream => _subscriptionController.stream;
   
 
   // 스터디 이름이 고유한지 확인
@@ -248,7 +251,7 @@ class FirebaseService {
   // 유저 이미지 링크 반환 (나중에 앱이 확장되면 해당 메소드를 하드코딩 -> path방식으로 변경하면 됨 / 이 때는 Future 사용)
   String getUserPhotoUrl(String? imgPath) {
     if (UtilService.isDefaultImage(imgPath)) {
-      return 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/users%2Fdefault%2F1000000036.jpg?alt=media&token=e89a0182-6090-465d-8065-ee98fc2c7c35';
+      return 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/users%2Fdefault%2Fprofile_bear.jpeg?alt=media&token=3808c534-4f0b-43b8-a96d-85559ae578cc';
     } else {
       return imgPath!;
     }
@@ -258,9 +261,8 @@ class FirebaseService {
   // 스터디 이미지 링크 반환 (나중에 앱이 확장되면 해당 메소드를 하드코딩 -> path방식으로 변경하면 됨 / 이 때는 Future 사용)
   String getStudyPhotoUrl(String? imgPath) {
     if (UtilService.isDefaultImage(imgPath)) {
-      return 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fbearstudyblue.jpg?alt=media&token=c0a9e16d-dd9e-47c2-bebc-907bab756880';
-      //return 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fbearstudy.jpg?alt=media&token=75debbe7-c83e-4f86-8035-35ceb3333b35';
-      //return 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fdefault_white.png?alt=media&token=e78c656d-4dc3-4b91-b2ad-2bb69a913f64';
+      return 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fstdprf_bear.jpeg?alt=media&token=b1b7c76f-a527-46e5-a739-d9dd423bad65'; // 단모아 아이콘
+      // return 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/study%2Fdefault%2Fbearstudyblue.jpg?alt=media&token=c0a9e16d-dd9e-47c2-bebc-907bab756880'; // 기존 기본 스터디 아이콘
     } else {
       return imgPath!;
     }
@@ -623,7 +625,7 @@ class FirebaseService {
     try {
       List<Map<String, dynamic>> loadedQAs = await loadQAData();
       List<Map<String, dynamic>> filteredQAList = loadedQAs.where((qa) {
-        return qa['signal'] == 3 && qa['user_uid'] == uid;
+        return (qa['signal'] == 0 || qa['signal'] == 2 || qa['signal'] == 3) && qa['user_uid'] == uid;
       }).toList();
       return filteredQAList;
     } catch (error) {
@@ -652,9 +654,9 @@ class FirebaseService {
     return false;
   }
 
-
+  // 단일 구독
   void listenToDocumentChange(String uid) {
-  _subscription?.cancel(); // 기존 구독 취소
+  //_subscription?.cancel(); // 기존 구독 취소
   _subscription = FirebaseFirestore.instance.collection('qa')
     .where('user_uid', isEqualTo: uid)
     .where('signal', isEqualTo: 2)
@@ -677,12 +679,9 @@ class FirebaseService {
       }
     });
   }
-  
-  
 
   void cancelSubscription() {
     _subscription?.cancel();
-    _subscription = null;
   }
   
 

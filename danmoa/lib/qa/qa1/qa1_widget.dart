@@ -33,7 +33,6 @@ class _Qa1WidgetState extends State<Qa1Widget> {
   @override
   void dispose() {
     _model.dispose();
-    _firebaseService.cancelSubscription(); // 리소스 정리
     super.dispose();
   }
 
@@ -244,7 +243,7 @@ class _Qa1WidgetState extends State<Qa1Widget> {
                           );
                           Map<String, dynamic> QAData = {
                             'usr_input_txt': _model.textController.text,
-                            'ai_output': '',
+                            'ai_output': '단모아가 최적의 답변을 생각 중입니다',
                             'user_uid': currentUserUid,
                             'ai_score': null,
                             'usr_score': null,

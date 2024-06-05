@@ -79,7 +79,6 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
             }
 
             final studyData = snapshot.data!['studyData'] as Map<String, dynamic>;
-            logger.w(studyData);
             final selectedMembersData = snapshot.data!['selectedMembersData'] as List<Map<String, dynamic>>;
             final memberStatus = snapshot.data!['memberStatus'] as bool;
             

@@ -278,6 +278,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'doc_id',
               ParamType.String,
             ),
+            signal: params.getParam(
+              'signal',
+              ParamType.int,
+            ),
             createdTime: params.getParam(
               'created_time',
               ParamType.String,

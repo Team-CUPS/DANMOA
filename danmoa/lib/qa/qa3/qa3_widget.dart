@@ -13,6 +13,7 @@ class Qa3Widget extends StatefulWidget {
     required this.usrInputTxt,
     required this.aiOutput,
     required this.docId,
+    required this. signal,
     required this.createdTime,
     });
 
@@ -20,6 +21,7 @@ class Qa3Widget extends StatefulWidget {
   final String aiOutput;
   final String docId;
   final String createdTime;
+  final int signal;
 
   @override
   State<Qa3Widget> createState() => _Qa3WidgetState();
@@ -149,55 +151,56 @@ class _Qa3WidgetState extends State<Qa3Widget> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 12.0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        await _firebaseService.deleteQAData(widget.docId);
-                        await showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('알림'),
-                              content: const Text('삭제되었습니다.'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(); // 대화상자를 닫습니다.
-                                  },
-                                  child: const Text('확인'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                        context.pop();
-                      },
-                      text: '삭제하기',
-                      options: FFButtonOptions(
-                        width: double.infinity,
-                        height: 48.0,
-                        padding: const EdgeInsets.all(0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'pretendard',
-                                  color: Colors.white,
-                                  letterSpacing: 0.0,
-                                  useGoogleFonts: false,
-                                ),
-                        elevation: 0.0,
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
+                  if (widget.signal != 0)
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 12.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          await _firebaseService.deleteQAData(widget.docId);
+                          await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('알림'),
+                                content: const Text('삭제되었습니다.'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); // 대화상자를 닫습니다.
+                                    },
+                                    child: const Text('확인'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          context.pop();
+                        },
+                        text: '삭제하기',
+                        options: FFButtonOptions(
+                          width: double.infinity,
+                          height: 48.0,
+                          padding: const EdgeInsets.all(0.0),
+                          iconPadding:
+                              const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    fontFamily: 'pretendard',
+                                    color: Colors.white,
+                                    letterSpacing: 0.0,
+                                    useGoogleFonts: false,
+                                  ),
+                          elevation: 0.0,
+                          borderSide: const BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
-                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                  ),
                 ],
               ),
             ),

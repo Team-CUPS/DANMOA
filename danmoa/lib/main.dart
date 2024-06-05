@@ -75,7 +75,7 @@ class _MyAppState extends State<MyApp> {
         () => _appStateNotifier.stopShowingSplashImage(),
       );
       WidgetsBinding.instance.addPostFrameCallback((_) {
-      FirebaseService.updateUnansweredQAs(currentUserUid); 
+      FirebaseService.updateUnansweredQAs(currentUserUid);
     });
   }
 

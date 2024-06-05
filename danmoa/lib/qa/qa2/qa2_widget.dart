@@ -141,6 +141,7 @@ class _Qa2WidgetState extends State<Qa2Widget> with TickerProviderStateMixin {
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (BuildContext context, int index) {
                                   final qa = snapshot.data![index];
+                                  logger.w(qa);
                                   String createdTime = DateFormat('yyyy.MM.dd').format(qa['created_time'].toDate());
                                   return Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 6.0),
@@ -150,13 +151,14 @@ class _Qa2WidgetState extends State<Qa2Widget> with TickerProviderStateMixin {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        logger.w(qa);
+                                        // logger.w(qa);
                                         await context.pushNamed(
                                           'QA3',
                                           queryParameters: {
                                             'usr_input_txt': serializeParam(qa['usr_input_txt'], ParamType.String),
                                             'ai_output': serializeParam(qa['ai_output'], ParamType.String),
                                             'doc_id' : serializeParam(qa['doc_id'], ParamType.String),
+                                            'signal' : serializeParam(qa['signal'], ParamType.int),
                                             'created_time' : serializeParam(createdTime, ParamType.String),
                                           }.withoutNulls,
                                         );
