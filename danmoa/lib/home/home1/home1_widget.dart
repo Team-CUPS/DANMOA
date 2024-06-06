@@ -675,7 +675,7 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                   ListView.builder(
                                                   shrinkWrap: true,
                                                   physics: const NeverScrollableScrollPhysics(),
-                                                  itemCount: menu2?[1].length ?? 0,
+                                                  itemCount: menu2?.length == 2 ? menu2![1].length : 0,
                                                   itemBuilder: (context, index) {
                                                     return Padding(
                                                       padding: const EdgeInsetsDirectional.fromSTEB(20, 2, 4, 2),
