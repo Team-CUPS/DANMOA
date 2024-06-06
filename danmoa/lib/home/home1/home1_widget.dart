@@ -938,30 +938,36 @@ class _Home1WidgetState extends State<Home1Widget> {
                                                   Align(
                                                     alignment: const AlignmentDirectional(-1.0, -1.0),
                                                     child: Padding(
-                                                      padding: const EdgeInsetsDirectional.fromSTEB(3.0, 3.0, 0.0, 0.0),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
                                                       child: Text(
                                                         stdCurrentUserStatus,
                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                          fontFamily: 'Pretendard',
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: false,
-                                                        ),
+                                                              fontFamily: 'Pretendard',
+                                                              fontSize: 12.0,
+                                                              letterSpacing: 0.0,
+                                                              useGoogleFonts: false,
+                                                            ),
                                                       ),
                                                     ),
                                                   ),
-                                                  AutoSizeText(
-                                                    stdName,
-                                                    style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                      fontFamily: 'Pretendard',
-                                                      fontSize: 15.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight: FontWeight.w600,
-                                                      useGoogleFonts: false,
+                                                  Padding(
+                                                    padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 5.0),
+                                                    child: AutoSizeText(
+                                                      stdName,
+                                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                            fontFamily: 'Pretendard',
+                                                            fontSize: 15.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight: FontWeight.w600,
+                                                            useGoogleFonts: false,
+                                                          ),
+                                                      maxLines: 1, // 줄바꿈 없이 글씨 크기를 줄입니다.
+                                                      minFontSize: 10.0, // 최소 글씨 크기 설정
+                                                      overflow: TextOverflow.ellipsis, // 글씨가 줄어들어도 공간이 부족하면 생략 부호를 추가합니다.
                                                     ),
                                                   ),
                                                   Padding(
-                                                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                                                    padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 5.0),
                                                     child: Container(
                                                       width: 48.0,
                                                       height: 48.0,
