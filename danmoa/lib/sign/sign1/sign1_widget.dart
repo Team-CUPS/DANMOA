@@ -346,8 +346,8 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                               if (currentUserEmailVerified) {
                                 context.pushNamedAuth('home1', context.mounted);
                               } else {
-                                await authManager.sendEmailVerification();
-                                GoRouter.of(context).prepareAuthEvent();
+                                //await authManager.sendEmailVerification();
+                                //GoRouter.of(context).prepareAuthEvent();
                                 await authManager.signOut();
                                 GoRouter.of(context).clearRedirectLocation();
 
@@ -357,7 +357,7 @@ class _Sign1WidgetState extends State<Sign1Widget> {
                                     return AlertDialog(
                                       title: const Text('인증되지 않은 계정입니다.'),
                                       content: const Text(
-                                          '해당 계정으로 인증 링크를 재전송했으니 확인 부탁드립니다.'),
+                                          '단국대 Gmail에서 인증 메일을 확인해주세요.'),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
