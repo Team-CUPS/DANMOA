@@ -99,7 +99,10 @@ class _Sign5WidgetState extends State<Sign5Widget> {
                       const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 48.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      context.pushNamed('sign1');
+                      if (context.canPop()) {
+                        context.pop();
+                      }
+                      context.pushReplacementNamed('sign1');
                     },
                     text: '로그인 하러 가기',
                     options: FFButtonOptions(

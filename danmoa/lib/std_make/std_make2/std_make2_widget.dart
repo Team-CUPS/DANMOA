@@ -461,13 +461,14 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                                         ),
                                         FlutterFlowChoiceChips(
                                           options: const [
-                                            ChipData('문학·문예'),
-                                            ChipData('네이밍·슬로건'),
-                                            ChipData('과학·공학·기술'),
-                                            ChipData('IT·소프트웨어·게임'),
-                                            ChipData('디자인·캐릭터·웹툰'),
-                                            ChipData('음악·가요·댄스·무용'),
-                                            ChipData('산업·사회·건축·관광·창업')
+                                            ChipData('어학'),
+                                            ChipData('전공'),
+                                            ChipData('취업준비'),
+                                            ChipData('고시·공무원'),
+                                            ChipData('자격증'),
+                                            ChipData('프로그래밍'),
+                                            ChipData('예체능'),
+                                            ChipData('기타')
                                           ],
                                           onChanged: (val) => setState(() => _model.stdMake2Cc03Value = val?.firstOrNull),
                                           selectedChipStyle: ChipStyle(
@@ -528,7 +529,7 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                       padding: const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 48.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          if (_model.stdMake2Cc01Value == "" || _model.stdMake2Cc03Value == "" || listEquals(_model.stdList4Cc03Values, []) == true || _startTimeController.text == "" || _endTimeController.text == "") {
+                          if (_model.stdMake2Cc01Value == null || _model.stdMake2Cc03Value == null || listEquals(_model.stdList4Cc03Values, []) == true || _startTimeController.text == "" || _endTimeController.text == "") {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -578,6 +579,10 @@ class _StdMake2WidgetState extends State<StdMake2Widget> {
                             print('Study data added successfully.');
                           } catch (e) {
                             print('Error adding study data: $e');
+                          }
+
+                          while(context.canPop()) {
+                            context.pop();
                           }
 
                           if (context.mounted) {

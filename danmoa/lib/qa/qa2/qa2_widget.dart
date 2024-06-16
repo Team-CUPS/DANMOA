@@ -103,30 +103,28 @@ class _Qa2WidgetState extends State<Qa2Widget> with TickerProviderStateMixin {
             children: [
               Expanded(
                 child: Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(16.0, 20.0, 16.0, 0.0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 4.0, 0.0, 12.0),
-                          child: Text(
-                            '답변 리스트',
-                            style: FlutterFlowTheme.of(context)
-                                .headlineMedium
-                                .override(
-                                  fontFamily: 'pretendard',
-                                  fontSize: 22.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
-                                  useGoogleFonts: false,
-                                ),
-                          ),
+                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 20.0, 16.0, 0.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 12.0),
+                        child: Text(
+                          '답변 리스트',
+                          style: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .override(
+                                fontFamily: 'pretendard',
+                                fontSize: 22.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                                useGoogleFonts: false,
+                              ),
                         ),
-                        FutureBuilder<List<Map<String, dynamic>>>(
+                      ),
+                      Expanded(
+                        child: FutureBuilder<List<Map<String, dynamic>>>(
                           future: _firebaseService.loadUserAnsweredQAData(currentUserUid),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -134,13 +132,16 @@ class _Qa2WidgetState extends State<Qa2Widget> with TickerProviderStateMixin {
                             } else if (snapshot.hasError) {
                               return Text('오류 발생: ${snapshot.error}');
                             } else {
+                              // 데이터 정렬
+                              List<Map<String, dynamic>> sortedData = List.from(snapshot.data!);
+                              sortedData.sort((a, b) => b['created_time'].compareTo(a['created_time']));
+
                               return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                itemCount: snapshot.data!.length,
-                                shrinkWrap: true,
+                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 12.0),
+                                itemCount: sortedData.length,
                                 scrollDirection: Axis.vertical,
                                 itemBuilder: (BuildContext context, int index) {
-                                  final qa = snapshot.data![index];
+                                  final qa = sortedData[index];
                                   String createdTime = DateFormat('yyyy.MM.dd').format(qa['created_time'].toDate());
                                   return Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 6.0),
@@ -150,16 +151,17 @@ class _Qa2WidgetState extends State<Qa2Widget> with TickerProviderStateMixin {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        logger.w(qa);
                                         await context.pushNamed(
                                           'QA3',
                                           queryParameters: {
                                             'usr_input_txt': serializeParam(qa['usr_input_txt'], ParamType.String),
                                             'ai_output': serializeParam(qa['ai_output'], ParamType.String),
-                                            'doc_id' : serializeParam(qa['doc_id'], ParamType.String),
-                                            'created_time' : serializeParam(createdTime, ParamType.String),
+                                            'doc_id': serializeParam(qa['doc_id'], ParamType.String),
+                                            'signal': serializeParam(qa['signal'], ParamType.int),
+                                            'created_time': serializeParam(createdTime, ParamType.String),
                                           }.withoutNulls,
-                                          );
+                                        );
+                                        setState(() {});
                                       },
                                       child: Container(
                                         width: double.infinity,
@@ -202,8 +204,8 @@ class _Qa2WidgetState extends State<Qa2Widget> with TickerProviderStateMixin {
                             }
                           },
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

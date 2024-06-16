@@ -278,6 +278,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'doc_id',
               ParamType.String,
             ),
+            signal: params.getParam(
+              'signal',
+              ParamType.int,
+            ),
             createdTime: params.getParam(
               'created_time',
               ParamType.String,
@@ -352,7 +356,7 @@ extension NavigationExtensions on BuildContext {
   }) =>
       !mounted || GoRouter.of(this).shouldRedirect(ignoreRedirect)
           ? null
-          : goNamed(
+          : pushNamed( // push to stack
               name,
               pathParameters: pathParameters,
               queryParameters: queryParameters,

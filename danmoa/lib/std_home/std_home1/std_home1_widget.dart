@@ -276,7 +276,7 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                               height: 35,
                                               padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
                                               iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                              color: Color(0xFFF9E000),
+                                              color: const Color(0xFFF9E000),
                                               textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                                 fontFamily: 'pretendard',
                                                 color: FlutterFlowTheme.of(context).primaryText,
@@ -342,6 +342,40 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                       ),
                                       Text(
                                         studyData['std_leader']['name'],
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                              fontFamily: 'pretendard',
+                                              fontSize: 14,
+                                              letterSpacing: 0,
+                                              fontWeight: FontWeight.w500,
+                                              useGoogleFonts: false,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: 60,
+                                        decoration: const BoxDecoration(),
+                                        child: Text(
+                                          '분야',
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                fontFamily: 'pretendard',
+                                                color: FlutterFlowTheme.of(context).grey700,
+                                                fontSize: 14,
+                                                letterSpacing: 0,
+                                                fontWeight: FontWeight.w500,
+                                                useGoogleFonts: false,
+                                                lineHeight: 0,
+                                              ),
+                                        ),
+                                      ),
+                                      Text(
+                                        studyData['std_field'],
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                               fontFamily: 'pretendard',
@@ -480,7 +514,7 @@ class _StdHome1WidgetState extends State<StdHome1Widget> {
                                         child: LayoutBuilder(
                                           builder: (context, constraints){
                                             return ConstrainedBox(
-                                              constraints: BoxConstraints(
+                                              constraints: const BoxConstraints(
                                                 minHeight: 0.0,
                                                 maxHeight: 200.0,
                                               ),

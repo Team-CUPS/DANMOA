@@ -479,7 +479,10 @@ class _Sign4WidgetState extends State<Sign4Widget> {
                           await authManager.sendEmailVerification();
                           GoRouter.of(context).prepareAuthEvent();
                           await authManager.signOut();
-                          GoRouter.of(context).clearRedirectLocation();
+
+                          while(context.canPop()) {
+                              context.pop();
+                          } 
 
                           context.goNamedAuth(
                             'sign5',

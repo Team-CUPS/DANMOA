@@ -234,7 +234,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                                         ),
                                         Expanded(
                                           child: Padding(
-                                            padding: const EdgeInsetsDirectional.fromSTEB(10, 8, 8, 16),
+                                            padding: const EdgeInsetsDirectional.fromSTEB(6, 8, 8, 16),
                                             child: Container(
                                               width: 120,
                                               height: 42,
@@ -341,13 +341,14 @@ class _Set2WidgetState extends State<Set2Widget> {
                                         '소개 ',
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                               fontFamily: 'pretendard',
+                                              fontSize: 16,
                                               letterSpacing: 0,
                                               useGoogleFonts: false,
                                             ),
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 12),
+                                          padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 12),
                                           child: TextFormField(
                                             controller: _model.introTextController,
                                             focusNode: _model.introFocusNode,
@@ -442,7 +443,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                                         Align(
                                           alignment: const AlignmentDirectional(-1, 0),
                                           child: Text(
-                                            '학과',
+                                            '소속',
                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                   fontFamily: 'pretendard',
                                                   fontSize: 16,
@@ -492,7 +493,7 @@ class _Set2WidgetState extends State<Set2Widget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                                          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
                                               var result = await showModalBottomSheet(
@@ -522,10 +523,10 @@ class _Set2WidgetState extends State<Set2Widget> {
                                                 }
                                               });
                                             },
-                                            text: '학과찾기',
+                                            text: '검색',
                                             options: FFButtonOptions(
                                               height: 40,
-                                              padding: const EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+                                              padding: const EdgeInsetsDirectional.fromSTEB(18, 0, 18, 0),
                                               iconPadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                               color: FlutterFlowTheme.of(context).secondaryBackground,
                                               textStyle: FlutterFlowTheme.of(context).titleSmall.override(

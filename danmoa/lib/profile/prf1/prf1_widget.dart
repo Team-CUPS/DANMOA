@@ -162,7 +162,7 @@ class _Prf1WidgetState extends State<Prf1Widget> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
                                     child: Image.network(
-                                      userData['photo_url'] ?? 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/users%2Fdefault%2F1000000036.jpg?alt=media&token=e89a0182-6090-465d-8065-ee98fc2c7c35',
+                                      userData['photo_url'] ?? 'https://firebasestorage.googleapis.com/v0/b/danmoa-p5plsh.appspot.com/o/users%2Fdefault%2Fprofile_bear.jpeg?alt=media&token=3808c534-4f0b-43b8-a96d-85559ae578cc',
                                       width: 100,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -245,129 +245,127 @@ class _Prf1WidgetState extends State<Prf1Widget> {
                             topRight: Radius.circular(16),
                           ),
                         ),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-                                      child: Text(
-                                        '가입 스터디',
-                                        style: FlutterFlowTheme.of(context)
-                                            .headlineMedium
-                                            .override(
-                                              fontFamily: 'pretendard',
-                                              letterSpacing: 0,
-                                              fontWeight: FontWeight.bold,
-                                              useGoogleFonts: false,
-                                            ),
-                                      ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Text(
+                                '가입 스터디',
+                                style: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .override(
+                                      fontFamily: 'pretendard',
+                                      letterSpacing: 0,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      useGoogleFonts: false,
                                     ),
-                                    ListView.builder(
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: filteredPersonalStudyData.length,
-                                      itemBuilder: (BuildContext context, int index) {
-                                        final study = filteredPersonalStudyData[index];
-                                        String stdName = study['std_name'];
-                                        String stdCurrentUserStatus = study['std_leader']['uid'] == currentUserUid ? '팀장' : '팀원';
-                                        String stdPrfPicture = _firebaseService.getStudyPhotoUrl(study['std_prf_picture']);
+                              ),
+                            ),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
+                                  child: ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(), // 스크롤 비활성화
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: filteredPersonalStudyData.length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      final study = filteredPersonalStudyData[index];
+                                      String stdName = study['std_name'];
+                                      String stdCurrentUserStatus = study['std_leader']['uid'] == currentUserUid ? '팀장' : '팀원';
+                                      String stdPrfPicture = _firebaseService.getStudyPhotoUrl(study['std_prf_picture']);
 
-                                        return Padding(
-                                          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              context.pushNamed(
-                                                'stdHome1',
-                                                queryParameters: {
-                                                  'stdName': serializeParam(stdName, ParamType.String),
-                                                  'stdPrfPicture': serializeParam(stdPrfPicture, ParamType.String),
-                                                }.withoutNulls,
-                                              );
-                                            },
-                                            child: AnimatedContainer(
-                                              duration: const Duration(milliseconds: 150),
-                                              curve: Curves.easeInOut,
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                color: FlutterFlowTheme.of(context).secondaryBackground,
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
-                                                child: Row(
-                                                  mainAxisSize: MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
-                                                      child: Container(
-                                                        width: 32,
-                                                        height: 32,
-                                                        clipBehavior: Clip.antiAlias,
-                                                        decoration: const BoxDecoration(shape: BoxShape.circle),
-                                                        child: Image.network(
-                                                          stdPrfPicture,
-                                                          fit: BoxFit.cover,
-                                                        ),
+                                      return Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed(
+                                              'stdHome1',
+                                              queryParameters: {
+                                                'stdName': serializeParam(stdName, ParamType.String),
+                                                'stdPrfPicture': serializeParam(stdPrfPicture, ParamType.String),
+                                              }.withoutNulls,
+                                            );
+                                          },
+                                          child: AnimatedContainer(
+                                            duration: const Duration(milliseconds: 150),
+                                            curve: Curves.easeInOut,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              color: FlutterFlowTheme.of(context).secondaryBackground,
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 12, 8),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+                                                    child: Container(
+                                                      width: 32,
+                                                      height: 32,
+                                                      clipBehavior: Clip.antiAlias,
+                                                      decoration: const BoxDecoration(shape: BoxShape.circle),
+                                                      child: Image.network(
+                                                        stdPrfPicture,
+                                                        fit: BoxFit.cover,
                                                       ),
                                                     ),
-                                                    Padding(
-                                                      padding: const EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
-                                                      child: Column(
-                                                        mainAxisSize: MainAxisSize.max,
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Text(
-                                                            stdName,
-                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                  fontFamily: 'Plus Jakarta Sans',
-                                                                  color: const Color(0xFF14181B),
-                                                                  fontSize: 14,
-                                                                  letterSpacing: 0,
-                                                                  fontWeight: FontWeight.w600,
-                                                                ),
-                                                          ),
-                                                          Row(
-                                                            mainAxisSize: MainAxisSize.max,
-                                                            children: [
-                                                              Text(
-                                                                stdCurrentUserStatus,
-                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                      fontFamily: 'pretendard',
-                                                                      letterSpacing: 0,
-                                                                      useGoogleFonts: false,
-                                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          stdName,
+                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                fontFamily: 'Plus Jakarta Sans',
+                                                                color: const Color(0xFF14181B),
+                                                                fontSize: 14,
+                                                                letterSpacing: 0,
+                                                                fontWeight: FontWeight.w600,
                                                               ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
+                                                        ),
+                                                        Row(
+                                                          mainAxisSize: MainAxisSize.max,
+                                                          children: [
+                                                            Text(
+                                                              stdCurrentUserStatus,
+                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                    fontFamily: 'pretendard',
+                                                                    letterSpacing: 0,
+                                                                    useGoogleFonts: false,
+                                                                  ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
-                                        );
-                                      },
-                                    ),
-                                  ],
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

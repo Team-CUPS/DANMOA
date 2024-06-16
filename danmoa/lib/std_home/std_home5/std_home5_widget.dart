@@ -67,7 +67,7 @@ class _StdHome5WidgetState extends State<StdHome5Widget> {
         if (object is RenderBox) {
           _scrollController.animateTo(
             _scrollController.offset + object.localToGlobal(Offset.zero).dy - 100,
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
           );
         }
@@ -231,7 +231,7 @@ class _StdHome5WidgetState extends State<StdHome5Widget> {
                           ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(20.0, 50.0, 20.0, 0.0),
-                            child: Container(
+                            child: SizedBox(
                               height: 150.0, // Set the desired height
                               child: TextFormField(
                                 controller: _model.myBioTextController,
@@ -295,7 +295,7 @@ class _StdHome5WidgetState extends State<StdHome5Widget> {
                           ),
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
-                            child: Container(
+                            child: SizedBox(
                               height: 60.0, // Set the desired height
                               child: TextFormField(
                                 controller: _model.cityTextController,
@@ -419,14 +419,14 @@ class _StdHome5WidgetState extends State<StdHome5Widget> {
                               widget.stdName,
                               stdPrfPicture: photoUrl!,
                               stdIntro: _model.myBioTextController.text,
-                              stdPrfUrl: _model.cityTextController.text,
+                              stdUrl: _model.cityTextController.text,
                             );
                           } else {
                             await _firebaseService.updateStudyDetails(
                               widget.stdName,
                               stdPrfPicture: returnedStringImg,
                               stdIntro: _model.myBioTextController.text,
-                              stdPrfUrl: _model.cityTextController.text,
+                              stdUrl: _model.cityTextController.text,
                             );
                           }
 

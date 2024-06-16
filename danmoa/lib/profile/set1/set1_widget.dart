@@ -310,7 +310,11 @@ class _Set1WidgetState extends State<Set1Widget> {
                         await _firebaseService.deleteUserAccount(currentUserUid);
                         await authManager.deleteUser(context);
 
-                        context.goNamed('sign1');
+                        while(context.canPop()) {
+                            context.pop();
+                          }
+
+                        context.pushReplacementNamed('sign1');
                       }
                     },
                     text: '회원탈퇴',
