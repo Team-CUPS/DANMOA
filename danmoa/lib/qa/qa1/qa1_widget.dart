@@ -88,6 +88,17 @@ class _Qa1WidgetState extends State<Qa1Widget> {
                     ),
                   ),
                   Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                    child: Text(
+                      '현재 인공지능 베타테스트 기간이라 사용이 제한됩니다. \n(IT분야 질문만 가능, 6월25일까지만 지원)\n추후 좋은 업데이트로 돌아오겠습니다!',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'pretendard',
+                            letterSpacing: 0,
+                            useGoogleFonts: false,
+                          ),
+                    ),
+                  ),
+                  Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: Column(
