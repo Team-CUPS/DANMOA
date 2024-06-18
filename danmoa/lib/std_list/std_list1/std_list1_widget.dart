@@ -103,7 +103,7 @@ class _StdList1WidgetState extends State<StdList1Widget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                       child: Center(
                         child: Image.asset(
                           'assets/images/danmoa_not.png',
@@ -128,7 +128,7 @@ class _StdList1WidgetState extends State<StdList1Widget> {
                       final study = userStudyData[index];
                       String stdPosition = study['std_leader']['uid'] == currentUserUid ? '팀장' : '팀원';
                       String stdName = study['std_name'];
-                      DateTime stdUpdatedTime = study['std_updated_time'].toDate();
+                      DateTime stdUpdatedTime = study['user_std_updated_time'].toDate();
                       String formattedUpdateTime = UtilService.formatUpdateTime(stdUpdatedTime);
                       String stdPrfPicture = _firebaseService.getStudyPhotoUrl(study['std_prf_picture']);
 

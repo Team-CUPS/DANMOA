@@ -104,7 +104,6 @@ class FirebaseService {
     await addStudyData(stdName, data); // 스터디 모든 데이터를 study콜렉션에 저장
   }
 
-  // 특정 사용자가 가입한 스터디의 전체 데이터를 가져와서 리스트에 저장
   Future<List<Map<String, dynamic>>> getUserStudies(String uid, int flag) async {
     // 사용자의 스터디 목록을 가져옴
     final userStudiesSnapshot = await FirebaseFirestore.instance
@@ -115,17 +114,27 @@ class FirebaseService {
         .get();
 
     // 각 스터디 문서를 가져오는 Future 리스트 생성
-    final studyFutures = userStudiesSnapshot.docs.map((doc) {
-      final studyHash = doc.id;
-      return FirebaseFirestore.instance.collection('study').doc(studyHash).get();
+    final studyFutures = userStudiesSnapshot.docs.map((userStudyDoc) async {
+      final studyHash = userStudyDoc.id;
+      final studyDoc = await FirebaseFirestore.instance.collection('study').doc(studyHash).get();
+      final studyData = studyDoc.data();
+
+      if (studyData != null) {
+        // userStudyDoc에서 std_updated_time을 가져와서 추가
+        studyData['user_std_updated_time'] = userStudyDoc['std_updated_time'];
+        return studyData;
+      }
+
+      return null;
     });
 
     // 모든 Future가 완료될 때까지 대기
     final studyDocs = await Future.wait(studyFutures);
 
     // 존재하는 스터디 문서만 필터링하고 데이터 추출
-    return studyDocs.where((doc) => doc.exists).map((doc) => doc.data() as Map<String, dynamic>).toList();
+    return studyDocs.where((studyData) => studyData != null).map((studyData) => studyData!).toList();
   }
+
 
   // 스터디 생성 (확장 가능성)
   Future<void> createStudy(String stdName, String uid, Map<String, dynamic> data) async {
